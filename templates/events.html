@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events</title>
+</head>
+<body>
+  {% for event in events %}
+    {{event.event_name}}
+    {{event.weekday}}
+    {{event.time}}
+    {{event.price}}
+    {{event.salsa}}
+    {{event.bachata}}
+    {{event.kizomba}}
+    {{event.address}}
+    {{event.longlat}}
+    {{event.event_description}}
+  {% endfor %}
+</body>
+</html>
