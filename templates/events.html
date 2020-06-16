@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events</title>
+  <title>Dance Your Way | Events</title>
 </head>
 <body>
+{% extends 'base.html' %}
+{% block content %}
+
   {% for event in events %}
     {{event.event_name}}
     {{event.weekday}}
@@ -18,5 +21,7 @@
     {{event.longlat}}
     {{event.event_description}}
   {% endfor %}
+
+{% endblock %}
 </body>
 </html>
