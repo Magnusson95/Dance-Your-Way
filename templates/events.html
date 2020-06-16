@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dance Your Way | Events</title>
-</head>
-<body>
-{% extends 'base.html' %}
-{% block content %}
-
-  {% for event in events %}
-    {{event.event_name}}
-    {{event.weekday}}
-    {{event.time}}
-    {{event.price}}
-    {{event.salsa}}
-    {{event.bachata}}
-    {{event.kizomba}}
-    {{event.address}}
-    {{event.longlat}}
-    {{event.event_description}}
-  {% endfor %}
-
-{% endblock %}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dance Your Way | Events</title>
+  </head>
+  <body>
+    {% extends 'base.html' %} {% block content %} {% for event in events %}
+    <div class="card">
+      <div class="card-image">
+        <img
+          src="{{event.event_image}}"
+          alt="{{event.event_name}} event image"
+        />
+      </div>
+      <h3>{{event.event_name}}</h3>
+      <h3><strong>{{event.weekday}}</strong> - {{event.time}}</h3>
+      <h3>Dance Styles:</h3>
+      <ul>
+        {% if event.salsa == true %}
+        <li>Salsa</li>
+        {% else %} {% endif %} {% if event.bachata == true %}
+        <li>Bachata</li>
+        {% else %} {% endif %} {% if event.kizomba == true %}
+        <li>Kizomba</li>
+        {% else %} {% endif %}
+      </ul>
+      <a href="{{event.event_link}}">See event</a>
+      <button class="btn-circle">+</button>
+      <div class="card-background-info">
+        <p>
+          {{event.event_description}}
+        </p>
+        <p>
+          {{event.price}}
+        </p>
+        <p>
+          {{event.address}}
+        </p>
+      </div>
+    </div>
+    {% endfor %} {% endblock %}
+  </body>
 </html>
