@@ -11,12 +11,8 @@
   height: 200px;
 }
 
-nav, nav ul a {
-  height: 8vh
-}
-
 .hero {
-  height: 92vh;
+  height: calc(100vh - 64px);
   background-image: linear-gradient(
       to bottom,
       rgba(10, 10, 10, 0) 0%,
@@ -28,3 +24,13 @@ nav, nav ul a {
   background-size: cover;
   background-position: center;
 }
+
+.hero-content {
+  position: relative;
+  top: 40vh
+}
+
+.hero-content h1 {
+  line-height: 0.5;
+  margin: 0 auto
+} 
