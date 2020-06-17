@@ -27,10 +27,19 @@
 
 .hero-content {
   position: relative;
-  top: 40vh
+  top: 20vh
 }
 
-.hero-content h1 {
-  line-height: 0.5;
+.hero-content h1, .hero-content h3{
+  line-height: 1.5;
   margin: 0 auto
 } 
+
+.today-link {
+  position: relative;
+  bottom: -30vh
+}
+
+ul {
+  margin: 0
+}

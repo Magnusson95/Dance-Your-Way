@@ -14,9 +14,11 @@
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <h4>{{event.event_name}}</h4>
-            <strong>{{event.weekday}}</strong> - {{event.time}}
+            <strong>{{event.weekday}}:</strong> {{event.time}}
             <br />
-            Dance Styles:
+            <strong>
+              Dance Styles:
+            </strong>
             <ul>
               {% if event.salsa == true %}
               <li>Salsa</li>
