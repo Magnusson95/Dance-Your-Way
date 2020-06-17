@@ -12,6 +12,9 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
+def home():
+    return render_template("index.html", events=mongo.db.events.find())
+
 @app.route('/get_events')
 def get_events():
     return render_template("events.html", events=mongo.db.events.find())

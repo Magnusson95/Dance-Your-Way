@@ -1,0 +1,16 @@
+.btn-large {
+  margin: 5px;
+  width: 80%;
+}
+
+.card i {
+  line-height: 40px !important;
+}
+
+.card-image {
+  height: 200px;
+}
+
+nav, nav ul a {
+  height: 8vh
+}

@@ -7,37 +7,54 @@
   </head>
   <body>
     {% extends 'base.html' %} {% block content %} {% for event in events %}
-    <div class="card">
-      <div class="card-image">
-        <img
-          src="{{event.event_image}}"
-          alt="{{event.event_name}} event image"
-        />
-      </div>
-      <h3>{{event.event_name}}</h3>
-      <h3><strong>{{event.weekday}}</strong> - {{event.time}}</h3>
-      <h3>Dance Styles:</h3>
-      <ul>
-        {% if event.salsa == true %}
-        <li>Salsa</li>
-        {% else %} {% endif %} {% if event.bachata == true %}
-        <li>Bachata</li>
-        {% else %} {% endif %} {% if event.kizomba == true %}
-        <li>Kizomba</li>
-        {% else %} {% endif %}
-      </ul>
-      <a href="{{event.event_link}}">See event</a>
-      <button class="btn-circle">+</button>
-      <div class="card-background-info">
-        <p>
-          {{event.event_description}}
-        </p>
-        <p>
-          {{event.price}}
-        </p>
-        <p>
-          {{event.address}}
-        </p>
+    <div class="row">
+      <div class="col s6 m4">
+        <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img
+              class="activator"
+              src="{{event.event_image}}"
+              alt="{{event.event_name}} event image"
+            />
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">
+              <h4>{{event.event_name}}</h4>
+              <strong>{{event.weekday}}</strong> - {{event.time}}
+              <br />
+              Dance Styles:
+              <ul>
+                {% if event.salsa == true %}
+                <li>Salsa</li>
+                {% else %} {% endif %} {% if event.bachata == true %}
+                <li>Bachata</li>
+                {% else %} {% endif %} {% if event.kizomba == true %}
+                <li>Kizomba</li>
+                {% else %} {% endif %}
+              </ul>
+              <a class="btn-floating halfway-fab waves-effect waves-light red"
+                ><i class="material-icons right">add</i></a
+              ></span
+            >
+            <p><a href="{{event.event_link}}" target="_blank">See event</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"
+              >{{event.event_name}}<i class="material-icons right"
+                >close</i
+              ></span
+            >
+            <p>
+              {{event.event_description}}
+            </p>
+            <p>
+              {{event.price}}
+            </p>
+            <p>
+              {{event.address}}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
     {% endfor %} {% endblock %}
