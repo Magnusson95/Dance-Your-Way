@@ -20,6 +20,11 @@ def get_events():
     return render_template("events.html", events=mongo.db.events.find())
 
 
+@app.route('/style')
+def style():
+    return render_template("style.html", events=mongo.db.events.find())
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
