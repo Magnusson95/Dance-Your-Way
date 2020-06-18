@@ -53,3 +53,7 @@ ul {
 .pick-your-style img {
   width: 100%
 }
+
+.checkbox-span {
+  padding: 0 50px 0 25px !important;
+}

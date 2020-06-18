@@ -9,7 +9,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <link
       rel="stylesheet"
@@ -20,39 +20,31 @@
   </head>
   <body>
     <header>
-      <nav>
-        <div class="nav-wrapper">
-          <a href="{{url_for('home')}}" class="brand-logo center"
-            >Dance Your Way</a
-          >
-          <a href="#" data-activates="mobile-demo" class="button-collapse"
-            ><i class="material-icons">menu</i></a
-          >
-          <ul class="right hide-on-med-and-down">
-            <li><a href="{{url_for('style')}}">Where to Dance</a></li>
-            <li>
-              <a href="">About Us</a>
-            </li>
-            <li>
-              <a href="">Contact Us</a>
-            </li>
-          </ul>
-          <ul class="side-nav" id="mobile-demo">
-            <li>
-              <a class="sidenav-close" href="#!"
-                ><i class="material-icons">close</i></a
-              >
-            </li>
-            <li><a href="{{url_for('style')}}">Where to Dance</a></li>
-            <li>
-              <a href="">About Us</a>
-            </li>
-            <li>
-              <a href="">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper">
+            <a href="{{url_for('home')}}" class="brand-logo center"
+              >Dance Your Way</a
+            >
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+              ><i class="material-icons">menu</i></a
+            >
+            <ul class="right hide-on-med-and-down">
+              <li><a href="{{url_for('style')}}">Where to Dance</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
+              <li><a href="">Contact Us</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+          <li><a href="{{url_for('style')}}">Where to Dance</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
+          <li><a href="">Contact Us</a></li>
+        </ul>
+      </div>
     </header>
     {% block content %} {% endblock %}
     <footer class="page-footer">
@@ -83,16 +75,13 @@
       </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
-        $(".collapsible").collapsible();
-        $(".button-collapse").sideNav({
-          edge: "left",
-          closeOnClick: true,
-          draggable: true,
-        });
+        $(".sidenav").sidenav();
         $(".scrollspy").scrollSpy();
+        $("select").formSelect();
+        $(".timepicker").timepicker();
       });
     </script>
   </body>

@@ -15,6 +15,7 @@ mongo = PyMongo(app)
 def home():
     return render_template("index.html", events=mongo.db.events.find())
 
+
 @app.route('/get_events')
 def get_events():
     return render_template("events.html", events=mongo.db.events.find())
@@ -22,7 +23,13 @@ def get_events():
 
 @app.route('/style')
 def style():
-    return render_template("style.html", events=mongo.db.events.find())
+    return render_template("style.html")
+
+
+@app.route('/add-event')
+def add_event():
+    return render_template("add-event.html", events=mongo.db.events.find(), method="POST")
+
 
 
 if __name__ == '__main__':
