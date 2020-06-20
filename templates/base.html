@@ -31,18 +31,16 @@
             >
             <ul class="right hide-on-med-and-down">
               <li><a href="{{url_for('style')}}">Where to Dance</a></li>
-              <li><a href="#">About Us</a></li>
               <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
-              <li><a href="">Contact Us</a></li>
+              <li><a href="{{url_for('add_event')}}">Log In/Sign Up</a></li>
             </ul>
           </div>
         </nav>
 
         <ul class="sidenav" id="mobile-demo">
           <li><a href="{{url_for('style')}}">Where to Dance</a></li>
-          <li><a href="#">About Us</a></li>
           <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
-          <li><a href="">Contact Us</a></li>
+          <li><a href="{{url_for('add_event')}}">Log In/Sign Up</a></li>
         </ul>
       </div>
     </header>
@@ -82,6 +80,14 @@
         $(".scrollspy").scrollSpy();
         $("select").formSelect();
         $(".timepicker").timepicker();
+        $("#name,#event_name,#address,#event_link,#salsa,#bachata,#kizomba,#time,#weekday").on("keypress", function (event) { 
+            console.log("aaya"); 
+            var keyPressed = event.keyCode || event.which; 
+            if (keyPressed === 13) { 
+                event.preventDefault(); 
+                return false; 
+            } 
+        }); 
       });
     </script>
   </body>

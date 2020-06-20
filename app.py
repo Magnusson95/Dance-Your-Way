@@ -28,8 +28,14 @@ def style():
 
 @app.route('/add-event')
 def add_event():
-    return render_template("add-event.html", events=mongo.db.events.find(), method="POST")
+    return render_template("add-event.html", events=mongo.db.events.find())
 
+
+@app.route('/insert-event', methods=['POST'])
+def insert_event():
+    events = mongo.db.events
+    events.insert_one(request.form.to_dict())
+    return redirect(url_for('get_events'))
 
 
 if __name__ == '__main__':
