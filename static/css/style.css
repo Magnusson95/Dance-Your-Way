@@ -122,3 +122,9 @@ ul {
 .checkbox-span {
   padding: 0 50px 0 25px !important;
 }
+
+@media only screen and (max-width: 450px){
+  .brand-logo {
+    font-size: 25px !important
+  }
+}
