@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
   <div class="row">
-    {% for event in events %}
+    {% for event in events%} {% if event.bachata == 'on' %}
     <div class="col s6 m6 l4">
       <div class="card">
         <div class="card-image waves-effect waves-block waves-light">
@@ -78,8 +78,24 @@
         </div>
       </div>
     </div>
-
-    {% endfor %}
+    {% endif %} {% endfor %}
+  </div>
+</div>
+<div class="row container center">
+<h5>Other Styles:</h5>
+  <div class="col s6">
+    <a
+      href="{{url_for('get_salsa_events')}}"
+      class="btn-large waves-effect waves-light waves-ripple"
+      >Salsa Events</a
+    >
+  </div>
+  <div class="col s6">
+    <a
+      href="{{url_for('get_kizomba_events')}}"
+      class="btn-large waves-effect waves-light waves-ripple"
+      >Kizomba Events</a
+    >
   </div>
 </div>
 {% endblock %}

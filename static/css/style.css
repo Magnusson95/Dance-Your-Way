@@ -1,10 +1,14 @@
 .row {
-  margin: 0 auto
+  margin: 0 auto;
 }
 
 .btn-large {
-  margin: 5px;
+  margin: 10px;
   width: 80%;
+}
+
+.card {
+  height: 480px
 }
 
 .card i {
@@ -20,17 +24,17 @@
 }
 
 #hero-video {
-    width: 100%; /* Could also use width: 100%; */
-    height: 100vh;
-    object-fit: cover;
-    position: fixed; /* Change position to absolute if you don't want it to take up the whole page */
-    left: 0px;
-    top: 0px;
-    z-index: -1;
+  width: 100%; /* Could also use width: 100%; */
+  height: 100vh;
+  object-fit: cover;
+  position: fixed; /* Change position to absolute if you don't want it to take up the whole page */
+  left: 0px;
+  top: 0px;
+  z-index: -1;
 }
 
 section {
-  background-color: white
+  background-color: white;
 }
 
 .hero-content {
@@ -58,8 +62,61 @@ ul {
   padding: 0 !important;
 }
 
-.pick-your-style img {
-  width: 100%;
+.pick-your-style {
+  height: calc(100vh - 64px);
+}
+
+.pick-your-style h1 {
+  position: relative;
+  top: 33%
+}
+
+.events-button {
+  position: relative;
+  top: 60vh
+}
+
+.btn {
+  margin: 10px
+}
+
+#salsa-picker {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("../images/adrian-y-anita-1.jpg");
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#bachata-picker {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("../images/ataca-y-la-alemana-1.jpg");
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#kizomba-picker {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("../images/lokito-y-oksana-1.jpg");
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .checkbox-span {

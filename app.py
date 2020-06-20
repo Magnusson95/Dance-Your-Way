@@ -24,9 +24,19 @@ def home():
     return render_template("index.html", events=mongo.db.events.find())
 
 
-@app.route('/get_events')
-def get_events():
-    return render_template("events.html", events=mongo.db.events.find())
+@app.route('/get_salsa_events')
+def get_salsa_events():
+    return render_template("salsa.html", events=mongo.db.events.find())
+
+
+@app.route('/get_bachata_events')
+def get_bachata_events():
+    return render_template("bachata.html", events=mongo.db.events.find())
+
+
+@app.route('/get_kizomba_events')
+def get_kizomba_events():
+    return render_template("kizomba.html", events=mongo.db.events.find())
 
 
 @app.route('/style')
@@ -39,16 +49,18 @@ def add_event():
     return render_template("add-event.html", events=mongo.db.events.find())
 
 
-@app.route('/test')
-def test():
-    return render_template("test.html")
-
-
 @app.route('/insert-event', methods=['POST'])
 def insert_event():
     events = mongo.db.events
     events.insert_one(request.form.to_dict())
-    return redirect(url_for('get_events'))
+    return redirect(url_for('event_added'))
+
+
+
+@app.route('/event-added')
+def event_added():
+    return render_template("event-added.html", events=mongo.db.events.find())
+
 
 
 if __name__ == '__main__':
