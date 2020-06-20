@@ -1,3 +1,7 @@
+.row {
+  margin: 0 auto
+}
+
 .btn-large {
   margin: 5px;
   width: 80%;
@@ -13,16 +17,20 @@
 
 .hero {
   height: calc(100vh - 64px);
-  background-image: linear-gradient(
-      to bottom,
-      rgba(10, 10, 10, 0) 0%,
-      rgba(10, 10, 10, 0) 50%,
-      rgba(10, 10, 10, 0.7) 100%
-    ),
-    url("https://wallpapercave.com/wp/wp2570965.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+}
+
+#hero-video {
+    width: 100%; /* Could also use width: 100%; */
+    height: 100vh;
+    object-fit: cover;
+    position: fixed; /* Change position to absolute if you don't want it to take up the whole page */
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+
+section {
+  background-color: white
 }
 
 .hero-content {
@@ -38,7 +46,7 @@
 
 .today-link {
   position: relative;
-  bottom: -30vh;
+  top: 50vh;
 }
 
 ul {
@@ -51,7 +59,7 @@ ul {
 }
 
 .pick-your-style img {
-  width: 100%
+  width: 100%;
 }
 
 .checkbox-span {
