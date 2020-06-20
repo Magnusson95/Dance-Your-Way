@@ -80,14 +80,15 @@
         $(".scrollspy").scrollSpy();
         $("select").formSelect();
         $(".timepicker").timepicker();
-        $("#name,#event_name,#address,#event_link,#salsa,#bachata,#kizomba,#time,#weekday").on("keypress", function (event) { 
-            console.log("aaya"); 
-            var keyPressed = event.keyCode || event.which; 
-            if (keyPressed === 13) { 
-                event.preventDefault(); 
-                return false; 
-            } 
-        }); 
+        $(
+          "#name,#event_name,#address,#event_link,#salsa,#bachata,#kizomba,#time,#weekday"
+        ).on("keypress", function (event) {
+          var keyPressed = event.keyCode || event.which;
+          if (keyPressed === 13) {
+            event.preventDefault();
+            return false;
+          }
+        });
       });
     </script>
   </body>
