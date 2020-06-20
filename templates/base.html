@@ -20,7 +20,6 @@
   </head>
   <body>
     <header>
-      <div class="navbar-fixed">
         <nav>
           <div class="nav-wrapper">
             <a href="{{url_for('home')}}" class="brand-logo center"
@@ -42,7 +41,6 @@
           <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
           <li><a href="{{url_for('add_event')}}">Log In/Sign Up</a></li>
         </ul>
-      </div>
     </header>
     {% block content %} {% endblock %}
     <footer class="page-footer">
