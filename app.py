@@ -1,7 +1,5 @@
 import os
-import googlemaps
 import boto3
-from datetime import datetime
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -13,16 +11,14 @@ if path.exists("env.py"):
 
 app = Flask(__name__)
 
+
+ACCESS_KEY_ID = os.environ.get('ACCESS_KEY_ID')
+ACCESS_SECRET_KEY = os.environ.get('ACCESS_SECRET_KEY')
+app.secret_key = os.environ.get('secret_key')
 app.config["MONGO_DBNAME"] = 'events_manager'
 app.config["MONGO_URI"] = 'mongodb+srv://prelaunch:prelaunch@danceyourway-fmkw8.mongodb.net/events_manager?retryWrites=true&w=majority'
 
 mongo = PyMongo(app)
-
-
-gmaps = googlemaps.Client(key='AIzaSyCWZTBCpz1s2iN98QZxLZd_pBmYWWu1kUs')
-
-# Geocoding an address
-geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
 
 
 @app.route('/')
@@ -55,16 +51,14 @@ def add_event():
     return render_template("add-event.html", events=mongo.db.events.find())
 
 
-ACCESS_KEY_ID = os.environ.get('ACCESS_KEY_ID')
-ACCESS_SECRET_KEY = os.environ.get('ACCESS_SECRET_KEY')
-
-
 @app.route('/insert-event', methods=['POST'])
 def insert_event():
     events = mongo.db.events
     events.insert_one(request.form.to_dict())
-    s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID, aws_secret_access_key=ACCESS_SECRET_KEY)
-    s3.Bucket('dance-your-way-event-images').put_object(Key=request.form['event_image'], Body=request.files['event_image_s3'])
+    s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
+                        aws_secret_access_key=ACCESS_SECRET_KEY)
+    s3.Bucket('dance-your-way-event-images').put_object(
+        Key=request.form['event_image'], Body=request.files['event_image_s3'])
     return redirect(url_for('event_added'))
 
 
@@ -77,6 +71,3 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
-
-
-# Geocode request: https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCWZTBCpz1s2iN98QZxLZd_pBmYWWu1kUs
