@@ -7,13 +7,13 @@
         <div class="card-image waves-effect waves-block waves-light">
           <img
             class="activator"
-            src="{{event.event_image}}"
+            src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
             alt="{{event.event_name}} event image"
           />
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
-            <h4>{{event.event_name}}</h4>
+            <h5>{{event.event_name}}</h5>
             <strong>{{event.weekday}}:</strong> {{event.time}}
             <br />
             <strong>
@@ -36,7 +36,15 @@
             <a href="https://{{event.event_link}}" target="_blank">See event</a>
           </p>
         </div>
-        <div class="card-reveal">
+        <div
+          class="card-reveal"
+          style="background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});"
+        >
           <span class="card-title">
             <i class="material-icons right">close</i>
           </span>
@@ -82,7 +90,7 @@
   </div>
 </div>
 <div class="row container center">
-<h5>Other Styles:</h5>
+  <h5>Other Styles:</h5>
   <div class="col s6">
     <a
       href="{{url_for('get_salsa_events')}}"

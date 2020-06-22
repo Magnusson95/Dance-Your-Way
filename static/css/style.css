@@ -19,6 +19,12 @@
   height: 200px;
 }
 
+.card-image img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+
 .hero {
   height: calc(100vh - 64px);
 }
@@ -50,7 +56,7 @@ section {
 
 .today-link {
   position: relative;
-  top: 50vh;
+  top: 30vh;
 }
 
 ul {
@@ -78,6 +84,14 @@ ul {
 
 .btn {
   margin: 10px
+}
+
+.card-reveal {
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white
 }
 
 #salsa-picker {
@@ -123,8 +137,18 @@ ul {
   padding: 0 50px 0 25px !important;
 }
 
+#event_image {
+  display: none
+}
+
 @media only screen and (max-width: 450px){
   .brand-logo {
     font-size: 25px !important
+  }
+}
+
+@media only screen and (max-width: 375px){
+  .brand-logo {
+    font-size: 20px !important
   }
 }

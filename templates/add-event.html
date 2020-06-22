@@ -6,17 +6,12 @@
     method="POST"
     class="col s12"
     id="add-event"
+    enctype="multipart/form-data"
   >
     <div class="row">
       <div class="input-field col s12 m4 l4">
-        <input
-          value=""
-          id="name"
-          name="name"
-          type="text"
-          class="validate"
-        />
-        <label class="active" for="name">Your Name</label>
+        <input value="" id="username" name="username" type="text" class="validate" />
+        <label class="active" for="username">Your Name</label>
       </div>
       <div class="input-field col s12 m4 l4">
         <input
@@ -84,6 +79,7 @@
         </label>
       </div>
     </div>
+    <br />
     <div class="row">
       <div class="col s12 m6 l4">
         <div class="input-field col s12">
@@ -115,11 +111,20 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Event Image</span>
-        <input type="file" name="event_image" id="event_image" />
+        <input type="file" name="event_image_s3" id="event_image_s3" />
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text" />
       </div>
+    </div>
+    <div class="input-field col s12 m4 l4">
+      <input
+        value=""
+        id="event_image"
+        name="event_image"
+        type="text"
+        class="validate"
+      />
     </div>
     <button class="btn waves-effect waves-light" type="submit" name="action">
       Add Your Event
