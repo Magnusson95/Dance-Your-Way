@@ -67,6 +67,22 @@ def adduser():
         return redirect(url_for('signup'))
 
 
+@app.route('/edituser/<organiser_username>', methods=['POST'])
+def edituser(organiser_username):
+    organisers = mongo.db.organisers
+    organisers.update({"username": organiser_username},
+    {
+        'facebook': request.form.get('facebook'),
+        'mobile': request.form.get('mobile'),
+        'email': request.form.get('email'),
+        'password': request.form.get('password'),
+        'username': request.form.get('username')
+    }
+        )
+    flash('You have updated your details')
+    return redirect(url_for('account'))
+
+
 @app.route('/sign-out')
 def sign_out():
     '''

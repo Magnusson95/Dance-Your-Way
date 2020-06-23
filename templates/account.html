@@ -8,6 +8,29 @@
 			<div class="collapsible-header"><i class="material-icons">account_circle</i>Account Information</div>
 			<div class="collapsible-body">
 				<span>This information helps dancers get in touch with you about any events you host</span>
+				<form action="{{url_for('edituser', organiser_username=user.username)}}" method="POST">
+					<div class="row">
+						<div class="input-field col s12 m4">
+							<input value="{{ user.email }}" id="email" name="email" type="email" class="validate" />
+							<label class="active" for="email">Email</label>
+						</div>
+						<div class="input-field col s12 m4">
+							<input value="{{ user.facebook }}" id="facebook" name="facebook" type="url" class="validate" placeholder="https://www."/>
+							<label class="active" for="facebook">Facebook Profile URL</label>
+						</div>
+						<div class="input-field col s12 m4">
+							<label class="active" for="Mobile">Mobile</label> <br>
+							<input value="{{ user.mobile }}" id="mobile" name="mobile" type="mobile" class="validate" />
+					  </div>
+						<div class="input-field">
+							<input value="{{user.password}}" id="password" name="password" type="password" class="noshow" />
+					  </div>
+						<div class="input-field">
+							<input value="{{user.username}}" id="username" name="username" type="text" class="noshow" />
+					  </div>
+					</div>
+					<button class="btn waves-effect waves-light" type="submit">Edit Details<i class="material-icons right">edit</i></button>
+				</form>
 			</div>
 		</li>
 		<li>
