@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row container">
+	<h3 class="center">
+		User: {{ user.username }}
+	</h3>
+	<ul class="collapsible">
+		<li>
+			<div class="collapsible-header"><i class="material-icons">account_circle</i>Account Information</div>
+			<div class="collapsible-body">
+				<span>This information helps dancers get in touch with you about any events you host</span>
+			</div>
+		</li>
+		<li>
+			<div class="collapsible-header"><i class="material-icons">event</i>Your Events</div>
+			<div class="collapsible-body">
+				<span>A list of all events you have on "Dance Your Way"</span>
+			</div>
+		</li>
+	</ul>
+</div>
+{% endblock %}

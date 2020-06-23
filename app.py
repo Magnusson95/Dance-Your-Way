@@ -31,7 +31,8 @@ class RegistrationForm(Form):
         validators.EqualTo('confirm', message='Passwords must match')
     ])
     confirm = PasswordField('Repeat Password')
-    accept_tos = BooleanField('I accept the Terms of Service and Privacy Notice (updated Jan 22, 2015)', [validators.Required()])
+    accept_tos = BooleanField(
+        'I accept the Terms of Service and Privacy Notice (updated Jan 22, 2015)', [validators.Required()])
 
 
 @app.route('/')
@@ -50,11 +51,13 @@ def signup():
 @app.route('/adduser', methods=['POST', 'GET'])
 def adduser():
     organisers = mongo.db.organisers
-    find_organiser = organisers.find_one({'username': request.form['username']})
+    find_organiser = organisers.find_one(
+        {'username': request.form['username']})
 
     if find_organiser is None:
         password = generate_password_hash(request.form['password'])
-        organisers.insert_one({'username': request.form['username'], 'password': password})
+        organisers.insert_one(
+            {'username': request.form['username'], 'password': password, 'email': request.form['email']})
         flash('You have registered and are logged in')
         session['username'] = request.form['username']
         session['logged'] = True
@@ -82,7 +85,8 @@ def login():
         return redirect(url_for('add_event'))
 
     organisers = mongo.db.organisers
-    find_organiser = organisers.find_one({'username': request.form['login_username']})
+    find_organiser = organisers.find_one(
+        {'username': request.form['login_username']})
     if find_organiser:
         if check_password_hash(find_organiser['password'], request.form['login_password']):
             flash('You are logged in as ' + request.form['login_username'])
@@ -94,6 +98,18 @@ def login():
             return redirect(url_for('signup'))
     else:
         flash('Username ' + request.form['login_username'] + ' does not exist')
+        return redirect(url_for('signup'))
+
+
+@app.route('/account')
+def account():
+    if 'logged' in session:
+        current_user = session['username']
+        find_user = mongo.db.organisers.find_one({'username': current_user})
+        events = mongo.db.events.find({'username': current_user})
+        return render_template("account.html", events=events, user=find_user)
+    else:
+        flash('Please log in to view your account')
         return redirect(url_for('signup'))
 
 
@@ -119,7 +135,11 @@ def style():
 
 @app.route('/add-event')
 def add_event():
-    return render_template("add-event.html", events=mongo.db.events.find())
+    if 'logged' in session:
+        return render_template("add-event.html", events=mongo.db.events.find())
+    else:
+        flash('Please log in to add an event')
+        return redirect(url_for('signup'))
 
 
 @app.route('/insert-event', methods=['POST'])

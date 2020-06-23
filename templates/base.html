@@ -27,10 +27,18 @@
 					<li><a href="{{url_for('signup')}}">Log In/Sign Up</a></li>
 					{% endif %}
 				</ul>
+				{% if session['logged'] == True %}
+				<ul class="left hide-on-med-and-down">
+					<li><a href="{{url_for('account')}}"><i class="material-icons">account_circle</i></a></li>
+				</ul>
+				{% endif %}
 			</div>
 		</nav>
 
 		<ul class="sidenav" id="mobile-demo">
+			{% if session['logged'] == True %}
+			<li><a href="{{url_for('account')}}">Your Account</a></li>
+			{% endif %}
 			<li><a href="{{url_for('style')}}">Where to Dance</a></li>
 			<li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
 			<li><a href="{{url_for('signup')}}">Log In/Sign Up</a></li>
@@ -38,7 +46,7 @@
 	</header>
 
 	{% for message in get_flashed_messages() %}
-	<div class="alert-error center">Message: {{ message }}</div>
+	<div class="alert-error center container">{{ message }}</div>
 	{% endfor %}
 
 	{% block content %} {% endblock %}
@@ -76,6 +84,7 @@
         $(".sidenav").sidenav();
         $(".scrollspy").scrollSpy();
         $("select").formSelect();
+        $('.collapsible').collapsible();
         $(".timepicker").timepicker();
         $(
           "#name,#event_name,#address,#event_image_s3,#salsa,#bachata,#kizomba,#time,#weekday"

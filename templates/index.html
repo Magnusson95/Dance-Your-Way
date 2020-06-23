@@ -4,15 +4,9 @@
 		<h1>Dance Your Way</h1>
 		<div class="row center container">
 			<div class="col s12 m6">
-				{% if session['logged'] == True %}
 				<a href="{{url_for('add_event')}}" class="btn-large waves-effect waves-light waves-ripple">
 					Add Your Event
 				</a>
-				{% else %}
-				<a href="{{url_for('signup')}}" class="btn-large waves-effect waves-light waves-ripple">
-					Add Your Event
-				</a>
-				{% endif %}
 			</div>
 			<div class="col s12 m6">
 				<a href="{{url_for('style')}}" class="btn-large waves-effect waves-light waves-ripple">
