@@ -32,7 +32,7 @@
 	</header>
 
 	{% for message in get_flashed_messages() %}
-	<div class="alert-error">Message: {{ message }}</div>
+	<div class="alert-error center">Message: {{ message }}</div>
 	{% endfor %}
 
 	{% block content %} {% endblock %}

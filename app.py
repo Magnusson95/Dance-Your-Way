@@ -55,7 +55,8 @@ def adduser():
         session['logged'] = True
         return redirect(url_for('add_event'))
     else:
-        return "<h1>This username already exists</h1>"
+        flash('Username already exists')
+        return redirect(url_for('signup'))
 
 
 @app.route('/get_salsa_events')
