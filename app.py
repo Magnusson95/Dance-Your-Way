@@ -3,6 +3,7 @@ import boto3
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from flask_pymongo import PyMongo
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
+from werkzeug.security import generate_password_hash, check_password_hash
 from passlib.hash import sha256_crypt
 from bson.objectid import ObjectId
 from botocore.client import Config
@@ -40,6 +41,9 @@ def home():
 
 @app.route('/signup')
 def signup():
+    if 'logged' in session:
+        flash('You are already logged in as ' + session['username'])
+        return redirect(url_for('home'))
     return render_template("signup.html")
 
 
@@ -49,13 +53,47 @@ def adduser():
     find_organiser = organisers.find_one({'username': request.form['username']})
 
     if find_organiser is None:
-        organisers.insert_one({'username': request.form['username'], 'password': request.form['password']})
+        password = generate_password_hash(request.form['password'])
+        organisers.insert_one({'username': request.form['username'], 'password': password})
         flash('You have registered and are logged in')
         session['username'] = request.form['username']
         session['logged'] = True
         return redirect(url_for('add_event'))
     else:
         flash('Username already exists')
+        return redirect(url_for('signup'))
+
+
+@app.route('/sign-out')
+def sign_out():
+    '''
+    function to allow a user to sign out of the current session
+    '''
+
+    session.clear()  # Clear session, notify user and redirect to index
+    flash('You are now signed out')
+    return redirect(url_for('home'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if 'logged' in session:
+        flash('You are already logged in as ' + session['username'])
+        return redirect(url_for('add_event'))
+
+    organisers = mongo.db.organisers
+    find_organiser = organisers.find_one({'username': request.form['login_username']})
+    if find_organiser:
+        if check_password_hash(find_organiser['password'], request.form['login_password']):
+            flash('You are logged in as ' + request.form['login_username'])
+            session['username'] = request.form['login_username']
+            session['logged'] = True
+            return redirect(url_for('home'))
+        else:
+            flash('Incorrect password')
+            return redirect(url_for('signup'))
+    else:
+        flash('Username ' + request.form['login_username'] + ' does not exist')
         return redirect(url_for('signup'))
 
 

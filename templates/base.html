@@ -17,9 +17,15 @@
 				<a href="{{url_for('home')}}" class="brand-logo center">Dance Your Way</a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
+					{% if session['logged'] == True %}
+					<li><a href="{{url_for('style')}}">Where to Dance</a></li>
+					<li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
+					<li><a href="{{url_for('sign_out')}}">Log Out</a></li>
+					{% else %}
 					<li><a href="{{url_for('style')}}">Where to Dance</a></li>
 					<li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
 					<li><a href="{{url_for('signup')}}">Log In/Sign Up</a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</nav>
