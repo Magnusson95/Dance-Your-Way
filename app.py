@@ -150,12 +150,8 @@ def insert_event():
                         aws_secret_access_key=ACCESS_SECRET_KEY)
     s3.Bucket('dance-your-way-event-images').put_object(
         Key=request.form['event_image'], Body=request.files['event_image_s3'])
-    return redirect(url_for('event_added'))
-
-
-@app.route('/event-added')
-def event_added():
-    return render_template("event-added.html", events=mongo.db.events.find())
+    flash("You have successfully added an event")
+    return redirect(url_for('account'))
 
 
 if __name__ == '__main__':
