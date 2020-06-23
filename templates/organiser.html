@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container center">
+	<h1>{{organiser.username}}'s Contact Details</h1>
+<h3>Email: <a href = "mailto: {{organiser.email}}">{{organiser.email}}</a></h3>
+<h3>Mobile: {{organiser.number}}</h3>
+<h3>Facebook: {{organiser.facebook}}</h3>
+</div>
+{% endblock %}

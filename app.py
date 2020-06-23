@@ -136,10 +136,18 @@ def style():
 @app.route('/add-event')
 def add_event():
     if 'logged' in session:
-        return render_template("add-event.html", events=mongo.db.events.find())
+        current_user = session['username']
+        find_user = mongo.db.organisers.find_one({'username': current_user})
+        return render_template("add-event.html", events=mongo.db.events.find(), user=find_user)
     else:
         flash('Please log in to add an event')
         return redirect(url_for('signup'))
+
+
+@app.route('/organiser/<organiser_username>')
+def organiser(organiser_username):
+    _organiser = mongo.db.organisers.find_one({"username": organiser_username})
+    return render_template("organiser.html", organiser = _organiser)
 
 
 @app.route('/insert-event', methods=['POST'])
