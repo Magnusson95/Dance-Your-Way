@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row center container">
+	<h3>Add Your Event</h3>
+	<form action="{{url_for('adduser')}}" method="POST" class="col s12" id="signup">
+		<div class="row">
+			<div class="input-field col s12 m4 l4">
+				<input value="" id="username" name="username" type="text" class="validate" />
+				<label class="active" for="username">Userame</label>
+			</div>
+			<div class="input-field col s12 m4 l4">
+				<input value="" id="password" name="password" type="password" class="validate" />
+				<label class="active" for="password">Password</label>
+			</div>
+		</div>
+		<button class="btn waves-effect waves-light" type="submit">
+      Add Your Event
+      <i class="material-icons right">playlist_add</i>
+    </button>
+	</form>
+</div>
+{% endblock %}
