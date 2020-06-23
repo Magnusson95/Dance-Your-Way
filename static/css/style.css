@@ -7,8 +7,14 @@
   width: 80%;
 }
 
+.alert-error {
+  padding: 8px;
+  background-color: red;
+  color: white;
+}
+
 .card {
-  height: 480px
+  height: 480px;
 }
 
 .card i {
@@ -74,16 +80,16 @@ ul {
 
 .pick-your-style h1 {
   position: relative;
-  top: 33%
+  top: 33%;
 }
 
 .events-button {
   position: relative;
-  top: 60vh
+  top: 60vh;
 }
 
 .btn {
-  margin: 10px
+  margin: 10px;
 }
 
 .card-reveal {
@@ -91,7 +97,7 @@ ul {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: white
+  color: white;
 }
 
 #salsa-picker {
@@ -138,17 +144,17 @@ ul {
 }
 
 #event_image {
-  display: none
+  display: none;
 }
 
-@media only screen and (max-width: 450px){
+@media only screen and (max-width: 450px) {
   .brand-logo {
-    font-size: 25px !important
+    font-size: 25px !important;
   }
 }
 
-@media only screen and (max-width: 375px){
+@media only screen and (max-width: 375px) {
   .brand-logo {
-    font-size: 20px !important
+    font-size: 20px !important;
   }
 }

@@ -50,7 +50,10 @@ def adduser():
 
     if find_organiser is None:
         organisers.insert_one({'username': request.form['username'], 'password': request.form['password']})
-        return "<h1>You have Signed Up</h1>"
+        flash('You have registered and are logged in')
+        session['username'] = request.form['username']
+        session['logged'] = True
+        return redirect(url_for('add_event'))
     else:
         return "<h1>This username already exists</h1>"
 
