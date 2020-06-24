@@ -1,5 +1,6 @@
 import os
 import boto3
+from datetime import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from flask_pymongo import PyMongo
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
@@ -31,13 +32,15 @@ class RegistrationForm(Form):
         validators.EqualTo('confirm', message='Passwords must match')
     ])
     confirm = PasswordField('Repeat Password')
-    accept_tos = BooleanField(
-        'I accept the Terms of Service and Privacy Notice (updated Jan 22, 2015)', [validators.Required()])
 
 
 @app.route('/')
 def home():
-    return render_template("index.html", events=mongo.db.events.find())
+    weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
+                "Friday", "Saturday", "Sunday")
+    return render_template("index.html", events=mongo.db.events.
+                           find({"weekday": weekdays[datetime.now()
+                                .weekday()]}))
 
 
 @app.route('/signup')
@@ -57,8 +60,17 @@ def adduser():
     if find_organiser is None:
         password = generate_password_hash(request.form['password'])
         organisers.insert_one(
-            {'username': request.form['username'], 'password': password, 'email': request.form['email']})
-        flash('You have registered and are logged in')
+            {
+                'username': request.form['username'],
+                'password': password,
+                'email': request.form['email'],
+                't&c': request.form['t&c']
+            })
+        flash
+        (
+            'You have registered and are logged in. Welcome '
+            + request.form['username']
+        )
         session['username'] = request.form['username']
         session['logged'] = True
         return redirect(url_for('add_event'))
@@ -97,15 +109,18 @@ def sign_out():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'logged' in session:
-        flash('You are already logged in as ' + session['username'])
+        flash('Welcome back ' + session['username'])
         return redirect(url_for('add_event'))
 
     organisers = mongo.db.organisers
     find_organiser = organisers.find_one(
         {'username': request.form['login_username']})
     if find_organiser:
-        if check_password_hash(find_organiser['password'], request.form['login_password']):
-            flash('You are logged in as ' + request.form['login_username'])
+        if check_password_hash(
+                                find_organiser['password'],
+                                request.form['login_password']
+                                ):
+            flash('Welcome back ' + request.form['login_username'])
             session['username'] = request.form['login_username']
             session['logged'] = True
             return redirect(url_for('home'))
@@ -127,6 +142,11 @@ def account():
     else:
         flash('Please log in to view your account')
         return redirect(url_for('signup'))
+
+
+@app.route('/terms&conditions')
+def terms():
+    return render_template("terms.html")
 
 
 @app.route('/get_salsa_events')
@@ -154,7 +174,10 @@ def add_event():
     if 'logged' in session:
         current_user = session['username']
         find_user = mongo.db.organisers.find_one({'username': current_user})
-        return render_template("add-event.html", events=mongo.db.events.find(), user=find_user)
+        return render_template(
+                                "add-event.html",
+                                events=mongo.db.events.find(),
+                                user=find_user)
     else:
         flash('Please log in to add an event')
         return redirect(url_for('signup'))
@@ -163,7 +186,9 @@ def add_event():
 @app.route('/organiser/<organiser_username>')
 def organiser(organiser_username):
     _organiser = mongo.db.organisers.find_one({"username": organiser_username})
-    return render_template("organiser.html", organiser = _organiser)
+    return render_template(
+                            "organiser.html",
+                            organiser=_organiser)
 
 
 @app.route('/insert-event', methods=['POST'])
