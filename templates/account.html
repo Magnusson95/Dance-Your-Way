@@ -25,7 +25,16 @@
           enctype="multipart/form-data"
         >
           <div class="row">
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12">
+              <textarea
+                id="about"
+                name="about"
+                class="materialize-textarea validate"
+                placeholder="Add a little information about yourself"
+              >{{user.about}}</textarea>
+              <label class="active" for="about">About</label>
+            </div>
+            <div class="input-field col s12 m6 l4">
               <input
                 value="{{ user.email }}"
                 id="email"
@@ -35,7 +44,7 @@
               />
               <label class="active" for="email">Email</label>
             </div>
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m6 l4">
               <input
                 value="{{ user.facebook }}"
                 id="facebook"
@@ -46,7 +55,7 @@
               />
               <label class="active" for="facebook">Facebook Profile URL</label>
             </div>
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m6 l4">
               <label class="active" for="Mobile">Mobile</label> <br />
               <input
                 value="{{ user.mobile }}"
@@ -77,20 +86,29 @@
           </div>
           <div class="file-field input-field">
             <div class="btn">
-              <span>Account Image</span>
+              <span>Profile Picture (optional)</span>
               <input type="file" name="event_image_s3" id="event_image_s3" />
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path validate" type="text" />
+              <input class="file-path validate" type="text" id="s3-check" />
             </div>
           </div>
-          <div class="input-field col s12 m4 l4 noshow">
+          <div class="noshow">
             <input
-              value=""
+              value="{{user.event_image}}"
               id="event_image"
               name="event_image"
               type="text"
               class="validate"
+            />
+          </div>
+          <div class="noshow">
+            Checker
+            <input
+              type="text"
+              name="image-check"
+              id="image-check"
+              value="no change"
             />
           </div>
           <button class="btn waves-effect waves-light" type="submit">
