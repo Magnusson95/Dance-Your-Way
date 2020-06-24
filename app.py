@@ -100,6 +100,46 @@ def edituser(organiser_username):
     return redirect(url_for('account'))
 
 
+@app.route('/edit_event/<event_id>')
+def edit_event(event_id):
+    the_event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
+    current_user = session['username']
+    find_user = mongo.db.organisers.find_one({'username': current_user})
+    return render_template("edit-event.html", user=find_user, event=the_event)
+
+
+@app.route('/update_event/<event_id>', methods=['POST'])
+def update_event(event_id):
+    events = mongo.db.events
+    events.update({"_id": ObjectId(event_id)},
+    {
+        'username': request.form.get('username'),
+        'event_name': request.form.get('event_name'),
+        'address': request.form.get('address'),
+        'event_link': request.form.get('event_link'),
+        'event_description': request.form.get('event_description'),
+        'weekday': request.form.get('weekday'),
+        'time': request.form.get('time'),
+        'price': request.form.get('price'),
+        'event_image': request.form.get('event_image'),
+        'salsa': request.form.get('salsa'),
+        'bachata': request.form.get('bachata'),
+        'kizomba': request.form.get('kizomba'),
+    }
+    )
+    if request.form.get('image-check') == "no change":
+        flash('You have updated your event')
+        return redirect(url_for('account'))
+    else:
+        s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
+                            aws_secret_access_key=ACCESS_SECRET_KEY)
+        s3.Bucket('dance-your-way-event-images').put_object(
+            Key=request.form['event_image'], Body=request.files['event_image_s3'])
+        flash('You have updated your event')
+        return redirect(url_for('account'))
+
+
+
 @app.route('/sign-out')
 def sign_out():
     '''

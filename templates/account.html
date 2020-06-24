@@ -196,6 +196,20 @@
                 </div>
               </div>
             </div>
+            <div class="center">
+              <a
+                href="{{url_for('edit_event', event_id=event._id)}}"
+                class="btn waves-effect waves-light"
+              >
+                Edit Event
+              </a>
+              <a
+                href="{{url_for('edit_event', event_id=event._id)}}"
+                class="btn waves-effect waves-light red"
+              >
+                Delete Event
+              </a>
+            </div>
           </div>
           {% endfor %}
         </div>
