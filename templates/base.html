@@ -55,10 +55,15 @@
       <ul class="sidenav" id="mobile-demo">
         {% if session['logged'] == True %}
         <li><a href="{{url_for('account')}}">Your Account</a></li>
-        {% endif %}
+        {% endif %} {% if session['logged'] == True %}
+        <li><a href="{{url_for('style')}}">Where to Dance</a></li>
+        <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
+        <li><a href="{{url_for('sign_out')}}">Log Out</a></li>
+        {% else %}
         <li><a href="{{url_for('style')}}">Where to Dance</a></li>
         <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
         <li><a href="{{url_for('signup')}}">Log In/Sign Up</a></li>
+        {% endif %}
       </ul>
     </header>
 
@@ -122,9 +127,7 @@
       document
         .getElementById("event_image_s3")
         .addEventListener("input", function () {
-          let event_image_s3 = document
-            .getElementById("event_image_s3")
-            .value;
+          let event_image_s3 = document.getElementById("event_image_s3").value;
           document.getElementById("image-check").value = event_image_s3;
         });
 

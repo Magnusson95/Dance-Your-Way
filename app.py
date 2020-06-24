@@ -51,6 +51,11 @@ def signup():
     return render_template("signup.html")
 
 
+@app.route('/terms&conditions')
+def terms():
+    return render_template("terms.html")
+
+
 @app.route('/adduser', methods=['POST', 'GET'])
 def adduser():
     organisers = mongo.db.organisers
@@ -79,6 +84,55 @@ def adduser():
         return redirect(url_for('signup'))
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if 'logged' in session:
+        flash('Welcome back ' + session['username'])
+        return redirect(url_for('add_event'))
+
+    organisers = mongo.db.organisers
+    find_organiser = organisers.find_one(
+        {'username': request.form['login_username']})
+    if find_organiser:
+        if check_password_hash(
+                                find_organiser['password'],
+                                request.form['login_password']
+                                ):
+            flash('Welcome back ' + request.form['login_username'])
+            session['username'] = request.form['login_username']
+            session['logged'] = True
+            return redirect(url_for('home'))
+        else:
+            flash('Incorrect password')
+            return redirect(url_for('signup'))
+    else:
+        flash('Username ' + request.form['login_username'] + ' does not exist')
+        return redirect(url_for('signup'))
+
+
+@app.route('/account')
+def account():
+    if 'logged' in session:
+        current_user = session['username']
+        find_user = mongo.db.organisers.find_one({'username': current_user})
+        events = mongo.db.events.find({'username': current_user})
+        return render_template("account.html", events=events, user=find_user)
+    else:
+        flash('Please log in to view your account')
+        return redirect(url_for('signup'))
+
+
+@app.route('/sign-out')
+def sign_out():
+    '''
+    function to allow a user to sign out of the current session
+    '''
+
+    session.clear()  # Clear session, notify user and redirect to index
+    flash('You are now signed out')
+    return redirect(url_for('home'))
+
+
 @app.route('/edituser/<organiser_username>', methods=['POST'])
 def edituser(organiser_username):
     organisers = mongo.db.organisers
@@ -90,7 +144,9 @@ def edituser(organiser_username):
         'password': request.form.get('password'),
         'username': request.form.get('username'),
         'event_image': request.form.get('event_image'),
-        'about': request.form.get('about')
+        'about': request.form.get('about'),
+        'city': request.form.get('city'),
+        'country': request.form.get('country'),
     }
         )
     if request.form.get('image-check') == "no change":
@@ -103,6 +159,31 @@ def edituser(organiser_username):
             Key=request.form['event_image'], Body=request.files['event_image_s3'])
         flash('You have updated your details')
         return redirect(url_for('account'))
+
+@app.route('/add-event')
+def add_event():
+    if 'logged' in session:
+        current_user = session['username']
+        find_user = mongo.db.organisers.find_one({'username': current_user})
+        return render_template(
+                                "add-event.html",
+                                events=mongo.db.events.find(),
+                                user=find_user)
+    else:
+        flash('Please log in to add an event')
+        return redirect(url_for('signup'))
+
+
+@app.route('/insert-event', methods=['POST'])
+def insert_event():
+    events = mongo.db.events
+    events.insert_one(request.form.to_dict())
+    s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
+                        aws_secret_access_key=ACCESS_SECRET_KEY)
+    s3.Bucket('dance-your-way-event-images').put_object(
+        Key=request.form['event_image'], Body=request.files['event_image_s3'])
+    flash("You have successfully added an event")
+    return redirect(url_for('account'))
 
 
 @app.route('/edit_event/<event_id>')
@@ -144,59 +225,16 @@ def update_event(event_id):
         return redirect(url_for('account'))
 
 
-
-@app.route('/sign-out')
-def sign_out():
-    '''
-    function to allow a user to sign out of the current session
-    '''
-
-    session.clear()  # Clear session, notify user and redirect to index
-    flash('You are now signed out')
-    return redirect(url_for('home'))
+@app.route('/delete_event/<event_id>')
+def delete_event(event_id):
+    mongo.db.events.remove({'_id': ObjectId(event_id)})
+    flash('Your event has now been removed')
+    return redirect(url_for('account'))
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if 'logged' in session:
-        flash('Welcome back ' + session['username'])
-        return redirect(url_for('add_event'))
-
-    organisers = mongo.db.organisers
-    find_organiser = organisers.find_one(
-        {'username': request.form['login_username']})
-    if find_organiser:
-        if check_password_hash(
-                                find_organiser['password'],
-                                request.form['login_password']
-                                ):
-            flash('Welcome back ' + request.form['login_username'])
-            session['username'] = request.form['login_username']
-            session['logged'] = True
-            return redirect(url_for('home'))
-        else:
-            flash('Incorrect password')
-            return redirect(url_for('signup'))
-    else:
-        flash('Username ' + request.form['login_username'] + ' does not exist')
-        return redirect(url_for('signup'))
-
-
-@app.route('/account')
-def account():
-    if 'logged' in session:
-        current_user = session['username']
-        find_user = mongo.db.organisers.find_one({'username': current_user})
-        events = mongo.db.events.find({'username': current_user})
-        return render_template("account.html", events=events, user=find_user)
-    else:
-        flash('Please log in to view your account')
-        return redirect(url_for('signup'))
-
-
-@app.route('/terms&conditions')
-def terms():
-    return render_template("terms.html")
+@app.route('/style')
+def style():
+    return render_template("style.html")
 
 
 @app.route('/get_salsa_events')
@@ -214,43 +252,12 @@ def get_kizomba_events():
     return render_template("kizomba.html", events=mongo.db.events.find())
 
 
-@app.route('/style')
-def style():
-    return render_template("style.html")
-
-
-@app.route('/add-event')
-def add_event():
-    if 'logged' in session:
-        current_user = session['username']
-        find_user = mongo.db.organisers.find_one({'username': current_user})
-        return render_template(
-                                "add-event.html",
-                                events=mongo.db.events.find(),
-                                user=find_user)
-    else:
-        flash('Please log in to add an event')
-        return redirect(url_for('signup'))
-
-
 @app.route('/organiser/<organiser_username>')
 def organiser(organiser_username):
     _organiser = mongo.db.organisers.find_one({"username": organiser_username})
     return render_template(
                             "organiser.html",
                             organiser=_organiser)
-
-
-@app.route('/insert-event', methods=['POST'])
-def insert_event():
-    events = mongo.db.events
-    events.insert_one(request.form.to_dict())
-    s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
-                        aws_secret_access_key=ACCESS_SECRET_KEY)
-    s3.Bucket('dance-your-way-event-images').put_object(
-        Key=request.form['event_image'], Body=request.files['event_image_s3'])
-    flash("You have successfully added an event")
-    return redirect(url_for('account'))
 
 
 if __name__ == '__main__':

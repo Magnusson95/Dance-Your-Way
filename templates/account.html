@@ -34,6 +34,26 @@
               >{{user.about}}</textarea>
               <label class="active" for="about">About</label>
             </div>
+            <div class="input-field col s12 m6">
+              <input
+                value="{{ user.city }}"
+                id="city"
+                name="city"
+                type="text"
+                class="validate"
+              />
+              <label class="active" for="city">City</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input
+                value="{{ user.country }}"
+                id="country"
+                name="country"
+                type="text"
+                class="validate"
+              />
+              <label class="active" for="country">Country</label>
+            </div>
             <div class="input-field col s12 m6 l4">
               <input
                 value="{{ user.email }}"
@@ -86,7 +106,7 @@
           </div>
           <div class="file-field input-field">
             <div class="btn">
-              <span>Profile Picture (optional)</span>
+              <span>Update Profile Picture</span>
               <input type="file" name="event_image_s3" id="event_image_s3" />
             </div>
             <div class="file-path-wrapper">
@@ -222,7 +242,7 @@
                 Edit Event
               </a>
               <a
-                href="{{url_for('edit_event', event_id=event._id)}}"
+                href="{{url_for('delete_event', event_id=event._id)}}"
                 class="btn waves-effect waves-light red"
               >
                 Delete Event
