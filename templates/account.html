@@ -1,44 +1,206 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row container">
-	<h3 class="center">
-		User: {{ user.username }}
-	</h3>
-	<ul class="collapsible">
-		<li>
-			<div class="collapsible-header"><i class="material-icons">account_circle</i>Account Information</div>
-			<div class="collapsible-body">
-				<span>This information helps dancers get in touch with you about any events you host</span>
-				<form action="{{url_for('edituser', organiser_username=user.username)}}" method="POST">
-					<div class="row">
-						<div class="input-field col s12 m4">
-							<input value="{{ user.email }}" id="email" name="email" type="email" class="validate" />
-							<label class="active" for="email">Email</label>
-						</div>
-						<div class="input-field col s12 m4">
-							<input value="{{ user.facebook }}" id="facebook" name="facebook" type="url" class="validate" placeholder="https://www."/>
-							<label class="active" for="facebook">Facebook Profile URL</label>
-						</div>
-						<div class="input-field col s12 m4">
-							<label class="active" for="Mobile">Mobile</label> <br>
-							<input value="{{ user.mobile }}" id="mobile" name="mobile" type="mobile" class="validate" />
-					  </div>
-						<div class="input-field">
-							<input value="{{user.password}}" id="password" name="password" type="password" class="noshow" />
-					  </div>
-						<div class="input-field">
-							<input value="{{user.username}}" id="username" name="username" type="text" class="noshow" />
-					  </div>
-					</div>
-					<button class="btn waves-effect waves-light" type="submit">Edit Details<i class="material-icons right">edit</i></button>
-				</form>
-			</div>
-		</li>
-		<li>
-			<div class="collapsible-header"><i class="material-icons">event</i>Your Events</div>
-			<div class="collapsible-body">
-				<span>A list of all events you have on "Dance Your Way"</span>
-			</div>
-		</li>
-	</ul>
+  <img
+    class="activator profile-image"
+    src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{user.event_image}}"
+    alt="{{user.event_image}} account image"
+  />
+  <h3 class="center">
+    Welcome back {{ user.username }}
+  </h3>
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons">account_circle</i>Account Information
+      </div>
+      <div class="collapsible-body">
+        <span
+          >This information helps dancers get in touch with you about any
+          accounts you host</span
+        >
+        <form
+          action="{{url_for('edituser', organiser_username=user.username)}}"
+          method="POST"
+          id="edit-profile"
+          enctype="multipart/form-data"
+        >
+          <div class="row">
+            <div class="input-field col s12 m4">
+              <input
+                value="{{ user.email }}"
+                id="email"
+                name="email"
+                type="email"
+                class="validate"
+              />
+              <label class="active" for="email">Email</label>
+            </div>
+            <div class="input-field col s12 m4">
+              <input
+                value="{{ user.facebook }}"
+                id="facebook"
+                name="facebook"
+                type="url"
+                class="validate"
+                placeholder="https://www."
+              />
+              <label class="active" for="facebook">Facebook Profile URL</label>
+            </div>
+            <div class="input-field col s12 m4">
+              <label class="active" for="Mobile">Mobile</label> <br />
+              <input
+                value="{{ user.mobile }}"
+                id="mobile"
+                name="mobile"
+                type="mobile"
+                class="validate"
+              />
+            </div>
+            <div class="input-field">
+              <input
+                value="{{user.password}}"
+                id="password"
+                name="password"
+                type="password"
+                class="noshow"
+              />
+            </div>
+            <div class="input-field">
+              <input
+                value="{{user.username}}"
+                id="username"
+                name="username"
+                type="text"
+                class="noshow"
+              />
+            </div>
+          </div>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Account Image</span>
+              <input type="file" name="event_image_s3" id="event_image_s3" />
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" />
+            </div>
+          </div>
+          <div class="input-field col s12 m4 l4 noshow">
+            <input
+              value=""
+              id="event_image"
+              name="event_image"
+              type="text"
+              class="validate"
+            />
+          </div>
+          <button class="btn waves-effect waves-light" type="submit">
+            Edit Details<i class="material-icons right">edit</i>
+          </button>
+        </form>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons">event</i>Your events
+      </div>
+      <div class="collapsible-body">
+        <span>A list of all events you have on "Dance Your Way"</span>
+        <div class="row">
+          {% for event in events%}
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img
+                  class="activator"
+                  src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
+                  alt="{{event.event_name}} event image"
+                />
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
+                  <h5>{{event.event_name}}</h5>
+                  <strong>{{event.weekday}}:</strong> {{event.time}}
+                  <br />
+                  <strong>
+                    Dance Styles:
+                  </strong>
+                  <ul>
+                    {% if event.salsa == 'on' %}
+                    <li>Salsa</li>
+                    {% else %} {% endif %} {% if event.bachata == 'on' %}
+                    <li>Bachata</li>
+                    {% else %} {% endif %} {% if event.kizomba == 'on' %}
+                    <li>Kizomba</li>
+                    {% else %} {% endif %}
+                  </ul>
+                  <a
+                    class="btn-floating halfway-fab waves-effect waves-light red"
+                    ><i class="material-icons right">add</i></a
+                  ></span
+                >
+                <p>
+                  <a href="https://{{event.event_link}}" target="_blank"
+                    >See event</a
+                  >
+                </p>
+              </div>
+              <div
+                class="card-reveal"
+                style="background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});"
+              >
+                <span class="card-title">
+                  <i class="material-icons right">close</i>
+                </span>
+                <h4>
+                  {{event.event_name}}
+                </h4>
+                <div class="row">
+                  <p class="col s4">
+                    Description:
+                  </p>
+                  <p class="col s8">
+                    {{event.event_description}}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="col s4">
+                    Price:
+                  </p>
+                  <p class="col s8">
+                    {{event.price}}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="col s4">
+                    Address:
+                  </p>
+                  <p class="col s8">
+                    {{event.address}}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="col s4">
+                    Organiser:
+                  </p>
+                  <p class="col s8">
+                    <a
+                      href="{{url_for('organiser', organiser_username=event.username)}}"
+                      >{{event.username}}</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
 {% endblock %}

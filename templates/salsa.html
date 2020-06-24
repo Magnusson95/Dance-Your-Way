@@ -80,7 +80,7 @@
               Organiser:
             </p>
             <p class="col s8">
-              {{event.username}}
+              <a href="{{url_for('organiser', organiser_username=event.username)}}">{{event.username}}</a>
             </p>
           </div>
         </div>

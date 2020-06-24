@@ -88,9 +88,14 @@ def edituser(organiser_username):
         'mobile': request.form.get('mobile'),
         'email': request.form.get('email'),
         'password': request.form.get('password'),
-        'username': request.form.get('username')
+        'username': request.form.get('username'),
+        'event_image': request.form.get('event_image')
     }
         )
+    s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
+                        aws_secret_access_key=ACCESS_SECRET_KEY)
+    s3.Bucket('dance-your-way-event-images').put_object(
+        Key=request.form['event_image'], Body=request.files['event_image_s3'])
     flash('You have updated your details')
     return redirect(url_for('account'))
 

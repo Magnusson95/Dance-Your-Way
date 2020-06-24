@@ -1,8 +1,16 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container center">
-	<h1>{{organiser.username}}'s Contact Details</h1>
-<h3>Email: <a href = "mailto: {{organiser.email}}">{{organiser.email}}</a></h3>
-<h3>Mobile: {{organiser.number}}</h3>
-<h3>Facebook: {{organiser.facebook}}</h3>
+<div class="container">
+  <img
+    class="activator profile-image"
+    src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{organiser.event_image}}"
+    alt="{{organiser.event_image}} account image"
+  />
+  <h1 class="center">{{organiser.username}}'s Contact Details</h1>
+  <h5>Email: <a href="mailto: {{organiser.email}}">{{organiser.email}}</a></h5>
+  <h5>Mobile: {{organiser.number}}</h5>
+  <h5>
+    Facebook:
+    <a href="{{organiser.facebook}}" target="_blank">{{organiser.facebook}}</a>
+  </h5>
 </div>
 {% endblock %}
