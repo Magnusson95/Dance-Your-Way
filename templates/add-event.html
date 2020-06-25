@@ -1,83 +1,94 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row center container">
-	<h3>Add Your Event</h3>
-	<form action="{{url_for('insert_event')}}" method="POST" class="col s12" id="add-event"
-		enctype="multipart/form-data">
-		<div class="row">
-			<div class="noshow">
-				<input value="{{ user.username }}" id="username" name="username" type="text" class="validate" />
+  <h3>Add Your Event</h3>
+  <form
+    action="{{url_for('insert_event')}}"
+    method="POST"
+    class="col s12"
+    id="add-event"
+    enctype="multipart/form-data"
+  >
+    <div class="row">
+      <div class="noshow">
+        <input
+          value="{{ user.username }}"
+          id="username"
+          name="username"
+          type="text"
+          class="validate"
+        />
       </div>
-				<div class="input-field col s12 m4 l4">
-					<input
+      <div class="input-field col s12 m4 l4">
+        <input
           value=""
           id="event_name"
           name="event_name"
           type="text"
           class="validate"
         />
-					<label class="active" for="event_name">Event Name</label>
-				</div>
-				<div class="input-field col s12 m4 l4">
-					<input
+        <label class="active" for="event_name">Event Name</label>
+      </div>
+      <div class="input-field col s12 m4 l4">
+        <input
           value=""
           id="address"
           name="address"
           type="text"
           class="validate"
         />
-					<label class="active" for="address">Event Address</label>
-				</div>
-				<div class="input-field col s12 m4 l4">
-					<input
+        <label class="active" for="address">Event Address</label>
+      </div>
+      <div class="input-field col s12 m4 l4">
+        <input
           value="www."
           id="event_link"
           name="event_link"
           type="text"
           class="validate"
         />
-					<label class="active" for="event_link">Event Social Link</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<textarea
+        <label class="active" for="event_link">Event Social Link</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea
           id="event_description"
           name="event_description"
           class="materialize-textarea validate"
         ></textarea>
-					<label class="active" for="event_description">Event Description</label>
-				</div>
-			</div>
-			<h5>Dance Styles</h5>
-			<br />
-			<div class="row">
-				<div class="col s4 switch">
-					<label>
+        <label class="active" for="event_description">Event Description</label>
+      </div>
+    </div>
+    <h5>Dance Styles</h5>
+    <br />
+    <div class="row">
+      <div class="col s4 switch">
+        <label>
           <input type="checkbox" name="salsa" id="salsa" />
           <span class="lever"></span>
           Salsa
         </label>
-				</div>
-				<div class="col s4 switch">
-					<label>
+      </div>
+      <div class="col s4 switch">
+        <label>
           <input type="checkbox" name="bachata" id="bachata" />
           <span class="lever"></span>
           Bachata
         </label>
-				</div>
-				<div class="col s4 switch">
-					<label>
+      </div>
+      <div class="col s4 switch">
+        <label>
           <input type="checkbox" name="kizomba" id="kizomba" />
           <span class="lever"></span>
           Kizomba
         </label>
-				</div>
-			</div>
-			<br />
-			<div class="row">
-				<div class="col s12 m6 l4">
-					<div class="input-field col s12">
-						<select name="weekday" id="weekday">
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col s12 m6 l4">
+        <div class="input-field col s12">
+          <select name="weekday" id="weekday">
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
             <option value="Wednesday">Wednesday</option>
@@ -86,32 +97,33 @@
             <option value="Saturday">Saturday</option>
             <option value="Sunday">Sunday</option>
           </select>
-						<label>Weekday</label>
-					</div>
-				</div>
-				<div class="col s12 m6 l4">
-					<label class="active" for="time">Time</label><input type="text" name="time" id="time" class="timepicker validate" />
+          <label>Weekday</label>
+        </div>
       </div>
-					<div class="input-field col s12 l4">
-						<textarea
+      <div class="col s12 m6 l4">
+        <label class="active" for="time">Time</label
+        ><input type="text" name="time" id="time" class="timepicker validate" />
+      </div>
+      <div class="input-field col s12 l4">
+        <textarea
           id="price"
           name="price"
           class="materialize-textarea validate"
         ></textarea>
-						<label class="active" for="price">Ticket Prices</label>
-					</div>
-				</div>
-				<div class="file-field input-field">
-					<div class="btn">
-						<span>Event Image</span>
-						<input type="file" name="event_image_s3" id="event_image_s3" />
+        <label class="active" for="price">Ticket Prices</label>
       </div>
-						<div class="file-path-wrapper">
-							<input class="file-path validate" type="text" />
+    </div>
+    <div class="file-field input-field">
+      <div class="btn purple darken-3">
+        <span>Event Image</span>
+        <input type="file" name="event_image_s3" id="event_image_s3" />
       </div>
-						</div>
-						<div class="input-field col s12 m4 l4 noshow">
-							<input
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" />
+      </div>
+    </div>
+    <div class="input-field col s12 m4 l4 noshow">
+      <input
         value=""
         id="event_image"
         name="event_image"
@@ -119,10 +131,10 @@
         class="validate"
       />
     </div>
-							<button class="btn waves-effect waves-light" type="submit">
+    <button class="btn waves-effect waves-light purple darken-3" type="submit">
       Add Your Event
       <i class="material-icons right">playlist_add</i>
     </button>
-	</form>
+  </form>
 </div>
 {% endblock %}

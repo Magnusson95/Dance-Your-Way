@@ -52,35 +52,30 @@
             {{event.event_name}}
           </h4>
           <div class="row">
-            <p class="col s4">
-              Description:
-            </p>
+            <p class="col s4"><em> Description:</em></p>
             <p class="col s8">
               {{event.event_description}}
             </p>
           </div>
           <div class="row">
-            <p class="col s4">
-              Price:
-            </p>
+            <p class="col s4"><em> Price:</em></p>
             <p class="col s8">
               {{event.price}}
             </p>
           </div>
           <div class="row">
-            <p class="col s4">
-              Address:
-            </p>
+            <p class="col s4"><em> Address:</em></p>
             <p class="col s8">
               {{event.address}}
             </p>
           </div>
           <div class="row">
-            <p class="col s4">
-              Organiser:
-            </p>
+            <p class="col s4"><em> Organiser:</em></p>
             <p class="col s8">
-              <a href="{{url_for('organiser', organiser_username=event.username)}}">{{event.username}}</a>
+              <a
+                href="{{url_for('organiser', organiser_username=event.username)}}"
+                >{{event.username}}</a
+              >
             </p>
           </div>
         </div>
@@ -94,14 +89,14 @@
   <div class="col s6">
     <a
       href="{{url_for('get_salsa_events')}}"
-      class="btn-large waves-effect waves-light waves-ripple"
+      class="btn-large waves-effect waves-light waves-ripple purple darken-3"
       >Salsa Events</a
     >
   </div>
   <div class="col s6">
     <a
       href="{{url_for('get_kizomba_events')}}"
-      class="btn-large waves-effect waves-light waves-ripple"
+      class="btn-large waves-effect waves-light waves-ripple purple darken-3"
       >Kizomba Events</a
     >
   </div>

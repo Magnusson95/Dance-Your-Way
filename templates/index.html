@@ -1,116 +1,129 @@
 {% extends 'base.html' %} {% block content %}
 <div class="hero">
-	<div class="hero-content center white-text">
-		<h1>Dance Your Way</h1>
-		<div class="row center container">
-			<div class="col s12 m6">
-				<a href="{{url_for('add_event')}}" class="btn-large waves-effect waves-light waves-ripple">
-					Add Your Event
-				</a>
-			</div>
-			<div class="col s12 m6">
-				<a href="{{url_for('style')}}" class="btn-large waves-effect waves-light waves-ripple">
-					Find Events
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="center today-link">
-		<a href="#today" class="btn">
-			What's On Today <br />
-			<i class="large material-icons">arrow_downward</i>
-		</a>
-	</div>
+  <div class="hero-content center white-text">
+    <p class="hero-title"><strong>Dance Your Way</strong></p>
+    <div class="row center container">
+      <div class="col s12 m6">
+        <a
+          href="{{url_for('add_event')}}"
+          class="btn-large waves-effect waves-light waves-ripple purple darken-3"
+        >
+          Add Your Event
+        </a>
+      </div>
+      <div class="col s12 m6">
+        <a
+          href="{{url_for('style')}}"
+          class="btn-large waves-effect waves-light waves-ripple purple darken-3"
+        >
+          Find Events
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="center today-link">
+    <a href="#today" class="btn purple darken-3">
+      What's On Today <br />
+      <i class="large material-icons">arrow_downward</i>
+    </a>
+  </div>
 </div>
-<video id="hero-video" preload="auto" autoplay loop muted
-	src="{{url_for('static', filename='images/Caramba Final (1).mp4')}}"></video>
+<video
+  id="hero-video"
+  preload="auto"
+  autoplay
+  loop
+  muted
+  src="{{url_for('static', filename='images/Caramba Final (1).mp4')}}"
+></video>
 <section>
-	<h1 id="today" class="center section scrollspy">Today's Events</h1>
-	<div class="container">
-		<div class="row">
-			{% for event in events %}
-			<div class="col s12 m6 l4">
-				<div class="card">
-					<div class="card-image waves-effect waves-block waves-light">
-						<img
-            class="activator"
-            src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
-            alt="{{event.event_name}} event image"
-          />
-        </div>
-						<div class="card-content">
-							<span class="card-title activator grey-text text-darken-4">
-            <h5>{{event.event_name}}</h5>
-            <strong>{{event.weekday}}:</strong> {{event.time}}
-            <br />
-            <strong>
-              Dance Styles:
-            </strong>
-            <ul>
-              {% if event.salsa == 'on' %}
-              <li>Salsa</li>
-              {% else %} {% endif %} {% if event.bachata == 'on' %}
-              <li>Bachata</li>
-              {% else %} {% endif %} {% if event.kizomba == 'on' %}
-              <li>Kizomba</li>
-              {% else %} {% endif %}
-            </ul>
-            <a class="btn-floating halfway-fab waves-effect waves-light red"
-              ><i class="material-icons right">add</i></a
-            ></span>
-							<p>
-								<a href="https://{{event.event_link}}" target="_blank">See event</a>
-							</p>
-						</div>
-						<div class="card-reveal" style="background-image: linear-gradient(
+  <h1 id="today" class="center section scrollspy">Today's Events</h1>
+  <div class="container">
+    <div class="row">
+      {% for event in events %}
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img
+              class="activator"
+              src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
+              alt="{{event.event_name}} event image"
+            />
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">
+              <h5>{{event.event_name}}</h5>
+              <strong>{{event.weekday}}:</strong> {{event.time}}
+              <br />
+              <strong>
+                Dance Styles:
+              </strong>
+              <ul>
+                {% if event.salsa == 'on' %}
+                <li>Salsa</li>
+                {% else %} {% endif %} {% if event.bachata == 'on' %}
+                <li>Bachata</li>
+                {% else %} {% endif %} {% if event.kizomba == 'on' %}
+                <li>Kizomba</li>
+                {% else %} {% endif %}
+              </ul>
+              <a class="btn-floating halfway-fab waves-effect waves-light red"
+                ><i class="material-icons right">add</i></a
+              ></span
+            >
+            <p>
+              <a href="https://{{event.event_link}}" target="_blank"
+                >See event</a
+              >
+            </p>
+          </div>
+          <div
+            class="card-reveal"
+            style="background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});">
-							<span class="card-title">
-            <i class="material-icons right">close</i>
-          </span>
-							<h4>
-								{{event.event_name}}
-							</h4>
-							<div class="row">
-								<p class="col s4">
-									Description:
-								</p>
-								<p class="col s8">
-									{{event.event_description}}
-								</p>
-							</div>
-							<div class="row">
-								<p class="col s4">
-									Price:
-								</p>
-								<p class="col s8">
-									{{event.price}}
-								</p>
-							</div>
-							<div class="row">
-								<p class="col s4">
-									Address:
-								</p>
-								<p class="col s8">
-									{{event.address}}
-								</p>
-							</div>
-							<div class="row">
-								<p class="col s4">
-									Organiser:
-								</p>
-								<p class="col s8">
-									<a href="{{url_for('organiser', organiser_username=event.username)}}">{{event.username}}</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
+    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});"
+          >
+            <span class="card-title">
+              <i class="material-icons right">close</i>
+            </span>
+            <h4>
+              {{event.event_name}}
+            </h4>
+            <div class="row">
+              <p class="col s4"><em> Description:</em></p>
+              <p class="col s8">
+                {{event.event_description}}
+              </p>
+            </div>
+            <div class="row">
+              <p class="col s4"><em> Price:</em></p>
+              <p class="col s8">
+                {{event.price}}
+              </p>
+            </div>
+            <div class="row">
+              <p class="col s4"><em> Address:</em></p>
+              <p class="col s8">
+                {{event.address}}
+              </p>
+            </div>
+            <div class="row">
+              <p class="col s4"><em> Organiser:</em></p>
+              <p class="col s8">
+                <a
+                  href="{{url_for('organiser', organiser_username=event.username)}}"
+                  >{{event.username}}</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 {% endblock %}

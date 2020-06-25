@@ -2,6 +2,52 @@
   margin: 0 auto;
 }
 
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.brand-logo,
+.hero-title {
+  font-family: "Indie Flower", cursive;
+}
+
+.brand-logo {
+  font-size: 35px !important;
+  height: 64px !important;
+  margin: 0 auto;
+}
+
+.brand-logo-image {
+  height: 64px;
+  width: auto;
+  margin: 0 10px;
+}
+
+.hero-title {
+  font-size: 100px;
+  line-height: 60px;
+}
+
+.sidenav {
+  width: 50vw;
+}
+
+.sidenav-icon {
+  margin: 0 !important;
+  margin-right: 5px !important;
+}
+
+.sidenav li a {
+  padding: 0;
+  padding-left: 15px;
+}
+
+.sidenav-logo {
+  margin: 0 auto;
+  width: 80%;
+  height: auto;
+}
+
 .btn-large {
   margin: 10px;
   width: 80%;
@@ -12,13 +58,13 @@
   background-color: #fff3cd;
   color: #856404;
   border-color: #ffeeba;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   border: 1px solid transparent;
   margin: 5px auto;
 }
 
 .card {
-  height: 480px;
+  height: 520px;
 }
 
 .card i {
@@ -34,8 +80,12 @@
   width: auto;
   object-fit: cover;
 }
+.card-content {
+  padding: 0 24px 24px 24px !important;
+}
 
-.hero {
+.hero,
+.pick-your-style {
   height: calc(100vh - 64px);
 }
 
@@ -92,10 +142,6 @@ ul {
 .pick-your-style {
   margin: 0;
   padding: 0 !important;
-}
-
-.pick-your-style {
-  height: calc(100vh - 64px);
 }
 
 .pick-your-style h1 {
@@ -165,6 +211,23 @@ ul {
 
 .noshow {
   display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .hero,
+  .pick-your-style {
+    height: calc(100vh - 56px);
+    position: relative;
+    top: -180px
+  }
+
+  .hero-title {
+    margin-bottom: 50px
+  }
+
+  .today-link {
+    top: 20vh;
+  }
 }
 
 @media only screen and (max-width: 450px) {

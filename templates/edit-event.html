@@ -120,21 +120,19 @@
         ><input type="text" name="time" id="time" class="timepicker validate" />
       </div>
       <div class="input-field col s12 l4">
-        <textarea id="price" name="price" class="materialize-textarea validate">{{event.price}}</textarea>
+        <textarea id="price" name="price" class="materialize-textarea validate">
+{{event.price}}</textarea
+        >
         <label class="active" for="price">Ticket Prices</label>
       </div>
     </div>
     <div class="file-field input-field">
-      <div class="btn">
+      <div class="btn purple darken-3">
         <span>Event Image</span>
-        <input
-          type="file"
-          name="event_image_s3"
-          id="event_image_s3"
-        />
+        <input type="file" name="event_image_s3" id="event_image_s3" />
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" id="s3-check"/>
+        <input class="file-path validate" type="text" id="s3-check" />
       </div>
     </div>
     <div class="noshow">
@@ -146,13 +144,19 @@
         class="validate"
       />
     </div>
-    <div class="noshow">Checker
-      <input type="text" name="image-check" id="image-check" value="no change">
+    <div class="noshow">
+      Checker
+      <input
+        type="text"
+        name="image-check"
+        id="image-check"
+        value="no change"
+      />
     </div>
     <div class="noshow">
       <input value="{{event.time}}" id="jquery-time" />
     </div>
-    <button class="btn waves-effect waves-light" type="submit">
+    <button class="btn waves-effect waves-light purple darken-3" type="submit">
       Edit Your Event
       <i class="material-icons right">playlist_add</i>
     </button>

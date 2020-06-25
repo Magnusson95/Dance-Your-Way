@@ -263,7 +263,7 @@ def get_kizomba_events():
 def get_organisers():
     organiser = mongo.db.organisers.find().sort("username")
     events = mongo.db.events.find()
-    return render_template("all-organisers.html", organiser=organiser, events=events)
+    return render_template("all-organisers.html", organiser=organiser, events=list(events))
 
 
 @app.route('/organiser/<organiser_username>')

@@ -1,34 +1,35 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
-	<img
+  <img
     class="activator profile-image"
     src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{organiser.event_image}}"
+    onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'"
     alt="{{organiser.event_image}} account image"
   />
-	<h1 class="center">{{organiser.username}}</h1>
-	<h3>About {{organiser.username}}</h3>
-	<h5>{{organiser.about}}</h5>
-	<h3>Contact Details:</h3>
-	<h5>Email: <a href="mailto: {{organiser.email}}">{{organiser.email}}</a></h5>
-	<h5>Mobile: {{organiser.number}}</h5>
-	<h5>
-		Facebook:
-		<a href="{{organiser.facebook}}" target="_blank">{{organiser.facebook}}</a>
-	</h5>
-	<h3>{{organiser.username}}'s events:</h3>
-	<div class="row">
-		{% for event in events%}
-		<div class="col s12 m6 l4">
-			<div class="card">
-				<div class="card-image waves-effect waves-block waves-light">
-					<img
+  <h1 class="center">{{organiser.username}}</h1>
+  <h3>About {{organiser.username}}</h3>
+  <h5>{{organiser.about}}</h5>
+  <h3>Contact Details:</h3>
+  <h5>Email: <a href="mailto: {{organiser.email}}">{{organiser.email}}</a></h5>
+  <h5>Mobile: {{organiser.number}}</h5>
+  <h5>
+    Facebook:
+    <a href="{{organiser.facebook}}" target="_blank">{{organiser.facebook}}</a>
+  </h5>
+  <h3>{{organiser.username}}'s events:</h3>
+  <div class="row">
+    {% for event in events%}
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img
             class="activator"
             src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
             alt="{{event.event_name}} event image"
           />
         </div>
-					<div class="card-content">
-						<span class="card-title activator grey-text text-darken-4">
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4">
             <h5>{{event.event_name}}</h5>
             <strong>{{event.weekday}}:</strong> {{event.time}}
             <br />
@@ -46,60 +47,58 @@
             </ul>
             <a class="btn-floating halfway-fab waves-effect waves-light red"
               ><i class="material-icons right">add</i></a
-            ></span>
-						<p>
-							<a href="https://{{event.event_link}}" target="_blank">See event</a>
-						</p>
-					</div>
-					<div class="card-reveal" style="background-image: linear-gradient(
+            ></span
+          >
+          <p>
+            <a href="https://{{event.event_link}}" target="_blank">See event</a>
+          </p>
+        </div>
+        <div
+          class="card-reveal"
+          style="background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});">
-						<span class="card-title">
+    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});"
+        >
+          <span class="card-title">
             <i class="material-icons right">close</i>
           </span>
-						<h4>
-							{{event.event_name}}
-						</h4>
-						<div class="row">
-							<p class="col s4">
-								Description:
-							</p>
-							<p class="col s8">
-								{{event.event_description}}
-							</p>
-						</div>
-						<div class="row">
-							<p class="col s4">
-								Price:
-							</p>
-							<p class="col s8">
-								{{event.price}}
-							</p>
-						</div>
-						<div class="row">
-							<p class="col s4">
-								Address:
-							</p>
-							<p class="col s8">
-								{{event.address}}
-							</p>
-						</div>
-						<div class="row">
-							<p class="col s4">
-								Organiser:
-							</p>
-							<p class="col s8">
-								<a
-									href="{{url_for('organiser', organiser_username=event.username)}}">{{event.username}}</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
-	</div>
-	{% endblock %}
+          <h4>
+            {{event.event_name}}
+          </h4>
+          <div class="row">
+            <p class="col s4"><em> Description:</em></p>
+            <p class="col s8">
+              {{event.event_description}}
+            </p>
+          </div>
+          <div class="row">
+            <p class="col s4"><em> Price:</em></p>
+            <p class="col s8">
+              {{event.price}}
+            </p>
+          </div>
+          <div class="row">
+            <p class="col s4"><em> Address:</em></p>
+            <p class="col s8">
+              {{event.address}}
+            </p>
+          </div>
+          <div class="row">
+            <p class="col s4"><em> Organiser:</em></p>
+            <p class="col s8">
+              <a
+                href="{{url_for('organiser', organiser_username=event.username)}}"
+                >{{event.username}}</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

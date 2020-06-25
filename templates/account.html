@@ -1,66 +1,74 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row container">
-	<img
+  <img
     class="activator profile-image"
     src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{user.event_image}}"
+    onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'"
     alt="{{user.event_image}} account image"
   />
-	<h3 class="center">
-		Welcome back {{ user.username }}
-	</h3>
-	<ul class="collapsible">
-		<li>
-			<div class="collapsible-header">
-				<i class="material-icons">account_circle</i>Account Information
-			</div>
-			<div class="collapsible-body">
-				<span
+  <h3 class="center">
+    Welcome back {{ user.username }}
+  </h3>
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons">account_circle</i>Account Information
+      </div>
+      <div class="collapsible-body">
+        <span
           >This information helps dancers get in touch with you about any
-          accounts you host</span>
-				<form action="{{url_for('edituser', organiser_username=user.username)}}" method="POST" id="edit-profile"
-					enctype="multipart/form-data">
-					<div class="row">
-						<div class="input-field col s12">
-							<textarea
+          accounts you host</span
+        >
+        <form
+          action="{{url_for('edituser', organiser_username=user.username)}}"
+          method="POST"
+          id="edit-profile"
+          enctype="multipart/form-data"
+        >
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea
                 id="about"
                 name="about"
                 class="materialize-textarea validate"
                 placeholder="Add a little information about yourself"
-              >{{user.about}}</textarea>
-							<label class="active" for="about">About</label>
-						</div>
-						<div class="input-field col s12 m6">
-							<input
+              >
+{{user.about}}</textarea
+              >
+              <label class="active" for="about">About</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input
                 value="{{ user.city }}"
                 id="city"
                 name="city"
                 type="text"
                 class="validate"
               />
-							<label class="active" for="city">City</label>
-						</div>
-						<div class="input-field col s12 m6">
-							<input
+              <label class="active" for="city">City</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input
                 value="{{ user.country }}"
                 id="country"
                 name="country"
                 type="text"
                 class="validate"
               />
-							<label class="active" for="country">Country</label>
-						</div>
-						<div class="input-field col s12 m6 l4">
-							<input
+              <label class="active" for="country">Country</label>
+            </div>
+            <div class="input-field col s12 m6 l4">
+              <input
                 value="{{ user.email }}"
                 id="email"
                 name="email"
                 type="email"
                 class="validate"
               />
-							<label class="active" for="email">Email</label>
-						</div>
-						<div class="input-field col s12 m6 l4">
-							<input
+              <label class="active" for="email">Email</label>
+            </div>
+            <div class="input-field col s12 m6 l4">
+              <input
                 value="{{ user.facebook }}"
                 id="facebook"
                 name="facebook"
@@ -68,11 +76,11 @@
                 class="validate"
                 placeholder="https://www."
               />
-							<label class="active" for="facebook">Facebook Profile URL</label>
-						</div>
-						<div class="input-field col s12 m6 l4">
-							<label class="active" for="Mobile">Mobile</label> <br />
-							<input
+              <label class="active" for="facebook">Facebook Profile URL</label>
+            </div>
+            <div class="input-field col s12 m6 l4">
+              <label class="active" for="Mobile">Mobile</label> <br />
+              <input
                 value="{{ user.mobile }}"
                 id="mobile"
                 name="mobile"
@@ -80,8 +88,8 @@
                 class="validate"
               />
             </div>
-							<div class="input-field">
-								<input
+            <div class="input-field">
+              <input
                 value="{{user.password}}"
                 id="password"
                 name="password"
@@ -89,8 +97,8 @@
                 class="noshow"
               />
             </div>
-								<div class="input-field">
-									<input
+            <div class="input-field">
+              <input
                 value="{{user.username}}"
                 id="username"
                 name="username"
@@ -98,18 +106,18 @@
                 class="noshow"
               />
             </div>
-								</div>
-								<div class="file-field input-field">
-									<div class="btn">
-										<span>Update Profile Picture</span>
-										<input type="file" name="event_image_s3" id="event_image_s3" />
+          </div>
+          <div class="file-field input-field">
+            <div class="btn purple darken-3">
+              <span>Update Profile Picture</span>
+              <input type="file" name="event_image_s3" id="event_image_s3" />
             </div>
-										<div class="file-path-wrapper">
-											<input class="file-path validate" type="text" id="s3-check" />
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" id="s3-check" />
             </div>
-										</div>
-										<div class="noshow">
-											<input
+          </div>
+          <div class="noshow">
+            <input
               value="{{user.event_image}}"
               id="event_image"
               name="event_image"
@@ -117,49 +125,61 @@
               class="validate"
             />
           </div>
-											<div class="noshow">
-												Checker
-												<input
+          <div class="noshow">
+            Checker
+            <input
               type="text"
               name="image-check"
               id="image-check"
               value="no change"
             />
           </div>
-												<button class="btn waves-effect waves-light" type="submit">
+          <button
+            class="btn waves-effect waves-light purple darken-3"
+            type="submit"
+          >
             Edit Details<i class="material-icons right">edit</i>
           </button>
-				</form>
-				<!-- Dropdown Trigger -->
-				<a class="dropdown-trigger btn red" href="#" data-target="deletedropdown">Delete Profile</a>
+        </form>
+        <!-- Dropdown Trigger -->
+        <a
+          class="dropdown-trigger btn red"
+          href="#"
+          data-target="deletedropdown"
+          >Delete Profile</a
+        >
 
-				<!-- Dropdown Structure -->
-				<ul id="deletedropdown" class="dropdown-content center">
+        <!-- Dropdown Structure -->
+        <ul id="deletedropdown" class="dropdown-content center">
           <h5 class="red-text">Are Your Sure???</h5>
-					<li><a href="{{url_for('delete_profile', organiser_id=user._id)}}">Yes, delete me forever</a></li>
-					<li><a href="#!">God no, save me!!!</a></li>
-				</ul>
-			</div>
-		</li>
-		<li>
-			<div class="collapsible-header">
-				<i class="material-icons">event</i>Your events
-			</div>
-			<div class="collapsible-body">
-				<span>A list of all events you have on "Dance Your Way"</span>
-				<div class="row">
-					{% for event in events%}
-					<div class="col s12 m6 l4">
-						<div class="card">
-							<div class="card-image waves-effect waves-block waves-light">
-								<img
+          <li>
+            <a href="{{url_for('delete_profile', organiser_id=user._id)}}"
+              >Yes, delete me forever</a
+            >
+          </li>
+          <li><a href="#!">God no, save me!!!</a></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons">event</i>Your events
+      </div>
+      <div class="collapsible-body">
+        <span>A list of all events you have on "Dance Your Way"</span>
+        <div class="row">
+          {% for event in events%}
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img
                   class="activator"
                   src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
                   alt="{{event.event_name}} event image"
                 />
               </div>
-								<div class="card-content">
-									<span class="card-title activator grey-text text-darken-4">
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
                   <h5>{{event.event_name}}</h5>
                   <strong>{{event.weekday}}:</strong> {{event.time}}
                   <br />
@@ -178,73 +198,89 @@
                   <a
                     class="btn-floating halfway-fab waves-effect waves-light red"
                     ><i class="material-icons right">add</i></a
-                  ></span>
-									<p>
-										<a href="https://{{event.event_link}}" target="_blank">See event</a>
-									</p>
-								</div>
-								<div class="card-reveal" style="background-image: linear-gradient(
+                  ></span
+                >
+                <p>
+                  <a href="https://{{event.event_link}}" target="_blank"
+                    >See event</a
+                  >
+                </p>
+              </div>
+              <div
+                class="card-reveal"
+                style="background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});">
-									<span class="card-title">
+    url(https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}});"
+              >
+                <span class="card-title">
                   <i class="material-icons right">close</i>
                 </span>
-									<h4>
-										{{event.event_name}}
-									</h4>
-									<div class="row">
-										<p class="col s4">
-											Description:
-										</p>
-										<p class="col s8">
-											{{event.event_description}}
-										</p>
-									</div>
-									<div class="row">
-										<p class="col s4">
-											Price:
-										</p>
-										<p class="col s8">
-											{{event.price}}
-										</p>
-									</div>
-									<div class="row">
-										<p class="col s4">
-											Address:
-										</p>
-										<p class="col s8">
-											{{event.address}}
-										</p>
-									</div>
-									<div class="row">
-										<p class="col s4">
-											Organiser:
-										</p>
-										<p class="col s8">
-											<a
-												href="{{url_for('organiser', organiser_username=event.username)}}">{{event.username}}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="center">
-								<a href="{{url_for('edit_event', event_id=event._id)}}"
-									class="btn waves-effect waves-light">
-									Edit Event
-								</a>
-								<a href="{{url_for('delete_event', event_id=event._id)}}"
-									class="btn waves-effect waves-light red">
-									Delete Event
-								</a>
-							</div>
-						</div>
-						{% endfor %}
-					</div>
-				</div>
-		</li>
-	</ul>
+                <h4>
+                  {{event.event_name}}
+                </h4>
+                <div class="row">
+                  <p class="col s4"><em> Description:</em></p>
+                  <p class="col s8">
+                    {{event.event_description}}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="col s4"><em> Price:</em></p>
+                  <p class="col s8">
+                    {{event.price}}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="col s4"><em> Address:</em></p>
+                  <p class="col s8">
+                    {{event.address}}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="col s4"><em> Organiser:</em></p>
+                  <p class="col s8">
+                    <a
+                      href="{{url_for('organiser', organiser_username=event.username)}}"
+                      >{{event.username}}</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="center">
+              <a
+                href="{{url_for('edit_event', event_id=event._id)}}"
+                class="btn waves-effect waves-light purple darken-3"
+              >
+                Edit Event
+              </a>
+              <!-- Dropdown Trigger -->
+              <a
+                class="dropdown-trigger btn red"
+                href="#"
+                data-target="deleteeventdropdown"
+                >Delete Event</a
+              >
+
+              <!-- Dropdown Structure -->
+              <ul id="deleteeventdropdown" class="dropdown-content center">
+                <h5 class="red-text">Are Your Sure???</h5>
+                <li>
+                  <a href="{{url_for('delete_event', event_id=event._id)}}"
+                    >Yes, delete it forever</a
+                  >
+                </li>
+                <li><a href="#!">No, let it live!!!</a></li>
+              </ul>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
 {% endblock %}
