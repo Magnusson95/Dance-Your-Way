@@ -58,6 +58,13 @@
   margin: 10px auto;
 }
 
+.small-profile-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 section {
   background-color: white;
 }

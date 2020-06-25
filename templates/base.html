@@ -32,10 +32,12 @@
           <ul class="right hide-on-med-and-down">
             {% if session['logged'] == True %}
             <li><a href="{{url_for('style')}}">Where to Dance</a></li>
+            <li><a href="{{url_for('get_organisers')}}">See all Organisers</a></li>
             <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
             <li><a href="{{url_for('sign_out')}}">Log Out</a></li>
             {% else %}
             <li><a href="{{url_for('style')}}">Where to Dance</a></li>
+            <li><a href="{{url_for('get_organisers')}}">See all Organisers</a></li>
             <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
             <li><a href="{{url_for('signup')}}">Log In/Sign Up</a></li>
             {% endif %}
@@ -57,10 +59,12 @@
         <li><a href="{{url_for('account')}}">Your Account</a></li>
         {% endif %} {% if session['logged'] == True %}
         <li><a href="{{url_for('style')}}">Where to Dance</a></li>
+        <li><a href="{{url_for('get_organisers')}}">See all Organisers</a></li>
         <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
         <li><a href="{{url_for('sign_out')}}">Log Out</a></li>
         {% else %}
         <li><a href="{{url_for('style')}}">Where to Dance</a></li>
+        <li><a href="{{url_for('get_organisers')}}">See all Organisers</a></li>
         <li><a href="{{url_for('add_event')}}">Add Your Event</a></li>
         <li><a href="{{url_for('signup')}}">Log In/Sign Up</a></li>
         {% endif %}
@@ -106,6 +110,7 @@
         $("select").formSelect();
         $(".collapsible").collapsible();
         $(".timepicker").timepicker();
+        $('.dropdown-trigger').dropdown();
         $(
           "#name,#event_name,#address,#event_image_s3,#salsa,#bachata,#kizomba,#time,#weekday"
         ).on("keypress", function (event) {

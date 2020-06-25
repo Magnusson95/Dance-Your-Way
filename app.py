@@ -160,6 +160,13 @@ def edituser(organiser_username):
         flash('You have updated your details')
         return redirect(url_for('account'))
 
+
+@app.route('/delete_profile/<organiser_id>')
+def delete_profile(organiser_id):
+    mongo.db.organiser.remove({'_id': ObjectId(organiser_id)})
+    return redirect(url_for('sign_out'))
+
+
 @app.route('/add-event')
 def add_event():
     if 'logged' in session:
@@ -252,12 +259,20 @@ def get_kizomba_events():
     return render_template("kizomba.html", events=mongo.db.events.find())
 
 
+@app.route('/get_organisers')
+def get_organisers():
+    organiser = mongo.db.organisers.find().sort("username")
+    events = mongo.db.events.find()
+    return render_template("all-organisers.html", organiser=organiser, events=events)
+
+
 @app.route('/organiser/<organiser_username>')
 def organiser(organiser_username):
     _organiser = mongo.db.organisers.find_one({"username": organiser_username})
+    _event = mongo.db.events.find({"username": organiser_username})
     return render_template(
                             "organiser.html",
-                            organiser=_organiser)
+                            organiser=_organiser, events=_event)
 
 
 if __name__ == '__main__':
