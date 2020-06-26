@@ -18,7 +18,7 @@
           class="validate"
         />
       </div>
-      <div class="input-field col s12 m4 l4">
+      <div class="input-field col s12 m8 l8">
         <input
           value="{{event.event_name}}"
           id="event_name"
@@ -27,6 +27,16 @@
           class="validate"
         />
         <label class="active" for="event_name">Event Name</label>
+      </div>
+      <div class="input-field col s12 m4 l4">
+        <input
+          value="{{event.event_link}}"
+          id="event_link"
+          name="event_link"
+          type="text"
+          class="validate"
+        />
+        <label class="active" for="event_link">Event Social Link</label>
       </div>
       <div class="input-field col s12 m4 l4">
         <input
@@ -40,13 +50,23 @@
       </div>
       <div class="input-field col s12 m4 l4">
         <input
-          value="{{event.event_link}}"
-          id="event_link"
-          name="event_link"
+          value="{{event.city}}"
+          id="city"
+          name="city"
           type="text"
           class="validate"
         />
-        <label class="active" for="event_link">Event Social Link</label>
+        <label class="active" for="city">City</label>
+      </div>
+      <div class="input-field col s12 m4 l4">
+        <input
+          value="{{event.country}}"
+          id="country"
+          name="country"
+          type="text"
+          class="validate"
+        />
+        <label class="active" for="country">Country</label>
       </div>
     </div>
     <div class="row">

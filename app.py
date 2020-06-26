@@ -218,6 +218,8 @@ def update_event(event_id):
         'salsa': request.form.get('salsa'),
         'bachata': request.form.get('bachata'),
         'kizomba': request.form.get('kizomba'),
+        'city': request.form.get('city'),
+        'country': request.form.get('couuntry'),
     }
     )
     if request.form.get('image-check') == "no change":

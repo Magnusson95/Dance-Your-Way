@@ -78,7 +78,8 @@
         {% if session['logged'] == True %}
         <li>
           <a href="{{url_for('account')}}"
-            ><i class="material-icons sidenav-icon">account_circle</i>Your Account</a
+            ><i class="material-icons sidenav-icon">account_circle</i>Your
+            Account</a
           >
         </li>
         {% endif %} {% if session['logged'] == True %}
@@ -89,7 +90,8 @@
         </li>
         <li>
           <a href="{{url_for('get_organisers')}}"
-            ><i class="material-icons sidenav-icon">assignment_ind</i>See Organisers</a
+            ><i class="material-icons sidenav-icon">assignment_ind</i>See
+            Organisers</a
           >
         </li>
         <li>
@@ -110,7 +112,8 @@
         </li>
         <li>
           <a href="{{url_for('get_organisers')}}"
-            ><i class="material-icons sidenav-icon">assignment_ind</i>Organisers</a
+            ><i class="material-icons sidenav-icon">assignment_ind</i
+            >Organisers</a
           >
         </li>
         <li>
@@ -120,7 +123,8 @@
         </li>
         <li>
           <a href="{{url_for('signup')}}"
-            ><i class="material-icons sidenav-icon">check_circle</i>Log In/Sign Up</a
+            ><i class="material-icons sidenav-icon">check_circle</i>Log In/Sign
+            Up</a
           >
         </li>
         {% endif %}
@@ -134,10 +138,37 @@
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">Footer Content</h5>
-            <p class="grey-text text-lighten-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
+            <h5 class="white-text">Contact Us</h5>
+            <form class="contact-form">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    class="validate"
+                  />
+                  <label class="active" for="email">Email Address</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="name" name="name" type="text" class="validate" />
+                  <label class="active" for="name">Your Name</label>
+                </div>
+                <div class="input-field col s12">
+                  <textarea
+                    id="message"
+                    name="message"
+                    class="materialize-textarea validate"
+                  ></textarea>
+                  <label class="active" for="message">Your Message</label>
+                </div>
+                <div class="center">
+                  <button class="btn waves-effect waves-light" type="submit">
+                    Send Message<i class="material-icons right">arrow_right</i>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
           <div class="col l4 offset-l2 s12">
             <h5 class="white-text">Social Media</h5>

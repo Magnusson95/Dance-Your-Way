@@ -11,7 +11,7 @@
   <h5>{{organiser.about}}</h5>
   <h3>Contact Details:</h3>
   <h5>Email: <a href="mailto: {{organiser.email}}">{{organiser.email}}</a></h5>
-  <h5>Mobile: {{organiser.number}}</h5>
+  <h5>Mobile: {{organiser.mobile}}</h5>
   <h5>
     Facebook:
     <a href="{{organiser.facebook}}" target="_blank">{{organiser.facebook}}</a>
@@ -19,7 +19,7 @@
   <h3>{{organiser.username}}'s events:</h3>
   <div class="row">
     {% for event in events%}
-    <div class="col s12 m6 l4">
+    <div class="col s12 m6 l6 xl4">
       <div class="card">
         <div class="card-image waves-effect waves-block waves-light">
           <img
@@ -69,7 +69,7 @@
             {{event.event_name}}
           </h4>
           <div class="row">
-            <p class="col s4"><em> Description:</em></p>
+            <p class="col s4"><em> About:</em></p>
             <p class="col s8">
               {{event.event_description}}
             </p>

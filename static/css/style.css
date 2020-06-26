@@ -23,9 +23,26 @@ body {
   margin: 0 10px;
 }
 
+.contact-form input, .contact-form textarea {
+  color: white
+}
+
+.contact-form button {
+  width: 50%;
+  margin: 0px 0px 15px 0px
+}
+
 .hero-title {
   font-size: 100px;
   line-height: 60px;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: #924abee7
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #6a1b9a
 }
 
 .sidenav {
@@ -164,6 +181,7 @@ ul {
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
+  padding: 12px !important
 }
 
 #salsa-picker {
@@ -185,7 +203,7 @@ ul {
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url("../images/ataca-y-la-alemana-1.jpg");
+    url("https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/ataca-y-la-alemana-1-snipped.jpg");
   background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
@@ -198,7 +216,7 @@ ul {
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url("../images/lokito-y-oksana-1.jpg");
+    url("https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/lokito-y-oksana-1-snipped.jpg");
   background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
