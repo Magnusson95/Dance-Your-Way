@@ -17,12 +17,10 @@ app = Flask(__name__)
 
 ACCESS_KEY_ID = os.environ.get('ACCESS_KEY_ID')
 ACCESS_SECRET_KEY = os.environ.get('ACCESS_SECRET_KEY')
-GOOGLE_GEO_ACCESS_KEY = os.environ.get('GOOGLE_GEO_ACCESS_KEY')
-MONGO_URI_KEY = os.environ.get('MONGO_URI_KEY')
+GOOGLE_ACCESS_KEY = os.environ.get('GOOGLE_ACCESS_KEY')
 app.secret_key = os.environ.get('secret_key')
 app.config["MONGO_DBNAME"] = 'events_manager'
-# app.config["MONGO_URI"] = MONGO_URI_KEY
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI_KEY")  # from Tim ;)
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI_KEY")
 mongo = PyMongo(app)
 
 
@@ -30,9 +28,26 @@ mongo = PyMongo(app)
 def home():
     weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
                 "Friday", "Saturday", "Sunday")
-    return render_template("index.html", events=mongo.db.events.
-                           find({"weekday": weekdays[datetime.now()
-                                                     .weekday()]}))
+    events = mongo.db.events.find(
+        {"weekday": weekdays[datetime.now().weekday()]}
+    )
+    countries = mongo.db.countries.find().sort("country_name")
+    return render_template("index.html", events=events, countries=countries)
+
+
+@app.route('/filtered_index', methods=['POST', 'GET'])
+def filtered_index():
+    country = request.form["country"]
+    weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
+                "Friday", "Saturday", "Sunday")
+    events = mongo.db.events.find(
+        {
+            "weekday": weekdays[datetime.now().weekday()],
+            "country": country
+        }
+    )
+    countries = mongo.db.countries.find().sort("country_name")
+    return render_template("index.html", events=events, countries=countries)
 
 
 @app.route('/signup')
@@ -185,14 +200,15 @@ def add_event():
 @app.route('/insert-event', methods=['POST'])
 def insert_event():
     events = mongo.db.events
-    gmaps_key = googlemaps.Client(key=GOOGLE_GEO_ACCESS_KEY)
+    gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
     geocode_result = gmaps_key.geocode(request.form.get('address'))
     lat = geocode_result[0]["geometry"]["location"]["lat"]
     lon = geocode_result[0]["geometry"]["location"]["lng"]
-    # events.insert_one(request.form.to_dict())
-    # newEvent = mongo.db.events.insert_one({dict})
     newEvent = events.insert_one(request.form.to_dict())
-    events.update_one({"_id": ObjectId(newEvent.inserted_id)}, {"$set": {"lat": lat, "lon": lon}})
+    events.update_one(
+        {"_id": ObjectId(newEvent.inserted_id)},
+        {"$set": {"lat": lat, "lon": lon}}
+    )
     s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
                         aws_secret_access_key=ACCESS_SECRET_KEY)
     s3.Bucket('dance-your-way-event-images').put_object(
