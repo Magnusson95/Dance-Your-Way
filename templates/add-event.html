@@ -30,10 +30,10 @@
       </div>
       <div class="input-field col s12 m4 l4">
         <input
-          value="www."
+          placeholder="https://www."
           id="event_link"
           name="event_link"
-          type="text"
+          type="url"
           class="validate"
         />
         <label class="active" for="event_link">Event Social Link</label>
@@ -49,24 +49,21 @@
         <label class="active" for="address">Event Address</label>
       </div>
       <div class="input-field col s12 m4 l4">
-        <input
-          value=""
-          id="city"
-          name="city"
-          type="text"
-          class="validate"
-        />
+        <input value="" id="city" name="city" type="text" class="validate" />
         <label class="active" for="city">City</label>
       </div>
-      <div class="input-field col s12 m4 l4">
-        <input
-          value=""
-          id="country"
-          name="country"
-          type="text"
-          class="validate"
-        />
-        <label class="active" for="country">Country</label>
+      <div class="col s12 m4 l4">
+        <div class="input-field col s12">
+          <select name="country" id="country">
+            <option disabled selected value="">Please select a country</option>
+            {% for country in countries %}
+            <option value="{{country.country_name}}"
+              >{{country.country_name}}</option
+            >
+            {% endfor %}
+          </select>
+          <label>Country</label>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -109,6 +106,7 @@
       <div class="col s12 m6 l4">
         <div class="input-field col s12">
           <select name="weekday" id="weekday">
+            <option disabled selected value="">Select a day</option>
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
             <option value="Wednesday">Wednesday</option>

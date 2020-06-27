@@ -47,15 +47,20 @@
               />
               <label class="active" for="city">City</label>
             </div>
-            <div class="input-field col s12 m6">
-              <input
-                value="{{ user.country }}"
-                id="country"
-                name="country"
-                type="text"
-                class="validate"
-              />
-              <label class="active" for="country">Country</label>
+            <div class="col s12 m4 l4">
+              <div class="input-field col s12">
+                <select name="country" id="country">
+                  <option selected value="{{user.country}}"
+                    >{{user.country}}</option
+                  >
+                  {% for country in countries %}
+                  <option value="{{country.country_name}}"
+                    >{{country.country_name}}</option
+                  >
+                  {% endfor %}
+                </select>
+                <label>Country</label>
+              </div>
             </div>
             <div class="input-field col s12 m6 l4">
               <input
@@ -79,12 +84,12 @@
               <label class="active" for="facebook">Facebook Profile URL</label>
             </div>
             <div class="input-field col s12 m6 l4">
-              <label class="active" for="Mobile">Mobile</label> <br />
+              <label class="active" for="Mobile">Mobile</label>
               <input
                 value="{{ user.mobile }}"
                 id="mobile"
                 name="mobile"
-                type="mobile"
+                type="text"
                 class="validate"
               />
             </div>
@@ -181,6 +186,7 @@
               <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">
                   <h5>{{event.event_name}}</h5>
+                  <h5>{{event.city}}, {{event.country}}</h5>
                   <strong>{{event.weekday}}:</strong> {{event.time}}
                   <br />
                   <strong>
@@ -201,9 +207,7 @@
                   ></span
                 >
                 <p>
-                  <a href="https://{{event.event_link}}" target="_blank"
-                    >See event</a
-                  >
+                  <a href="{{event.event_link}}" target="_blank">See event</a>
                 </p>
               </div>
               <div
@@ -236,7 +240,7 @@
                 <div class="row">
                   <p class="col s4"><em> Address:</em></p>
                   <p class="col s8">
-                    {{event.address}}
+                    {{event.address}}, {{event.city}}, {{event.country}}
                   </p>
                 </div>
                 <div class="row">

@@ -34,7 +34,7 @@
   autoplay
   loop
   muted
-  src="{{url_for('static', filename='images/Caramba Final (1).mp4')}}"
+  src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/Caramba+Final+(1).mp4"
 ></video>
 <section>
   <h1 id="today" class="center section scrollspy">Today's Events</h1>
@@ -53,6 +53,7 @@
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">
               <h5>{{event.event_name}}</h5>
+              <h5>{{event.city}}, {{event.country}}</h5>
               <strong>{{event.weekday}}:</strong> {{event.time}}
               <br />
               <strong>
@@ -72,7 +73,7 @@
               ></span
             >
             <p>
-              <a href="https://{{event.event_link}}" target="_blank"
+              <a href="{{event.event_link}}" target="_blank"
                 >See event</a
               >
             </p>
@@ -107,7 +108,7 @@
             <div class="row">
               <p class="col s4"><em> Address:</em></p>
               <p class="col s8">
-                {{event.address}}
+                {{event.address}}, {{event.city}}, {{event.country}}
               </p>
             </div>
             <div class="row">

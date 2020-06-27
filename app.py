@@ -116,7 +116,8 @@ def account():
         current_user = session['username']
         find_user = mongo.db.organisers.find_one({'username': current_user})
         events = mongo.db.events.find({'username': current_user})
-        return render_template("account.html", events=events, user=find_user)
+        countries = mongo.db.countries.find().sort("country_name")
+        return render_template("account.html", events=events, user=find_user, countries=countries)
     else:
         flash('Please log in to view your account')
         return redirect(url_for('signup'))
@@ -172,10 +173,11 @@ def add_event():
     if 'logged' in session:
         current_user = session['username']
         find_user = mongo.db.organisers.find_one({'username': current_user})
+        countries = mongo.db.countries.find().sort("country_name")
         return render_template(
                                 "add-event.html",
                                 events=mongo.db.events.find(),
-                                user=find_user)
+                                user=find_user, countries=countries)
     else:
         flash('Please log in to add an event')
         return redirect(url_for('signup'))
@@ -198,7 +200,8 @@ def edit_event(event_id):
     the_event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     current_user = session['username']
     find_user = mongo.db.organisers.find_one({'username': current_user})
-    return render_template("edit-event.html", user=find_user, event=the_event)
+    countries = mongo.db.countries.find().sort("country_name")
+    return render_template("edit-event.html", user=find_user, event=the_event, countries=countries)
 
 
 @app.route('/update_event/<event_id>', methods=['POST'])
@@ -219,7 +222,7 @@ def update_event(event_id):
         'bachata': request.form.get('bachata'),
         'kizomba': request.form.get('kizomba'),
         'city': request.form.get('city'),
-        'country': request.form.get('couuntry'),
+        'country': request.form.get('country'),
     }
     )
     if request.form.get('image-check') == "no change":

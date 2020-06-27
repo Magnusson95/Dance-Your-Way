@@ -33,7 +33,7 @@
           value="{{event.event_link}}"
           id="event_link"
           name="event_link"
-          type="text"
+          type="url"
           class="validate"
         />
         <label class="active" for="event_link">Event Social Link</label>
@@ -58,15 +58,18 @@
         />
         <label class="active" for="city">City</label>
       </div>
-      <div class="input-field col s12 m4 l4">
-        <input
-          value="{{event.country}}"
-          id="country"
-          name="country"
-          type="text"
-          class="validate"
-        />
-        <label class="active" for="country">Country</label>
+      <div class="col s12 m4 l4">
+        <div class="input-field col s12">
+          <select name="country" id="country">
+            <option value="{{event.country}}">{{event.country}}</option>
+            {% for country in countries %}
+            <option value="{{country.country_name}}"
+              >{{country.country_name}}</option
+            >
+            {% endfor %}
+          </select>
+          <label>Country</label>
+        </div>
       </div>
     </div>
     <div class="row">
