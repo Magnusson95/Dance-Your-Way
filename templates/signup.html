@@ -5,21 +5,21 @@
 		<form action="{{url_for('adduser')}}" method="POST" class="col s12" id="signup">
 			<div class="row">
 				<div class="input-field col s12">
-					<input value="" id="email" name="email" type="email" class="validate" />
+					<input id="email" name="email" type="email" class="validate" required/>
 					<label class="active" for="email">Email</label>
 				</div>
 				<div class="input-field col s12">
-					<input value="" id="username" name="username" type="text" class="validate" />
+					<input id="username" name="username" type="text" class="validate" required/>
 					<label class="active" for="username">Username</label>
 				</div>
 				<div class="input-field col s12">
-					<input value="" id="password" name="password" type="password" class="validate" />
+					<input id="password" name="password" type="password" class="validate" required/>
 					<label class="active" for="password">Password</label>
 				</div>
 			</div>
       <div class="col s4 switch">
 					<label>
-          <input type="checkbox" name="t&c" id="t&c" />
+          <input type="checkbox" name="t&c" id="t&c" required/>
           <span class="lever"></span>
           I have read and understand the <a href="{{url_for('terms')}}" target="_blank">terms and conditions</a>
         </label>
@@ -32,11 +32,11 @@
 		<form action="{{url_for('login')}}" method="POST" class="col s12" id="login">
 			<div class="row">
 				<div class="input-field col s12">
-					<input value="" id="login_username" name="login_username" type="text" class="validate" />
+					<input id="login_username" name="login_username" type="text" class="validate" required/>
 					<label class="active" for="login_username">Username</label>
 				</div>
 				<div class="input-field col s12">
-					<input value="" id="login_password" name="login_password" type="password" class="validate" />
+					<input id="login_password" name="login_password" type="password" class="validate" required/>
 					<label class="active" for="login_password">Password</label>
 				</div>
 			</div>

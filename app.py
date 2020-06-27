@@ -1,13 +1,12 @@
 import os
 import boto3
+import googlemaps
 from datetime import datetime
-from flask import Flask, render_template, redirect, request, url_for, flash, session
+from flask import Flask, render_template, redirect, request, url_for, flash,\
+    session
 from flask_pymongo import PyMongo
-from wtforms import Form, BooleanField, TextField, PasswordField, validators
 from werkzeug.security import generate_password_hash, check_password_hash
-from passlib.hash import sha256_crypt
 from bson.objectid import ObjectId
-from botocore.client import Config
 from os import path
 if path.exists("env.py"):
     import env
@@ -18,20 +17,11 @@ app = Flask(__name__)
 
 ACCESS_KEY_ID = os.environ.get('ACCESS_KEY_ID')
 ACCESS_SECRET_KEY = os.environ.get('ACCESS_SECRET_KEY')
+GOOGLE_GEO_ACCESS_KEY = os.environ.get('GOOGLE_GEO_ACCESS_KEY')
 app.secret_key = os.environ.get('secret_key')
 app.config["MONGO_DBNAME"] = 'events_manager'
 app.config["MONGO_URI"] = 'mongodb+srv://prelaunch:prelaunch@danceyourway-fmkw8.mongodb.net/events_manager?retryWrites=true&w=majority'
 mongo = PyMongo(app)
-
-
-class RegistrationForm(Form):
-    username = TextField('Username', [validators.Length(min=4, max=20)])
-    email = TextField('Email Address', [validators.Length(min=6, max=50)])
-    password = PasswordField('New Password', [
-        validators.Required(),
-        validators.EqualTo('confirm', message='Passwords must match')
-    ])
-    confirm = PasswordField('Repeat Password')
 
 
 @app.route('/')
@@ -40,7 +30,7 @@ def home():
                 "Friday", "Saturday", "Sunday")
     return render_template("index.html", events=mongo.db.events.
                            find({"weekday": weekdays[datetime.now()
-                                .weekday()]}))
+                                                     .weekday()]}))
 
 
 @app.route('/signup')
@@ -78,7 +68,7 @@ def adduser():
         )
         session['username'] = request.form['username']
         session['logged'] = True
-        return redirect(url_for('add_event'))
+        return redirect(url_for('account'))
     else:
         flash('Username already exists')
         return redirect(url_for('signup'))
@@ -95,9 +85,9 @@ def login():
         {'username': request.form['login_username']})
     if find_organiser:
         if check_password_hash(
-                                find_organiser['password'],
-                                request.form['login_password']
-                                ):
+            find_organiser['password'],
+            request.form['login_password']
+        ):
             flash('Welcome back ' + request.form['login_username'])
             session['username'] = request.form['login_username']
             session['logged'] = True
@@ -117,7 +107,12 @@ def account():
         find_user = mongo.db.organisers.find_one({'username': current_user})
         events = mongo.db.events.find({'username': current_user})
         countries = mongo.db.countries.find().sort("country_name")
-        return render_template("account.html", events=events, user=find_user, countries=countries)
+        return render_template(
+            "account.html",
+            events=events,
+            user=find_user,
+            countries=countries
+        )
     else:
         flash('Please log in to view your account')
         return redirect(url_for('signup'))
@@ -138,7 +133,7 @@ def sign_out():
 def edituser(organiser_username):
     organisers = mongo.db.organisers
     organisers.update({"username": organiser_username},
-    {
+                      {
         'facebook': request.form.get('facebook'),
         'mobile': request.form.get('mobile'),
         'email': request.form.get('email'),
@@ -149,7 +144,7 @@ def edituser(organiser_username):
         'city': request.form.get('city'),
         'country': request.form.get('country'),
     }
-        )
+    )
     if request.form.get('image-check') == "no change":
         flash('You have updated your details')
         return redirect(url_for('account'))
@@ -157,14 +152,15 @@ def edituser(organiser_username):
         s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
                             aws_secret_access_key=ACCESS_SECRET_KEY)
         s3.Bucket('dance-your-way-event-images').put_object(
-            Key=request.form['event_image'], Body=request.files['event_image_s3'])
+            Key=request.form['event_image'],
+            Body=request.files['event_image_s3'])
         flash('You have updated your details')
         return redirect(url_for('account'))
 
 
 @app.route('/delete_profile/<organiser_id>')
 def delete_profile(organiser_id):
-    mongo.db.organiser.remove({'_id': ObjectId(organiser_id)})
+    mongo.db.organisers.remove({'_id': ObjectId(organiser_id)})
     return redirect(url_for('sign_out'))
 
 
@@ -175,9 +171,10 @@ def add_event():
         find_user = mongo.db.organisers.find_one({'username': current_user})
         countries = mongo.db.countries.find().sort("country_name")
         return render_template(
-                                "add-event.html",
-                                events=mongo.db.events.find(),
-                                user=find_user, countries=countries)
+            "add-event.html",
+            events=mongo.db.events.find(),
+            user=find_user, countries=countries
+        )
     else:
         flash('Please log in to add an event')
         return redirect(url_for('signup'))
@@ -186,6 +183,10 @@ def add_event():
 @app.route('/insert-event', methods=['POST'])
 def insert_event():
     events = mongo.db.events
+    gmaps_key = googlemaps.Client(key=GOOGLE_GEO_ACCESS_KEY)
+    geocode_result = gmaps_key.geocode(request.form.get('address'))
+    lat = geocode_result[0]["geometry"]["location"]["lat"]
+    lon = geocode_result[0]["geometry"]["location"]["lng"]
     events.insert_one(request.form.to_dict())
     s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
                         aws_secret_access_key=ACCESS_SECRET_KEY)
@@ -201,19 +202,25 @@ def edit_event(event_id):
     current_user = session['username']
     find_user = mongo.db.organisers.find_one({'username': current_user})
     countries = mongo.db.countries.find().sort("country_name")
-    return render_template("edit-event.html", user=find_user, event=the_event, countries=countries)
+    return render_template(
+        "edit-event.html",
+        user=find_user,
+        event=the_event,
+        countries=countries
+    )
 
 
 @app.route('/update_event/<event_id>', methods=['POST'])
 def update_event(event_id):
     events = mongo.db.events
-    events.update({"_id": ObjectId(event_id)},
-    {
+    events.update({"_id": ObjectId(event_id)}, {
         'username': request.form.get('username'),
         'event_name': request.form.get('event_name'),
         'address': request.form.get('address'),
         'event_link': request.form.get('event_link'),
-        'event_description': request.form.get('event_description'),
+        'event_description': request.form.get(
+            'event_description'
+        ),
         'weekday': request.form.get('weekday'),
         'time': request.form.get('time'),
         'price': request.form.get('price'),
@@ -222,7 +229,7 @@ def update_event(event_id):
         'bachata': request.form.get('bachata'),
         'kizomba': request.form.get('kizomba'),
         'city': request.form.get('city'),
-        'country': request.form.get('country'),
+        'country': request.form.get('country')
     }
     )
     if request.form.get('image-check') == "no change":
@@ -232,7 +239,8 @@ def update_event(event_id):
         s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
                             aws_secret_access_key=ACCESS_SECRET_KEY)
         s3.Bucket('dance-your-way-event-images').put_object(
-            Key=request.form['event_image'], Body=request.files['event_image_s3'])
+            Key=request.form['event_image'],
+            Body=request.files['event_image_s3'])
         flash('You have updated your event')
         return redirect(url_for('account'))
 
@@ -268,7 +276,11 @@ def get_kizomba_events():
 def get_organisers():
     organiser = mongo.db.organisers.find().sort("username")
     events = mongo.db.events.find()
-    return render_template("all-organisers.html", organiser=organiser, events=list(events))
+    return render_template(
+        "all-organisers.html",
+        organiser=organiser,
+        events=list(events)
+    )
 
 
 @app.route('/organiser/<organiser_username>')
@@ -276,8 +288,8 @@ def organiser(organiser_username):
     _organiser = mongo.db.organisers.find_one({"username": organiser_username})
     _event = mongo.db.events.find({"username": organiser_username})
     return render_template(
-                            "organiser.html",
-                            organiser=_organiser, events=_event)
+        "organiser.html",
+        organiser=_organiser, events=_event)
 
 
 if __name__ == '__main__':
