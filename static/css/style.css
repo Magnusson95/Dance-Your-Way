@@ -23,6 +23,11 @@ body {
   margin: 0 10px;
 }
 
+#map {
+  height: 400px;
+  width: 100%
+}
+
 .contact-form input, .contact-form textarea {
   color: white
 }

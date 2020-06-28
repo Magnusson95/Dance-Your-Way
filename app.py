@@ -234,6 +234,10 @@ def edit_event(event_id):
 @app.route('/update_event/<event_id>', methods=['POST'])
 def update_event(event_id):
     events = mongo.db.events
+    gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
+    geocode_result = gmaps_key.geocode(request.form.get('address'))
+    lat = geocode_result[0]["geometry"]["location"]["lat"]
+    lon = geocode_result[0]["geometry"]["location"]["lng"]
     events.update({"_id": ObjectId(event_id)}, {
         'username': request.form.get('username'),
         'event_name': request.form.get('event_name'),
@@ -250,7 +254,9 @@ def update_event(event_id):
         'bachata': request.form.get('bachata'),
         'kizomba': request.form.get('kizomba'),
         'city': request.form.get('city'),
-        'country': request.form.get('country')
+        'country': request.form.get('country'),
+        'lat': lat,
+        'lon': lon
     }
     )
     if request.form.get('image-check') == "no change":

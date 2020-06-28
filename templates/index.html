@@ -28,9 +28,12 @@
 <section>
 	<h1 id="today" class="center section scrollspy">Today's Events</h1>
 	<div class="container">
+		<div id="map"></div>
+	</div>
+	<div class="container">
 		<form action="{{url_for('filtered_index')}}" method="POST" class="col s12" id="add-event"
 			enctype="multipart/form-data">
-      <div class="row">
+			<div class="row">
 				<div class="input-field col s12 m6">
 					<select name="country" id="country">
             <option disabled selected>Please select a country</option>
@@ -128,4 +131,19 @@
 			</div>
 		</div>
 </section>
+<script>
+	var map;
+function initMap() {
+  // Central Location
+  var europe = {lat: 49.5260, lng: 18.2551};
+  // The map, centered at Europe
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: europe});
+  // loading the markers
+  // {% for event in events|safe %}}
+  // var {{event.address }} = {lat: {{event.lat }}, lng: {{event.lng }}}
+  // var {{event._id }} = new google.maps.Marker({position: {{event.address}}, map: map})
+  // {% endfor %}
+}
+</script>
 {% endblock %}
