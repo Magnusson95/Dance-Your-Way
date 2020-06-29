@@ -41,6 +41,7 @@
   <div class="container">
     <div id="map"></div>
   </div>
+  <h1 class="center">Find events in your country:</h1>
   <div class="container">
     <form
       action="{{url_for('filtered_index')}}"
@@ -50,7 +51,7 @@
       enctype="multipart/form-data"
     >
       <div class="row">
-        <div class="input-field col s12 m6">
+        <div class="input-field col s12">
           <select name="country" id="country">
             <option disabled selected>Please select a country</option>
             {% for country in countries %}
@@ -61,19 +62,22 @@
           </select>
           <label>Country</label>
         </div>
-        <button
-          class="btn waves-effect waves-light purple darken-3"
-          type="submit"
-        >
-          Search
-          <i class="material-icons right">search</i>
-        </button>
+        <div class="col s12 center">
+          <button
+            class="center btn waves-effect waves-light purple darken-3"
+            type="submit"
+          >
+            Search
+            <i class="material-icons right">search</i>
+          </button>
+        </div>
       </div>
     </form>
+    <h1 class="center">{{country_title}}</h1>
     <div class="row">
       {% for event in events %}
       <div class="col s12 m6 l6 xl4">
-        <div class="card">
+        <div class="card" id="{{event._id}}">
           <div class="card-image waves-effect waves-block waves-light">
             <img
               class="activator"
@@ -159,21 +163,12 @@
 <script>
   // Initialize and add the map
   function initMap() {
-
     // Europe View
     // The location of Europe
-    // var europe = {lat: 49.5260, lng: 18.2551};
+    var europe = {lat: 49.5260, lng: 18.2551};
     // The map, centered on Europe
-    // var map = new google.maps.Map(
-        // document.getElementById('map'), {zoom: 4, center: europe});
-
-
-    // London View
-    // The location of London
-    var london = {lat: 51.539668, lng:  -0.156356};
-    // The map, centered on London
     var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 11, center: london});
+        document.getElementById('map'), {zoom: 4, center: europe});
     // The markers, positioned from event loops
     {% for item in markers %}
 
@@ -183,30 +178,35 @@
       title: '{{item.event_name}}'
       });
       marker.addListener('click', function() {
-        var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-      '<div id="bodyContent">'+
-      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-      'sandstone rock formation in the southern part of the '+
-      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-      'south west of the nearest large town, Alice Springs; 450&#160;km '+
-      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-      'Aboriginal people of the area. It has many springs, waterholes, '+
-      'rock caves and ancient paintings. Uluru is listed as a World '+
-      'Heritage Site.</p>'+
-      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-      '(last visited June 22, 2009).</p>'+
-      '</div>'+
-      '</div>';
+        var contentString =
+        '<div class="smallcard">'+
+          '<div class="row">'+
+            '<div class="col s6 smallcard-image">'+
+              '<img src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{item.event_image}}" alt="{{item.event_name}} event image" />'+
+            '</div>'+
+            '<div class="col s6 center">'+
+              '<h5>{{item.event_name}}</h5>'+
+              '<p><strong>{{item.weekday}}</strong></p>'+
+              '<p><strong>{{item.time}}</strong></p>'+
+              '<ul>'+
+                '{% if item.salsa == 'on' %}'+
+                '<li>Salsa</li>'+
+                '{% else %} {% endif %} {% if item.bachata == 'on' %}'+
+                '<li>Bachata</li>'+
+                '{% else %} {% endif %} {% if item.kizomba == 'on' %}'+
+                '<li>Kizomba</li>'+
+                '{% else %} {% endif %}'+
+              '</ul>'+
+              '<a href="#{{item._id}}">More details</a>'+
+              '<br >'+
+              '<a href="https://www.google.com/maps/dir/?api=1&amp;destination={{item.lat}},{{item.lon}}" target="_blank">Directions</a>'+
+            '</div>'+
+          '</div>'+
+        '</div>';
         var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
-        infowindow.open(map, marker);
+        infowindow.open(map, this);
       });
 
     {% endfor %}

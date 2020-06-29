@@ -54,8 +54,20 @@ def filtered_index():
             "country": country
         }
     )
+    locations = mongo.db.events.find(
+        {
+            "weekday": weekdays[datetime.now().weekday()],
+            "country": country
+        }
+    )
     countries = mongo.db.countries.find().sort("country_name")
-    return render_template("index.html", events=events, countries=countries)
+    return render_template(
+        "index.html",
+        events=list(events),
+        countries=countries,
+        markers=list(locations),
+        country_title=country
+        )
 
 
 @app.route('/signup')
@@ -209,7 +221,7 @@ def add_event():
 def insert_event():
     events = mongo.db.events
     gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
-    geocode_result = gmaps_key.geocode(request.form.get('address'))
+    geocode_result = gmaps_key.geocode(request.form.get('address')+request.form.get('city')+request.form.get('country'))
     lat = geocode_result[0]["geometry"]["location"]["lat"]
     lon = geocode_result[0]["geometry"]["location"]["lng"]
     newEvent = events.insert_one(request.form.to_dict())
@@ -243,7 +255,7 @@ def edit_event(event_id):
 def update_event(event_id):
     events = mongo.db.events
     gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
-    geocode_result = gmaps_key.geocode(request.form.get('address'))
+    geocode_result = gmaps_key.geocode(request.form.get('address')+request.form.get('city')+request.form.get('country'))
     lat = geocode_result[0]["geometry"]["location"]["lat"]
     lon = geocode_result[0]["geometry"]["location"]["lng"]
     events.update({"_id": ObjectId(event_id)}, {

@@ -89,6 +89,10 @@ body {
   height: 520px;
 }
 
+.smallcard {
+  height: 100%;
+}
+
 .card i {
   line-height: 40px !important;
 }
@@ -102,6 +106,13 @@ body {
   width: auto;
   object-fit: cover;
 }
+
+.smallcard-image img {
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .card-content {
   padding: 0 24px 24px 24px !important;
 }
