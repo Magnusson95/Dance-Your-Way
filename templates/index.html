@@ -1,41 +1,57 @@
 {% extends 'base.html' %} {% block content %}
 <div class="hero">
-	<div class="hero-content center white-text">
-		<p class="hero-title"><strong>Dance Your Way</strong></p>
-		<div class="row center container">
-			<div class="col s12 m6">
-				<a href="{{url_for('add_event')}}"
-					class="btn-large waves-effect waves-light waves-ripple purple darken-3">
-					Add Your Event
-				</a>
-			</div>
-			<div class="col s12 m6">
-				<a href="{{url_for('style')}}" class="btn-large waves-effect waves-light waves-ripple purple darken-3">
-					Find Events
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="center today-link">
-		<a href="#today" class="btn purple darken-3">
-			What's On Today <br />
-			<i class="large material-icons">arrow_downward</i>
-		</a>
-	</div>
+  <div class="hero-content center white-text">
+    <p class="hero-title"><strong>Dance Your Way</strong></p>
+    <div class="row center container">
+      <div class="col s12 m6">
+        <a
+          href="{{url_for('add_event')}}"
+          class="btn-large waves-effect waves-light waves-ripple purple darken-3"
+        >
+          Add Your Event
+        </a>
+      </div>
+      <div class="col s12 m6">
+        <a
+          href="{{url_for('style')}}"
+          class="btn-large waves-effect waves-light waves-ripple purple darken-3"
+        >
+          Find Events
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="center today-link">
+    <a href="#today" class="btn purple darken-3">
+      What's On Today <br />
+      <i class="large material-icons">arrow_downward</i>
+    </a>
+  </div>
 </div>
-<video id="hero-video" preload="auto" autoplay loop muted
-	src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/Caramba+Final+(1).mp4"></video>
+<video
+  id="hero-video"
+  preload="auto"
+  autoplay
+  loop
+  muted
+  src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/Caramba+Final+(1).mp4"
+></video>
 <section>
-	<h1 id="today" class="center section scrollspy">Today's Events</h1>
-	<div class="container">
-		<div id="map"></div>
-	</div>
-	<div class="container">
-		<form action="{{url_for('filtered_index')}}" method="POST" class="col s12" id="add-event"
-			enctype="multipart/form-data">
-			<div class="row">
-				<div class="input-field col s12 m6">
-					<select name="country" id="country">
+  <h1 id="today" class="center section scrollspy">Today's Events</h1>
+  <div class="container">
+    <div id="map"></div>
+  </div>
+  <div class="container">
+    <form
+      action="{{url_for('filtered_index')}}"
+      method="POST"
+      class="col s12"
+      id="add-event"
+      enctype="multipart/form-data"
+    >
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <select name="country" id="country">
             <option disabled selected>Please select a country</option>
             {% for country in countries %}
             <option value="{{country.country_name}}"
@@ -43,27 +59,30 @@
             >
             {% endfor %}
           </select>
-					<label>Country</label>
-				</div>
-				<button class="btn waves-effect waves-light purple darken-3" type="submit">
-      Search
-      <i class="material-icons right">search</i>
-    </button>
-			</div>
-		</form>
-		<div class="row">
-			{% for event in events %}
-			<div class="col s12 m6 l6 xl4">
-				<div class="card">
-					<div class="card-image waves-effect waves-block waves-light">
-						<img
+          <label>Country</label>
+        </div>
+        <button
+          class="btn waves-effect waves-light purple darken-3"
+          type="submit"
+        >
+          Search
+          <i class="material-icons right">search</i>
+        </button>
+      </div>
+    </form>
+    <div class="row">
+      {% for event in events %}
+      <div class="col s12 m6 l6 xl4">
+        <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img
               class="activator"
               src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
               alt="{{event.event_name}} event image"
             />
           </div>
-						<div class="card-content">
-							<span class="card-title activator grey-text text-darken-4">
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">
               <h5>{{event.event_name}}</h5>
               <h5>{{event.city}}, {{event.country}}</h5>
               <strong>{{event.weekday}}:</strong> {{event.time}}
@@ -82,68 +101,115 @@
               </ul>
               <a class="btn-floating halfway-fab waves-effect waves-light red"
                 ><i class="material-icons right">add</i></a
-              ></span>
-							<p>
-								<a href="{{event.event_link}}" target="_blank">See event</a>
-							</p>
-						</div>
-						<div class="card-reveal" style="background-image: linear-gradient(
+              ></span
+            >
+            <p>
+              <a href="{{event.event_link}}" target="_blank">See event</a>
+            </p>
+          </div>
+          <div
+            class="card-reveal"
+            style="background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url('https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}');">
-							<span class="card-title">
+    url('https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}');"
+          >
+            <span class="card-title">
               <i class="material-icons right">close</i>
             </span>
-							<h4>
-								{{event.event_name}}
-							</h4>
-							<div class="row">
-								<p class="col s4"><em> Description:</em></p>
-								<p class="col s8">
-									{{event.event_description}}
-								</p>
-							</div>
-							<div class="row">
-								<p class="col s4"><em> Price:</em></p>
-								<p class="col s8">
-									{{event.price}}
-								</p>
-							</div>
-							<div class="row">
-								<p class="col s4"><em> Address:</em></p>
-								<p class="col s8">
-									{{event.address}}, {{event.city}}, {{event.country}}
-								</p>
-							</div>
-							<div class="row">
-								<p class="col s4"><em> Organiser:</em></p>
-								<p class="col s8">
-									<a
-										href="{{url_for('organiser', organiser_username=event.username)}}">{{event.username}}</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
+            <h4>
+              {{event.event_name}}
+            </h4>
+            <div class="row">
+              <p class="col s4"><em> Description:</em></p>
+              <p class="col s8">
+                {{event.event_description}}
+              </p>
+            </div>
+            <div class="row">
+              <p class="col s4"><em> Price:</em></p>
+              <p class="col s8">
+                {{event.price}}
+              </p>
+            </div>
+            <div class="row">
+              <p class="col s4"><em> Address:</em></p>
+              <p class="col s8">
+                {{event.address}}, {{event.city}}, {{event.country}}
+              </p>
+            </div>
+            <div class="row">
+              <p class="col s4"><em> Organiser:</em></p>
+              <p class="col s8">
+                <a
+                  href="{{url_for('organiser', organiser_username=event.username)}}"
+                  >{{event.username}}</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 <script>
-	var map;
-function initMap() {
-  // Central Location
-  var europe = {lat: 49.5260, lng: 18.2551};
-  // The map, centered at Europe
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: europe});
-  // loading the markers
-  // {% for event in events|safe %}}
-  // var {{event.address }} = {lat: {{event.lat }}, lng: {{event.lng }}}
-  // var {{event._id }} = new google.maps.Marker({position: {{event.address}}, map: map})
-  // {% endfor %}
-}
+  // Initialize and add the map
+  function initMap() {
+
+    // Europe View
+    // The location of Europe
+    // var europe = {lat: 49.5260, lng: 18.2551};
+    // The map, centered on Europe
+    // var map = new google.maps.Map(
+        // document.getElementById('map'), {zoom: 4, center: europe});
+
+
+    // London View
+    // The location of London
+    var london = {lat: 51.539668, lng:  -0.156356};
+    // The map, centered on London
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 11, center: london});
+    // The markers, positioned from event loops
+    {% for item in markers %}
+
+    var marker = new google.maps.Marker({
+      position: {lat: {{item.lat}}, lng: {{item.lon}}},
+      map: map,
+      title: '{{item.event_name}}'
+      });
+      marker.addListener('click', function() {
+        var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+      'sandstone rock formation in the southern part of the '+
+      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+      'south west of the nearest large town, Alice Springs; 450&#160;km '+
+      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+      'Aboriginal people of the area. It has many springs, waterholes, '+
+      'rock caves and ancient paintings. Uluru is listed as a World '+
+      'Heritage Site.</p>'+
+      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+      '(last visited June 22, 2009).</p>'+
+      '</div>'+
+      '</div>';
+        var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+        infowindow.open(map, marker);
+      });
+
+    {% endfor %}
+  }
 </script>
 {% endblock %}

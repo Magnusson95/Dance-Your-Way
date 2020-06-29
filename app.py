@@ -31,8 +31,16 @@ def home():
     events = mongo.db.events.find(
         {"weekday": weekdays[datetime.now().weekday()]}
     )
+    locations = mongo.db.events.find(
+        {"weekday": weekdays[datetime.now().weekday()]}
+    )
     countries = mongo.db.countries.find().sort("country_name")
-    return render_template("index.html", events=events, countries=countries)
+    return render_template(
+        "index.html",
+        events=list(events),
+        countries=countries,
+        markers=list(locations)
+        )
 
 
 @app.route('/filtered_index', methods=['POST', 'GET'])
@@ -307,7 +315,12 @@ def filtered_salsa():
         }
     )
     countries = mongo.db.countries.find().sort("country_name")
-    return render_template("salsa.html", events=events, countries=countries, country=country)
+    return render_template(
+                            "salsa.html",
+                            events=events,
+                            countries=countries,
+                            country=country
+                            )
 
 
 @app.route('/get_bachata_events')
@@ -333,7 +346,12 @@ def filtered_bachata():
         }
     )
     countries = mongo.db.countries.find().sort("country_name")
-    return render_template("bachata.html", events=events, countries=countries, country=country)
+    return render_template(
+                            "bachata.html",
+                            events=events,
+                            countries=countries,
+                            country=country
+                            )
 
 
 @app.route('/get_kizomba_events')
@@ -359,7 +377,12 @@ def filtered_kizomba():
         }
     )
     countries = mongo.db.countries.find().sort("country_name")
-    return render_template("kizomba.html", events=events, countries=countries, country=country)
+    return render_template(
+                            "kizomba.html",
+                            events=events,
+                            countries=countries,
+                            country=country
+                            )
 
 
 @app.route('/get_organisers')
