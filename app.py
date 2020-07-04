@@ -197,7 +197,8 @@ def edituser(organiser_username):
 
 @app.route('/delete_profile/<organiser_id>')
 def delete_profile(organiser_id):
-    mongo.db.organisers.remove({'_id': ObjectId(organiser_id)})
+    current_user = session['username']
+    mongo.db.organisers.remove({'username': current_user})
     return redirect(url_for('sign_out'))
 
 
@@ -294,7 +295,11 @@ def update_event(event_id):
 
 @app.route('/delete_event/<event_id>')
 def delete_event(event_id):
-    mongo.db.events.remove({'_id': ObjectId(event_id)})
+    current_user = session['username']
+    mongo.db.events.remove({
+                            '_id': ObjectId(event_id),
+                            'username': current_user
+                            })
     flash('Your event has now been removed')
     return redirect(url_for('account'))
 
@@ -317,22 +322,28 @@ def get_salsa_events():
 
 @app.route('/filtered_salsa', methods=['POST', 'GET'])
 def filtered_salsa():
-    country = request.form["country"]
-    weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday")
-    events = mongo.db.events.find(
-        {
-            "weekday": weekdays[datetime.now().weekday()],
-            "country": country
-        }
-    )
-    countries = mongo.db.countries.find().sort("country_name")
-    return render_template(
-                            "salsa.html",
-                            events=events,
-                            countries=countries,
-                            country=country
-                            )
+    if request.form["country"] == "Please select a country":
+        events = mongo.db.events.find()
+        countries = mongo.db.countries.find().sort("country_name")
+        flash("Please select a country")
+        return render_template("salsa.html",
+                                events=events,
+                                countries=countries,
+                              )
+    else:
+        country = request.form["country"]
+        events = mongo.db.events.find(
+            {
+                "country": country
+            }
+        )
+        countries = mongo.db.countries.find().sort("country_name")
+        return render_template(
+                                "salsa.html",
+                                events=events,
+                                countries=countries,
+                                country=country
+                                )
 
 
 @app.route('/get_bachata_events')
@@ -348,22 +359,28 @@ def get_bachata_events():
 
 @app.route('/filtered_bachata', methods=['POST', 'GET'])
 def filtered_bachata():
-    country = request.form["country"]
-    weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday")
-    events = mongo.db.events.find(
-        {
-            "weekday": weekdays[datetime.now().weekday()],
-            "country": country
-        }
-    )
-    countries = mongo.db.countries.find().sort("country_name")
-    return render_template(
-                            "bachata.html",
-                            events=events,
-                            countries=countries,
-                            country=country
-                            )
+    if request.form["country"] == "Please select a country":
+        events = mongo.db.events.find()
+        countries = mongo.db.countries.find().sort("country_name")
+        flash("Please select a country")
+        return render_template("bachata.html",
+                                events=events,
+                                countries=countries,
+                                )
+    else:
+        country = request.form["country"]
+        events = mongo.db.events.find(
+            {
+                "country": country
+            }
+        )
+        countries = mongo.db.countries.find().sort("country_name")
+        return render_template(
+                                "bachata.html",
+                                events=events,
+                                countries=countries,
+                                country=country
+                                )
 
 
 @app.route('/get_kizomba_events')
@@ -379,22 +396,28 @@ def get_kizomba_events():
 
 @app.route('/filtered_kizomba', methods=['POST', 'GET'])
 def filtered_kizomba():
-    country = request.form["country"]
-    weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday")
-    events = mongo.db.events.find(
-        {
-            "weekday": weekdays[datetime.now().weekday()],
-            "country": country
-        }
-    )
-    countries = mongo.db.countries.find().sort("country_name")
-    return render_template(
-                            "kizomba.html",
-                            events=events,
-                            countries=countries,
-                            country=country
-                            )
+    if request.form["country"] == "Please select a country":
+        events = mongo.db.events.find()
+        countries = mongo.db.countries.find().sort("country_name")
+        flash("Please select a country")
+        return render_template("kizomba.html",
+                                events=events,
+                                countries=countries,
+                              )
+    else:
+        country = request.form["country"]
+        events = mongo.db.events.find(
+            {
+                "country": country
+            }
+        )
+        countries = mongo.db.countries.find().sort("country_name")
+        return render_template(
+                                "kizomba.html",
+                                events=events,
+                                countries=countries,
+                                country=country
+                                )
 
 
 @app.route('/get_organisers')

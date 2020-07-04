@@ -25,6 +25,7 @@
           name="event_name"
           type="text"
           class="validate"
+          required
         />
         <label class="active" for="event_name">Event Name</label>
       </div>
@@ -35,12 +36,13 @@
           name="event_link"
           type="url"
           class="validate"
+          required
         />
         <label class="active" for="event_link">Event Social Link</label>
       </div>
       <div class="input-field col s12 m4 l4">
         <input
-          value=""
+          required
           id="address"
           name="address"
           type="text"
@@ -49,7 +51,7 @@
         <label class="active" for="address">Event Address</label>
       </div>
       <div class="input-field col s12 m4 l4">
-        <input value="" id="city" name="city" type="text" class="validate" />
+        <input required id="city" name="city" type="text" class="validate" />
         <label class="active" for="city">City</label>
       </div>
       <div class="col s12 m4 l4">
@@ -71,7 +73,7 @@
         <textarea
           id="event_description"
           name="event_description"
-          class="materialize-textarea validate"
+          class="materialize-textarea validate" required
         ></textarea>
         <label class="active" for="event_description">Event Description</label>
       </div>
@@ -120,13 +122,13 @@
       </div>
       <div class="col s12 m6 l4">
         <label class="active" for="time">Time</label
-        ><input type="text" name="time" id="time" class="timepicker validate" />
+        ><input type="text" name="time" id="time" class="timepicker validate" required/>
       </div>
       <div class="input-field col s12 l4">
         <textarea
           id="price"
           name="price"
-          class="materialize-textarea validate"
+          class="materialize-textarea validate" required
         ></textarea>
         <label class="active" for="price">Ticket Prices</label>
       </div>
@@ -134,10 +136,10 @@
     <div class="file-field input-field">
       <div class="btn purple darken-3">
         <span>Event Image</span>
-        <input type="file" name="event_image_s3" id="event_image_s3" />
+        <input type="file" name="event_image_s3" id="event_image_s3" required/>
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" />
+        <input class="file-path validate" type="text" required/>
       </div>
     </div>
     <div class="input-field col s12 m4 l4 noshow">
