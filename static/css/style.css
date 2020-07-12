@@ -1,3 +1,5 @@
+/* General */
+
 .row {
   margin: 0 auto;
 }
@@ -6,13 +8,36 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+section {
+  background-color: white;
+}
+
+.noshow {
+  display: none;
+}
+
+.btn,
+.btn-large {
+  margin: 10px;
+}
+
+.btn-large {
+  width: 80%;
+}
+
+ul {
+  margin: 0;
+}
+
+/* Header/Navbar */
+
 .brand-logo,
 .hero-title {
   font-family: "Indie Flower", cursive;
 }
 
 .brand-logo {
-  font-size: 35px !important;
+  font-size: 28px !important;
   height: 64px !important;
   margin: 0 auto;
 }
@@ -21,33 +46,6 @@ body {
   height: 64px;
   width: auto;
   margin: 0 10px;
-}
-
-#map {
-  height: 400px;
-  width: 100%
-}
-
-.contact-form input, .contact-form textarea {
-  color: white
-}
-
-.contact-form button {
-  width: 50%;
-  margin: 0px 0px 15px 0px
-}
-
-.hero-title {
-  font-size: 100px;
-  line-height: 60px;
-}
-
-.switch label input[type=checkbox]:checked+.lever {
-  background-color: #924abee7
-}
-
-.switch label input[type=checkbox]:checked+.lever:after {
-  background-color: #6a1b9a
 }
 
 .sidenav {
@@ -70,10 +68,27 @@ body {
   height: auto;
 }
 
-.btn-large {
-  margin: 10px;
-  width: 80%;
+/* Form Styles */
+
+.contact-form input,
+.contact-form textarea {
+  color: white;
 }
+
+.contact-form button {
+  width: 50%;
+  margin: 0px 0px 15px 0px;
+}
+
+.switch label input[type="checkbox"]:checked + .lever {
+  background-color: #924abee7;
+}
+
+.switch label input[type="checkbox"]:checked + .lever:after {
+  background-color: #6a1b9a;
+}
+
+/* Alert */
 
 .alert-error {
   padding: 8px;
@@ -85,75 +100,26 @@ body {
   margin: 5px auto;
 }
 
-.card {
-  height: 520px;
-}
-
-.smallcard {
-  height: 100%;
-}
-
-.card i {
-  line-height: 40px !important;
-}
-
-.card-image {
-  height: 200px;
-}
-
-.card-image img {
-  height: 100%;
-  width: auto;
-  object-fit: cover;
-}
-
-.smallcard-image {
-  height: 175px
-}
-
-.smallcard-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-content {
-  padding: 0 24px 24px 24px !important;
-}
+/* Hero/Pick Your Stlye */
 
 .hero,
 .pick-your-style {
   height: calc(100vh - 64px);
 }
 
+.hero-title {
+  font-size: 100px;
+  line-height: 60px;
+}
+
 #hero-video {
-  width: 100%; /* Could also use width: 100%; */
+  width: 100%;
   height: 100vh;
   object-fit: cover;
-  position: fixed; /* Change position to absolute if you don't want it to take up the whole page */
+  position: fixed;
   left: 0px;
   top: 0px;
   z-index: -1;
-}
-
-.profile-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-  margin: 10px auto;
-}
-
-.small-profile-image {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-section {
-  background-color: white;
 }
 
 .hero-content {
@@ -172,36 +138,11 @@ section {
   top: 30vh;
 }
 
-ul {
-  margin: 0;
-}
-
 .pick-your-style {
-  margin: 0;
-  padding: 0 !important;
-}
-
-.pick-your-style h1 {
-  position: relative;
-  top: 33%;
-}
-
-.events-button {
-  position: relative;
-  top: 60vh;
-}
-
-.btn {
-  margin: 10px;
-}
-
-.card-reveal {
   background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: white;
-  padding: 12px !important
 }
 
 #salsa-picker {
@@ -211,10 +152,6 @@ ul {
       rgba(0, 0, 0, 0.7) 100%
     ),
     url("https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/adrian-y-anita-1.jpg");
-  background-color: #cccccc;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 #bachata-picker {
@@ -224,10 +161,6 @@ ul {
       rgba(0, 0, 0, 0.7) 100%
     ),
     url("https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/ataca-y-la-alemana-1-snipped.jpg");
-  background-color: #cccccc;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 #kizomba-picker {
@@ -237,36 +170,131 @@ ul {
       rgba(0, 0, 0, 0.7) 100%
     ),
     url("https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/lokito-y-oksana-1-snipped.jpg");
+}
+
+.pick-your-style h2 {
+  position: relative;
+  top: 33%;
+}
+
+.events-button {
+  position: relative;
+  top: 40%;
+}
+
+/* Card Details */
+
+.card {
+  height: 520px;
+}
+
+.smallcard {
+  height: 100%;
+}
+
+.card i {
+  line-height: 40px !important;
+}
+
+.card-image {
+  height: 200px;
+}
+
+.card-image img,
+.smallcard-image {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+
+.smallcard-image {
+  height: 175px;
+}
+
+.smallcard-image img {
+  width: 100%;
+}
+
+.card-content {
+  padding: 0 24px 24px 24px !important;
+}
+
+.card-reveal {
   background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  color: white;
+  padding: 12px !important;
 }
 
-.checkbox-span {
-  padding: 0 50px 0 25px !important;
+/* Organiser Profile Styles */
+
+.profile-image,
+.small-profile-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 10px auto;
 }
 
-.noshow {
-  display: none;
+.small-profile-image {
+  width: 10vw;
+  height: 10vw;
+  margin: auto;
 }
+
+.profile-information-container {
+  width: 100%;
+}
+
+.profile-location {
+  width: 100%;
+}
+
+/* Map */
+
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+/* Screen Responsiveness */
 
 @media only screen and (max-width: 1200px) {
   nav ul li a {
-  font-size: 11px
+    font-size: 11px;
+  }
 }
+
+@media only screen and (max-width: 950px) {
+  h1 {
+    font-size: 4.2vw;
+  }
+  .small-profile-image {
+    width: 90px;
+    height: 90px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .hero,
   .pick-your-style {
     height: calc(100vh - 56px);
+    top: -180px;
+  }
+  .hero {
     position: relative;
-    top: -180px
+  }
+
+  .brand-logo {
+    font-size: 25px !important;
   }
 
   .hero-title {
-    margin-bottom: 50px
+    margin-bottom: 50px;
   }
 
   .today-link {
@@ -274,14 +302,11 @@ ul {
   }
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 400px) {
   .brand-logo {
-    font-size: 25px !important;
+    font-size: 5vw !important;
   }
-}
-
-@media only screen and (max-width: 375px) {
-  .brand-logo {
-    font-size: 20px !important;
+  h5 {
+    font-size: 3vw !important;
   }
 }

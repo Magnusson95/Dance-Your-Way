@@ -45,29 +45,51 @@ def home():
 
 @app.route('/filtered_index', methods=['POST', 'GET'])
 def filtered_index():
-    country = request.form["country"]
-    weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday", "Sunday")
-    events = mongo.db.events.find(
-        {
-            "weekday": weekdays[datetime.now().weekday()],
-            "country": country
-        }
-    )
-    locations = mongo.db.events.find(
-        {
-            "weekday": weekdays[datetime.now().weekday()],
-            "country": country
-        }
-    )
-    countries = mongo.db.countries.find().sort("country_name")
-    return render_template(
-        "index.html",
-        events=list(events),
-        countries=countries,
-        markers=list(locations),
-        country_title=country
+    if request.form["country"] == "Please select a country":
+        weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
+                    "Friday", "Saturday", "Sunday")
+        events = mongo.db.events.find(
+            {
+                "weekday": weekdays[datetime.now().weekday()]
+            }
         )
+        locations = mongo.db.events.find(
+            {
+                "weekday": weekdays[datetime.now().weekday()]
+            }
+        )
+        countries = mongo.db.countries.find().sort("country_name")
+        flash("Please select a country")
+        return render_template(
+            "index.html",
+            events=list(events),
+            countries=countries,
+            markers=list(locations),
+            )
+    else:
+        country = request.form["country"]
+        weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday",
+                    "Friday", "Saturday", "Sunday")
+        events = mongo.db.events.find(
+            {
+                "weekday": weekdays[datetime.now().weekday()],
+                "country": country
+            }
+        )
+        locations = mongo.db.events.find(
+            {
+                "weekday": weekdays[datetime.now().weekday()],
+                "country": country
+            }
+        )
+        countries = mongo.db.countries.find().sort("country_name")
+        return render_template(
+            "index.html",
+            events=list(events),
+            countries=countries,
+            markers=list(locations),
+            country_title=country
+            )
 
 
 @app.route('/signup')

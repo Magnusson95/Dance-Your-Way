@@ -5,8 +5,6 @@
     action="{{url_for('filtered_salsa')}}"
     method="POST"
     class="col s12"
-    id="add-event"
-    enctype="multipart/form-data"
   >
     <div class="row">
       <div class="input-field col s12">
@@ -62,7 +60,7 @@
               {% else %} {% endif %}
             </ul>
             <a class="btn-floating halfway-fab waves-effect waves-light red"
-              ><i class="material-icons right">add</i></a
+              ><i class="material-icons right">info</i></a
             ></span
           >
           <p>
@@ -123,14 +121,14 @@
     <a
       href="{{url_for('get_bachata_events')}}"
       class="btn-large waves-effect waves-light waves-ripple purple darken-3"
-      >Bachata Events</a
+      >Bachata</a
     >
   </div>
   <div class="col s6">
     <a
       href="{{url_for('get_kizomba_events')}}"
-      class="btn-large waves-effect waves-light waves-ripple purple darken-3"
-      >Kizomba Events</a
+      class="btn-large waves-effect waves-light waves-ripple purple darken-3 center"
+      >Kizomba</a
     >
   </div>
 </div>

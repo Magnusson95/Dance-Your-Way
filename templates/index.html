@@ -102,7 +102,7 @@
                 {% else %} {% endif %}
               </ul>
               <a class="btn-floating halfway-fab waves-effect waves-light red"
-                ><i class="material-icons right">add</i></a
+                ><i class="material-icons right">info</i></a
               ></span
             >
             <p>
@@ -164,9 +164,16 @@
     // Europe View
     // The location of Europe
     var europe = {lat: 49.5260, lng: 18.2551};
-    // The map, centered on Europe
+    if ($(window).width() < 650) {
+      // The map, centered on Europe at smaller screen size
     var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 4, center: europe});
+        document.getElementById('map'), {zoom: 3, center: europe});;
+    }
+    else {
+      // The map, centered on Europe at larger screen size
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 4, center: europe});;
+    }
     // The markers, positioned from event loops
     {% for item in markers %}
 
