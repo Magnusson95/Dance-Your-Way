@@ -30,6 +30,15 @@ ul {
 }
 
 /* Header/Navbar */
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-space {
+  margin-top: 64px
+}
 
 .brand-logo,
 .hero-title {
