@@ -265,6 +265,7 @@ def delete_profile(organiser_id):
     '''
     current_user = session['username']
     mongo.db.organisers.remove({'username': current_user})
+    mongo.db.events.remove({'username': current_user})
     return redirect(url_for('sign_out'))
 
 

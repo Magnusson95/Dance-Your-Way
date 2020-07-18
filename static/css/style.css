@@ -88,6 +88,11 @@ ul {
   background-color: #6a1b9a;
 }
 
+#tc {
+  opacity: 100% !important;
+  position: relative
+}
+
 /* Alert */
 
 .alert-error {

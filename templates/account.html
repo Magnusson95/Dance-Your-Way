@@ -17,7 +17,7 @@
       <div class="collapsible-body">
         <span
           >This information helps dancers get in touch with you about any
-          accounts you host</span
+          events you host</span
         >
         <form
           action="{{url_for('edituser', organiser_username=user.username)}}"
@@ -156,7 +156,7 @@
 
         <!-- Dropdown Structure -->
         <ul id="deletedropdown" class="dropdown-content center">
-          <h5 class="red-text">Are Your Sure???</h5>
+          <h5 class="red-text">Are You Sure???</h5>
           <li>
             <a href="{{url_for('delete_profile', organiser_id=user._id)}}"
               >Yes, delete me forever</a
@@ -168,7 +168,7 @@
     </li>
     <li>
       <div class="collapsible-header">
-        <i class="material-icons">event</i>Your events
+        <i class="material-icons">event</i>My events
       </div>
       <div class="collapsible-body">
         <span>A list of all events you have on "Dance Your Way"</span>
@@ -271,7 +271,7 @@
 
               <!-- Dropdown Structure -->
               <ul id="deleteeventdropdown" class="dropdown-content center">
-                <h5 class="red-text">Are Your Sure???</h5>
+                <h5 class="red-text">Are You Sure???</h5>
                 <li>
                   <a href="{{url_for('delete_event', event_id=event._id)}}"
                     >Yes, delete it forever</a
