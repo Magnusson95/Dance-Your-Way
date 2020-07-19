@@ -33,6 +33,14 @@ h5, span {
   font-size: 22px !important
 }
 
+.break {
+  padding-top: 10px
+}
+
+.collapsible-body, a {
+  word-wrap: break-word;
+}
+
 /* Header/Navbar */
 nav {
   position: fixed;
@@ -42,7 +50,6 @@ nav {
 
 .nav-space {
   margin-top: 64px;
-  padding: 5px
 }
 
 .brand-logo,
@@ -267,14 +274,6 @@ nav {
   width: 10vw;
   height: 10vw;
   margin: auto;
-}
-
-.profile-information-container {
-  width: 100%;
-}
-
-.profile-location {
-  width: 100%;
 }
 
 /* Map */
