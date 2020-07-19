@@ -182,7 +182,7 @@ def login():
             flash('Welcome back ' + request.form['login_username'])
             session['username'] = request.form['login_username']
             session['logged'] = True
-            return redirect(url_for('home'))
+            return redirect(url_for('account'))
         else:
             flash('Incorrect password')
             return redirect(url_for('signup'))
