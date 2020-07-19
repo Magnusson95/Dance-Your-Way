@@ -21,7 +21,8 @@ Dancers will come to the website to see what local events are occurring, whilst 
 
 ##### User Stories
 
-- "As ..., I want to ..., so I can ..."
+- "As an event organiser, I want to post details about my events, so I can get more customers"
+- "As a dancer, I want to view information about events in my city, so I can plan where to go for class"
 
 ##### Design Choices
 
@@ -33,7 +34,7 @@ I used [Balsamiq](https://balsamiq.com/) to create detailed wireframes for each 
 
 As is to be expected certain elements present in the wireframes did not make it into the project itself but may yet do so further down the line.
 
-You can find my wireframes [here](#).
+You can find my wireframes [here](https://github.com/Magnusson95/Dance-Your-Way/tree/master/wireframes).
 
 ## Features
 
