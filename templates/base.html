@@ -9,8 +9,8 @@
 		rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
-	<script type="text/javascript">
+	<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+	<script >
 		(function () {
         emailjs.init("user_ZQ0HbGkCFOUEs2t4X7Yo9");
       })();
@@ -201,7 +201,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="{{url_for('static', filename='javascript/sendmail.js')}}"></script>
-	<script type="text/javascript">
+	<script>
 		$(document).ready(function () {
         $(".sidenav").sidenav();
         $('.modal').modal();
