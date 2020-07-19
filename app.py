@@ -184,10 +184,10 @@ def login():
             session['logged'] = True
             return redirect(url_for('account'))
         else:
-            flash('Incorrect password')
+            flash('Incorrect username/password')
             return redirect(url_for('signup'))
     else:
-        flash('Username ' + request.form['login_username'] + ' does not exist')
+        flash('Incorrect username/password')
         return redirect(url_for('signup'))
 
 
