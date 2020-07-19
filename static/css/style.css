@@ -29,6 +29,10 @@ ul {
   margin: 0;
 }
 
+h5, span, strong {
+  font-size: 22px !important
+}
+
 /* Header/Navbar */
 nav {
   position: fixed;
@@ -37,7 +41,8 @@ nav {
 }
 
 .nav-space {
-  margin-top: 64px
+  margin-top: 64px;
+  padding: 5px
 }
 
 .brand-logo,

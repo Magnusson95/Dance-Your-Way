@@ -1,14 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 <h1 class="center">Find events in your country:</h1>
 <div class="container">
-  <form
-    action="{{url_for('filtered_bachata')}}"
-    method="POST"
-    class="col s12"
-  >
-    <div class="row">
-      <div class="input-field col s12">
-        <select name="country" id="country">
+	<form action="{{url_for('filtered_bachata')}}" method="POST" class="col s12">
+		<div class="row">
+			<div class="input-field col s12">
+				<select name="country" id="country">
           <option selected>Please select a country</option>
           {% for country in countries %}
           <option value="{{country.country_name}}"
@@ -16,120 +12,105 @@
           >
           {% endfor %}
         </select>
-        <label>Country</label>
-      </div>
-      <div class="col s12 center">
-        <button
+				<label>Country</label>
+			</div>
+			<div class="col s12 center">
+				<button
           class="center btn waves-effect waves-light purple darken-3"
           type="submit"
         >
           Search
           <i class="material-icons right">search</i>
         </button>
-      </div>
-    </div>
-  </form>
-  <h1 class="center">{{country}}</h1>
-  <div class="row">
-    {% for event in events%} {% if event.bachata == 'on' %}
-    <div class="col s12 m6 l6 xl4">
-      <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img
+			</div>
+		</div>
+	</form>
+	<h1 class="center">{{country}}</h1>
+	<div class="row">
+		{% for event in events%} {% if event.bachata == 'on' %}
+		<div class="col s12 m6 l6 xl4">
+			<div class="card">
+				<div class="card-image waves-effect waves-block waves-light">
+					<img
             class="activator"
             src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}"
             alt="{{event.event_name}} event image"
           />
         </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">
+					<div class="card-content">
+						<span class="card-title activator grey-text text-darken-4">
             <h5>{{event.event_name}}</h5>
             <h5>{{event.city}}, {{event.country}}</h5>
-            <strong>{{event.weekday}}:</strong> {{event.time}}
+            <h5>{{event.weekday}}:</h5> {{event.time}}
             <br />
-            <strong>
+            <h5>
               Dance Styles:
-            </strong>
-            <ul>
-              {% if event.salsa == 'on' %}
-              <li>Salsa</li>
-              {% else %} {% endif %} {% if event.bachata == 'on' %}
-              <li>Bachata</li>
-              {% else %} {% endif %} {% if event.kizomba == 'on' %}
-              <li>Kizomba</li>
-              {% else %} {% endif %}
-            </ul>
-            <a class="btn-floating halfway-fab waves-effect waves-light red"
-              ><i class="material-icons right">info</i></a
-            ></span
-          >
-          <p>
-            <a href="{{event.event_link}}" target="_blank">See event</a>
-          </p>
-        </div>
-        <div
-          class="card-reveal"
-          style="background-image: linear-gradient(
+            </h5>
+            {% if event.salsa == 'on' %}
+            <span>Salsa </span>
+						{% else %} {% endif %} {% if event.bachata == 'on' %}
+						<span>Bachata </span>
+						{% else %} {% endif %} {% if event.kizomba == 'on' %}
+						<span>Kizomba </span>
+						{% else %} {% endif %}
+						<a
+							class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons right">info</i></a></span>
+						<p>
+							<a href="{{event.event_link}}" target="_blank">See event</a>
+						</p>
+					</div>
+					<div class="card-reveal" style="background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url('https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}');"
-        >
-          <span class="card-title">
+    url('https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{event.event_image}}');">
+						<span class="card-title">
             <i class="material-icons right">close</i>
           </span>
-          <h4>
-            {{event.event_name}}
-          </h4>
-          <div class="row">
-            <p class="col s4"><em> About:</em></p>
-            <p class="col s8">
-              {{event.event_description}}
-            </p>
-          </div>
-          <div class="row">
-            <p class="col s4"><em> Price:</em></p>
-            <p class="col s8">
-              {{event.price}}
-            </p>
-          </div>
-          <div class="row">
-            <p class="col s4"><em> Address:</em></p>
-            <p class="col s8">
-              {{event.address}}, {{event.city}}, {{event.country}}
-            </p>
-          </div>
-          <div class="row">
-            <p class="col s4"><em> Organiser:</em></p>
-            <p class="col s8">
-              <a
-                href="{{url_for('organiser', organiser_username=event.username)}}"
-                >{{event.username}}</a
-              >
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endif %} {% endfor %}
-  </div>
-</div>
-<div class="row container center">
-  <h4>Other Styles:</h4>
-  <div class="col s12 m6">
-    <a
-      href="{{url_for('get_salsa_events')}}"
-      class="btn-large waves-effect waves-light waves-ripple purple darken-3"
-      >Salsa Events</a
-    >
-  </div>
-  <div class="col s12 m6">
-    <a
-      href="{{url_for('get_kizomba_events')}}"
-      class="btn-large waves-effect waves-light waves-ripple purple darken-3"
-      >Kizomba Events</a
-    >
-  </div>
-</div>
-{% endblock %}
+						<h4>
+							{{event.event_name}}
+						</h4>
+						<div class="row">
+							<p class="col s4"><em> About:</em></p>
+							<p class="col s8">
+								{{event.event_description}}
+							</p>
+						</div>
+						<div class="row">
+							<p class="col s4"><em> Price:</em></p>
+							<p class="col s8">
+								{{event.price}}
+							</p>
+						</div>
+						<div class="row">
+							<p class="col s4"><em> Address:</em></p>
+							<p class="col s8">
+								{{event.address}}, {{event.city}}, {{event.country}}
+							</p>
+						</div>
+						<div class="row">
+							<p class="col s4"><em> Organiser:</em></p>
+							<p class="col s8">
+								<a
+									href="{{url_for('organiser', organiser_username=event.username)}}">{{event.username}}</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %} {% endfor %}
+		</div>
+	</div>
+	<div class="row container center">
+		<h4>Other Styles:</h4>
+		<div class="col s12 m6">
+			<a href="{{url_for('get_salsa_events')}}"
+				class="btn-large waves-effect waves-light waves-ripple purple darken-3">Salsa Events</a>
+		</div>
+		<div class="col s12 m6">
+			<a href="{{url_for('get_kizomba_events')}}"
+				class="btn-large waves-effect waves-light waves-ripple purple darken-3">Kizomba Events</a>
+		</div>
+	</div>
+	{% endblock %}
