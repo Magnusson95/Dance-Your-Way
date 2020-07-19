@@ -149,8 +149,8 @@ def adduser():
             })
         flash
         (
-            'You have registered and are logged in. Welcome '
-            + request.form['username']
+            'You have registered and are logged in. Welcome ' +
+            request.form['username']
         )
         session['username'] = request.form['username']
         session['logged'] = True
@@ -295,7 +295,11 @@ def insert_event():
     '''
     events = mongo.db.events
     gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
-    geocode_result = gmaps_key.geocode(request.form.get('address')+request.form.get('city')+request.form.get('country'))
+    geocode_result = gmaps_key.geocode(
+                                        request.form.get('address') +
+                                        request.form.get('city') +
+                                        request.form.get('country')
+                                        )
     if IndexError:
         flash("Incorrect address")
         return redirect(url_for('add_event'))
@@ -314,7 +318,6 @@ def insert_event():
             Body=request.files['event_image_s3'])
         flash("You have successfully added an event")
         return redirect(url_for('account'))
-
 
 
 @app.route('/edit_event/<event_id>')
@@ -341,7 +344,11 @@ def update_event(event_id):
     '''
     events = mongo.db.events
     gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
-    geocode_result = gmaps_key.geocode(request.form.get('address')+request.form.get('city')+request.form.get('country'))
+    geocode_result = gmaps_key.geocode(
+                                        request.form.get('address') +
+                                        request.form.get('city') +
+                                        request.form.get('country')
+                                        )
     if IndexError:
         flash("Incorrect Address")
         return redirect(url_for('edit_event', event_id=event_id))
@@ -432,7 +439,8 @@ def filtered_salsa():
         events = mongo.db.events.find()
         countries = mongo.db.countries.find().sort("country_name")
         flash("Please select a country")
-        return render_template("salsa.html",
+        return render_template(
+                                "salsa.html",
                                 events=events,
                                 countries=countries,
                               )
@@ -479,7 +487,8 @@ def filtered_bachata():
         events = mongo.db.events.find()
         countries = mongo.db.countries.find().sort("country_name")
         flash("Please select a country")
-        return render_template("bachata.html",
+        return render_template(
+                                "bachata.html",
                                 events=events,
                                 countries=countries,
                                 )
@@ -526,7 +535,8 @@ def filtered_kizomba():
         events = mongo.db.events.find()
         countries = mongo.db.countries.find().sort("country_name")
         flash("Please select a country")
-        return render_template("kizomba.html",
+        return render_template(
+                                "kizomba.html",
                                 events=events,
                                 countries=countries,
                               )

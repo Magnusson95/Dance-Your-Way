@@ -53,8 +53,6 @@ You can find my wireframes [here](https://github.com/Magnusson95/Dance-Your-Way/
 - [Git](https://en.wikipedia.org/wiki/Git) for version control
 - [Google Chrome developer tools](https://developers.google.com/web/tools/chrome-devtools) for testing and troubleshooting.
 - [Coolors](https://coolors.co/) for colour schemes.
-- [W3C Markup Validation](https://validator.w3.org/) used to validate HTML.
-- [W3C CSS validation](https://jigsaw.w3.org/css-validator/) used to validate CSS.
 
 ## Languages
 
@@ -67,9 +65,10 @@ You can find my wireframes [here](https://github.com/Magnusson95/Dance-Your-Way/
 
 - [Font Awesome](https://fontawesome.com/) for icons.
 - [Google Fonts](https://fonts.google.com/) used for fonts.
+- [Materialize](https://materializecss.com/) a modern responsive front-end framework based on Material Design.
 - [jQuery](https://jquery.com/) used for easier integration of Javascript.
 - [Flask](https://www.fullstackpython.com/flask.html) for app routing
-- [pymongodb]
+- [PyMongo 3.10.1](https://api.mongodb.com/python/current/) Python API for MongoDB
 
 ## Testing
 
@@ -78,7 +77,7 @@ You can find my wireframes [here](https://github.com/Magnusson95/Dance-Your-Way/
 The same process of opening up the live page and meticulously clicking all links, buttons, and re-sizing of windows was utilized in the following browsers:
 
 - Google Chrome - Main browser of choice for development.
-- Microsoft Edge – All working as intended besides flex at minimum width
+- Microsoft Edge – All working as intended
 - Mozilla Firefox - No issues. Everything works as intended.
 - Safari - All working as intended.
 
@@ -88,19 +87,30 @@ The site has been tested physically on a number of mobile devices including:
 - Google Pixel
 - Galaxy S9.
 
-Various examples of multiple screen sizes on different pages of the site can be found [here](#)
+Various examples of multiple screen sizes on different pages of the site can be found [here](https://github.com/Magnusson95/Dance-Your-Way/tree/master/wireframes)
 
 Javascript tested through user testing during each stage of writting. Including confirmation of API connection, API verification, API customisation and user testing of jQuery with Google Chrome Developer Tools.
 
-Initial links to the Tableau API did not work, but the removal of jQuery and implementation of pure Javascript, plus a new API key, fixed this issue.
-
-API customisation of of the Tableau Dashboard included some sizing issues, especially when on smaller devices. Each device size was tested individually for rendering issues and subsequently fixed.
-
 Google Maps API saw no major issues. The Code Institute training was used to implement this API and then further customisation was done through the Google Maps API documentation, meaning no bugs occurred during testing.
+
+Google Maps Geocode API saw no major issues. Testing of multiple addresses showed that the API successfully distinguished the closest related geocode possible. Where the API fails due to false address input, this is caught before the form is submitted, requiring the user to resubmit a new address.
 
 Email JS API saw some minor issues with verification of the API link, this was rectified through resubmitting the API link. Bug messages were built in for successful or unsuccessful runs of the API. This was tested in a number of ways, from various devices and consol messages were checked.
 
-Speed was also tested using [Pingdom](#) and the site received a performance grade of #/100
+- HTML
+
+  - [The W3C Markup Validation Service](https://validator.w3.org/)
+
+- CSS
+
+  - [The W3C Markup Validation Service](https://jigsaw.w3.org/css-validator)
+
+- JavaScript
+
+  - [JS Hint](https://jshint.com/) - All scripts were checked with JS Hint. All errors were solved, only received a handful of warnings for code only available in ES6.
+
+- Python
+  - [PEP8](http://pep8online.com/) - The Python scripts were checked with pep8online. All the errors were solved.
 
 ##### Issues and Resolutions
 
@@ -108,38 +118,102 @@ Speed was also tested using [Pingdom](#) and the site received a performance gra
 
 ##### Known Issues
 
-- All responsiveness working on Microsoft Edge except minimum flex view.
+- List of issues
 
-## Deployment
+# Deployment
 
-Dance Your Way was developed on GitPod, using git and GitHub to host the repository.
+You will need the following tools installed on your system:
 
-**When deploying Dance Your Way using GitHub Pages be sure to follow these steps:**
+- [Python 3](https://www.python.org/downloads/)
+- An IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [PyCharm](https://www.jetbrains.com/pycharm/download/)
+- An account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) 
+- [Git](https://gist.github.com/derhuerst/1b15ff4652a867391f03)
 
-1. Navigate to '/Magnuson95/dance-your-way' or alternatively click
-2. In the top navigation click on 'settings'.
-3. Scroll down to the GitHub Pages area.
-4. Select 'Master Branch' from the 'Source' dropdown menu.
-5. Click to confirm my selection.
-6. Dance Your Way should now be live on GitHub Pages.
+## Local Deployment
+The following instructions are based on use on a Windows 10 OS and IDE VS Code. If your OS is different, the commands may be different, but the process, in general, remains the same.
 
-**In order to run Dance Your Way locally be sure to follow these steps whilst still on Github:**
+#### Instructions
 
-1. Navigate to '/Magnusson95/Dance-Your-Way' or alternatively click [here](https://github.com/Magnusson95/Dance-Your-Way).
-2. Click the green 'Clone or Download' button.
-3. Copy the url in the dropdown box.
-4. Using your IDE of choice open up your preferred terminal.
-5. Navigate to your desired file location.
-6. Copy the following code and input it into your terminal to clone Dance Your Way.
+- Save a copy of the Github repository located at https://github.com/Magnusson95/Dance-Your-Way.
+  - Unzip the repo into the chosen folder.
+- If you have Git installed on your system, you can clone the repository with the following command.
+```
+git clone https://github.com/Magnusson95/Dance-Your-Way
+```
 
-`git clone https://github.com/Magnusson95/Dance-Your-Way.git`
+- Within the chosen directory, create a virtual environment with the command:
+```
+python -m venv venv
+```  
+
+- Activate the virtual environment with the command:
+```
+.\venv\bin\activate 
+```
+
+- Install all required modules with the command: 
+```
+pip install -r requirements.txt
+```
+
+- Create a `.env` file with your credentials:
+e.g
+```
+  - **MONGO_URI_KEY**: `link to your Mongo DB`
+  - **SECRET_KEY**: `your chosen secret key`
+  - **GOOGLE_ACCESS_KEY**: `your google API key`
+  - **ACCESS_KEY_ID**: `your AWS S3 access key`
+  - **ACCESS_SECRET_KEY**: `your mailjs access key`
+```
+
+- Create a database in MongoDB Atlas called **events_manager** with the following collections:
+  - **countries**
+  - **events**
+  - **organisers**
+
+- Run the application with the command
+```
+flask run
+```
+- Open the website at `http://0.0.0.0:8080/`
+
+## Remote Deployment
+
+#### Instructions
+To deploy this app to Heroku you need to follow the steps below:
+
+- Create a **requirements.txt** file so that Heroku can install all the dependencies required to run the app.
+  `pip freeze > requirements.txt`
+
+- Create a **Procfile** with the command:
+  `echo web: python app.py > Procfile`
+
+- In this step, you have to create a free account on the [Heroku website](https://signup.heroku.com/).
+-  Login to the account, click on new and then create a new app. In the following screen, you need to give a name and choose the Europe region.
+-  In the menu access the **Deploy** option, after that click on Connect to Github. Just below provide the information from the app's repository on GitHub and select the option Enable Automatic Deploy.
+- On the Dashboard of the APP, click on Settings and then click on the option **Reveal config Vars**.
+- Now you need to add the following variables to **Reveal config Vars**:
+  - **IP**: `0.0.0.0`
+  - **PORT**: `8080`
+  - **MONGO_URI_KEY**: `link to your Mongo DB`
+  - **SECRET_KEY**: `your chosen secret key`
+  - **GOOGLE_ACCESS_KEY**: `your google API key`
+  - **ACCESS_KEY_ID**: `your AWS S3 access key`
+  - **ACCESS_SECRET_KEY**: `your mailjs access key`
+- You are now ready to access the deployed app on Heroku.
 
 ## Credits
 
 ### Content
 
-- All content was created by me.
+- All content was created by me or my fellow dance colleauges:
+  - [Gabeto](https://www.facebook.com/Tropicsalsa/)
+  - [Gusto](https://www.facebook.com/groups/545395699629121/)
+  - [Dance Xplosion](https://www.facebook.com/DanceXplosionSibiu)
 
 ### Media
 
-- List of media provided by #, plus [url](#)
+- All media was sourced from the facebook accounts of dance colleagues:
+  - [Gabeto](https://www.facebook.com/Tropicsalsa/)
+  - [Gusto](https://www.facebook.com/groups/545395699629121/)
+  - [Dance Xplosion](https://www.facebook.com/DanceXplosionSibiu)
