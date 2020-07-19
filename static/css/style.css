@@ -238,6 +238,10 @@ nav {
   padding: 0 24px 24px 24px !important;
 }
 
+.card .card-content .card-title {
+  line-height: 22px !important
+}
+
 .card-reveal {
   background-color: #cccccc;
   background-position: center;
