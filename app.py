@@ -296,19 +296,25 @@ def insert_event():
     events = mongo.db.events
     gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
     geocode_result = gmaps_key.geocode(request.form.get('address')+request.form.get('city')+request.form.get('country'))
-    lat = geocode_result[0]["geometry"]["location"]["lat"]
-    lon = geocode_result[0]["geometry"]["location"]["lng"]
-    newEvent = events.insert_one(request.form.to_dict())
-    events.update_one(
-        {"_id": ObjectId(newEvent.inserted_id)},
-        {"$set": {"lat": lat, "lon": lon}}
-    )
-    s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
-                        aws_secret_access_key=ACCESS_SECRET_KEY)
-    s3.Bucket('dance-your-way-event-images').put_object(
-        Key=request.form['event_image'], Body=request.files['event_image_s3'])
-    flash("You have successfully added an event")
-    return redirect(url_for('account'))
+    if IndexError:
+        flash("Incorrect address")
+        return redirect(url_for('add_event'))
+    else:
+        lat = geocode_result[0]["geometry"]["location"]["lat"]
+        lon = geocode_result[0]["geometry"]["location"]["lng"]
+        newEvent = events.insert_one(request.form.to_dict())
+        events.update_one(
+            {"_id": ObjectId(newEvent.inserted_id)},
+            {"$set": {"lat": lat, "lon": lon}}
+        )
+        s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
+                            aws_secret_access_key=ACCESS_SECRET_KEY)
+        s3.Bucket('dance-your-way-event-images').put_object(
+            Key=request.form['event_image'],
+            Body=request.files['event_image_s3'])
+        flash("You have successfully added an event")
+        return redirect(url_for('account'))
+
 
 
 @app.route('/edit_event/<event_id>')
@@ -336,40 +342,44 @@ def update_event(event_id):
     events = mongo.db.events
     gmaps_key = googlemaps.Client(key=GOOGLE_ACCESS_KEY)
     geocode_result = gmaps_key.geocode(request.form.get('address')+request.form.get('city')+request.form.get('country'))
-    lat = geocode_result[0]["geometry"]["location"]["lat"]
-    lon = geocode_result[0]["geometry"]["location"]["lng"]
-    events.update({"_id": ObjectId(event_id)}, {
-        'username': request.form.get('username'),
-        'event_name': request.form.get('event_name'),
-        'address': request.form.get('address'),
-        'event_link': request.form.get('event_link'),
-        'event_description': request.form.get(
-            'event_description'
-        ),
-        'weekday': request.form.get('weekday'),
-        'time': request.form.get('time'),
-        'price': request.form.get('price'),
-        'event_image': request.form.get('event_image'),
-        'salsa': request.form.get('salsa'),
-        'bachata': request.form.get('bachata'),
-        'kizomba': request.form.get('kizomba'),
-        'city': request.form.get('city'),
-        'country': request.form.get('country'),
-        'lat': lat,
-        'lon': lon
-    }
-    )
-    if request.form.get('image-check') == "no change":
-        flash('You have updated your event')
-        return redirect(url_for('account'))
+    if IndexError:
+        flash("Incorrect Address")
+        return redirect(url_for('edit_event', event_id=event_id))
     else:
-        s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
-                            aws_secret_access_key=ACCESS_SECRET_KEY)
-        s3.Bucket('dance-your-way-event-images').put_object(
-            Key=request.form['event_image'],
-            Body=request.files['event_image_s3'])
-        flash('You have updated your event')
-        return redirect(url_for('account'))
+        lat = geocode_result[0]["geometry"]["location"]["lat"]
+        lon = geocode_result[0]["geometry"]["location"]["lng"]
+        events.update({"_id": ObjectId(event_id)}, {
+            'username': request.form.get('username'),
+            'event_name': request.form.get('event_name'),
+            'address': request.form.get('address'),
+            'event_link': request.form.get('event_link'),
+            'event_description': request.form.get(
+                'event_description'
+            ),
+            'weekday': request.form.get('weekday'),
+            'time': request.form.get('time'),
+            'price': request.form.get('price'),
+            'event_image': request.form.get('event_image'),
+            'salsa': request.form.get('salsa'),
+            'bachata': request.form.get('bachata'),
+            'kizomba': request.form.get('kizomba'),
+            'city': request.form.get('city'),
+            'country': request.form.get('country'),
+            'lat': lat,
+            'lon': lon
+        }
+        )
+        if request.form.get('image-check') == "no change":
+            flash('You have updated your event')
+            return redirect(url_for('account'))
+        else:
+            s3 = boto3.resource('s3', aws_access_key_id=ACCESS_KEY_ID,
+                                aws_secret_access_key=ACCESS_SECRET_KEY)
+            s3.Bucket('dance-your-way-event-images').put_object(
+                Key=request.form['event_image'],
+                Body=request.files['event_image_s3'])
+            flash('You have updated your event')
+            return redirect(url_for('account'))
 
 
 @app.route('/delete_event/<event_id>')
