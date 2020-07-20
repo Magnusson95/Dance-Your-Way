@@ -44,7 +44,24 @@ You can find my wireframes [here](https://github.com/Magnusson95/Dance-Your-Way/
 
 ##### Existing Features
 
-- List of current features
+### Base
+
+All pages have a navbar, which condenses on mobile view.
+
+* **User not logged into the platform**
+<div align="center">
+  <img src="https://raw.githubusercontent.com/rodrigoneumann/third-milestone-project/master/semgmtapp/static/img/Readme/visitor.png" alt="Swift Estates">
+</div>
+
+If the access is made by an unregistered user it will be able to view the main page with both carousels with the latest ads registered for sale and for rent. this visitor can also access the link to view all ads registered on the platform.
+The user registration and login link will also be visible to the visitor.
+
+* **User logged into the platform**
+<div align="center">
+<img src="https://raw.githubusercontent.com/rodrigoneumann/third-milestone-project/master/semgmtapp/static/img/Readme/logged_user.png" target="_blank" rel="noopener" alt="Swift Estates">
+</div>
+
+A logged-in agent will have access links to add a new property, my ads, profile and a logout button available
 
 ##### Features Left to Implement
 

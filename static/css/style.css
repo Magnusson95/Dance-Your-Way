@@ -81,6 +81,8 @@ nav {
 .sidenav li a {
   padding: 0;
   padding-left: 15px;
+  display: inline-block;
+  width: 100%
 }
 
 .sidenav-logo {
@@ -316,9 +318,9 @@ nav {
     margin-bottom: 50px;
   }
 
-  .today-link {
+  /* .today-link {
     top: 20vh;
-  }
+  } */
 }
 
 @media only screen and (max-width: 400px) {
