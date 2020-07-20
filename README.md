@@ -46,26 +46,101 @@ You can find my wireframes [here](https://github.com/Magnusson95/Dance-Your-Way/
 
 ### Base
 
-All pages have a navbar, which condenses on mobile view.
+All pages have a navbar, which condenses on mobile view:
 
-* **User not logged into the platform**
-<div align="center">
-  <img src="https://raw.githubusercontent.com/rodrigoneumann/third-milestone-project/master/semgmtapp/static/img/Readme/visitor.png" alt="Swift Estates">
-</div>
+- **User not logged into the platform**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Base%20Navbar.JPG?raw=true" alt="Navbar Not Signed In">
+ <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Base%20Sidenav.JPG?raw=true" alt="Sidenav Not Signed In">
 
-If the access is made by an unregistered user it will be able to view the main page with both carousels with the latest ads registered for sale and for rent. this visitor can also access the link to view all ads registered on the platform.
-The user registration and login link will also be visible to the visitor.
+Unregistered users may view events, organisers and sign-up. The "Add Event" function will redirect unregistered users to the sign-up page.
 
-* **User logged into the platform**
-<div align="center">
-<img src="https://raw.githubusercontent.com/rodrigoneumann/third-milestone-project/master/semgmtapp/static/img/Readme/logged_user.png" target="_blank" rel="noopener" alt="Swift Estates">
-</div>
+- **User logged into the platform**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Base%20Navbar%20Signed%20In.JPG?raw=true" alt="Navbar Signed In">
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Base%20Sidenav%20Signed%20In.JPG?raw=true" alt="Sidenav Signed In">
 
-A logged-in agent will have access links to add a new property, my ads, profile and a logout button available
+Signed In users are able to view events, organisers, add events, edit their account details, edit their event details and sign out.
+
+### Sign Up/Login
+
+Users may sign up, submitting their details to the database (passwords are hash protected). They can then use the same page to login.
+
+CRUD - Create:
+ -  Checks are made on the database to ensure usernames are not duplicated upon creation
+ -  Security of users details is maintained through the use of hashes on passwords
+
+CRUD - Read:
+ -  Function reads login details and checks they match the database
+ -  Incorrect login errors are displayed if either do not match
+
+- **User sign up/login page**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Login%20and%20Signup.JPG?raw=true" alt="Login and Signup">
+
+### Account Page
+
+Users are directed upon login, or through the link in the top left of the navbar, to their account page.
+
+CRUD - Read:
+ -  Users can see the current information held within the database, through their account page.
+ -  AWS S3 has been used to display profile pictures
+
+CRUD - Update:
+ -  Users can update the information pulled from the read function
+ -  Users can create/update their account profile picture
+ -  Users can find links to edit their events from this page
+
+CRUD - Delete:
+ -  Users can delete their profile, this also deletes all events created by the user.
+ -  Users can delete individual events from this page
+
+- **Account page**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Account%20Update.JPG?raw=true" alt="Account Page">
+
+- **Edit event page**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Update%20Page.JPG?raw=true" alt="Event Update Page">
+
+- **Delete Account/Event**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Profile%20and%20Event%20Delete.JPG?raw=true" alt="Delete Account/Event">
+
+### Event Cards and Maps
+
+All users may view the events within the database both through a list of event cards and as markers plotted on Maps
+
+- **Event Card**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Card%20Example.JPG?raw=true" alt="Event Card Example">
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Card%20Example%20Details.JPG?raw=true" alt="Event Card Example Details">
+
+Event card shows the event name, city, country, weekday, time, dance styles and event social link on the cover. AWS S3 has been used to display event pictures.
+
+Clicking on the card provides further details including an about section, price for the event, full address and the organiser's name (with link to their page).
+
+- **Maps**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/London%20Events%20Map%20Example.JPG?raw=true" alt="London Events Map Example">
+
+Maps filter to the country (zooming to center on the country accordingly) and dance style selected. A basic version of the event card is shown when the marker is clicked.
+
+### Organiser information
+
+A page displays information and events for all the organisers within the database, allowing users to look up specific event organisers
+
+- **Organisers Page**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Organiser%20Details.JPG?raw=true" alt="Organisers Page">
+
+### Filters
+
+The main pages displaying lists of events can be filtered by country
+
+- **Country Filter**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Country%20Filter.JPG?raw=true" alt="Country Filter">
+
+Dance styles can be filtered by the "Where to Dance" page link
+
+- **Style Filter**
+<img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Style%20Filter.JPG?raw=true" alt="Style Filter">
 
 ##### Features Left to Implement
 
-- List of features not yet implemented
+- Separate CRUD functionality for one off events with specific dates, rather than weekly events
+- ecommerce system to purchase tickets for events
 
 ## Technologies
 
@@ -147,10 +222,11 @@ You will need the following tools installed on your system:
 
 - [Python 3](https://www.python.org/downloads/)
 - An IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [PyCharm](https://www.jetbrains.com/pycharm/download/)
-- An account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) 
+- An account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 - [Git](https://gist.github.com/derhuerst/1b15ff4652a867391f03)
 
 ## Local Deployment
+
 The following instructions are based on use on a Windows 10 OS and IDE VS Code. If your OS is different, the commands may be different, but the process, in general, remains the same.
 
 #### Instructions
@@ -158,27 +234,32 @@ The following instructions are based on use on a Windows 10 OS and IDE VS Code. 
 - Save a copy of the Github repository located at https://github.com/Magnusson95/Dance-Your-Way.
   - Unzip the repo into the chosen folder.
 - If you have Git installed on your system, you can clone the repository with the following command.
+
 ```
 git clone https://github.com/Magnusson95/Dance-Your-Way
 ```
 
 - Within the chosen directory, create a virtual environment with the command:
+
 ```
 python -m venv venv
-```  
+```
 
 - Activate the virtual environment with the command:
+
 ```
-.\venv\bin\activate 
+.\venv\bin\activate
 ```
 
-- Install all required modules with the command: 
+- Install all required modules with the command:
+
 ```
 pip install -r requirements.txt
 ```
 
 - Create a `.env` file with your credentials:
-e.g
+  e.g
+
 ```
   - **MONGO_URI_KEY**: `link to your Mongo DB`
   - **SECRET_KEY**: `your chosen secret key`
@@ -188,19 +269,23 @@ e.g
 ```
 
 - Create a database in MongoDB Atlas called **events_manager** with the following collections:
+
   - **countries**
   - **events**
   - **organisers**
 
 - Run the application with the command
+
 ```
 flask run
 ```
+
 - Open the website at `http://0.0.0.0:8080/`
 
 ## Remote Deployment
 
 #### Instructions
+
 To deploy this app to Heroku you need to follow the steps below:
 
 - Create a **requirements.txt** file so that Heroku can install all the dependencies required to run the app.
@@ -210,8 +295,8 @@ To deploy this app to Heroku you need to follow the steps below:
   `echo web: python app.py > Procfile`
 
 - In this step, you have to create a free account on the [Heroku website](https://signup.heroku.com/).
--  Login to the account, click on new and then create a new app. In the following screen, you need to give a name and choose the Europe region.
--  In the menu access the **Deploy** option, after that click on Connect to Github. Just below provide the information from the app's repository on GitHub and select the option Enable Automatic Deploy.
+- Login to the account, click on new and then create a new app. In the following screen, you need to give a name and choose the Europe region.
+- In the menu access the **Deploy** option, after that click on Connect to Github. Just below provide the information from the app's repository on GitHub and select the option Enable Automatic Deploy.
 - On the Dashboard of the APP, click on Settings and then click on the option **Reveal config Vars**.
 - Now you need to add the following variables to **Reveal config Vars**:
   - **IP**: `0.0.0.0`
