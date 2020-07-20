@@ -1,4 +1,7 @@
 {% extends 'base.html' %} {% block content %}
+<div class="container break">
+	<div id="map"></div>
+</div>
 <h1 class="center">Find events in your country:</h1>
 <div class="container">
 	<form action="{{url_for('filtered_salsa')}}" method="POST" class="col s12">
@@ -7,8 +10,8 @@
 				<select name="country" id="country">
           <option selected>Please select a country</option>
           {% for country in countries %}
-          <option value="{{country.country_name}}"
-            >{{country.country_name}}</option
+          <option value="{{country.country}}"
+            >{{country.country}}</option
           >
           {% endfor %}
         </select>
@@ -39,22 +42,23 @@
         </div>
 					<div class="card-content">
 						<div class="card-title activator grey-text text-darken-4">
-            <h5>{{event.event_name}}</h5>
-            <h5>{{event.city}}, {{event.country}}</h5>
-            <h5>{{event.weekday}}:</h5> {{event.time}}
-            <br />
-            <h5>
-              Dance Styles:
-            </h5>
-            {% if event.salsa == 'on' %}
-            <span>Salsa </span>
-						{% else %} {% endif %} {% if event.bachata == 'on' %}
-						<span>Bachata </span>
-						{% else %} {% endif %} {% if event.kizomba == 'on' %}
-						<span>Kizomba </span>
-						{% else %} {% endif %}
-						<a
-							class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons right">info</i></a></div>
+							<h5>{{event.event_name}}</h5>
+							<h5>{{event.city}}, {{event.country}}</h5>
+							<h5>{{event.weekday}}:</h5> {{event.time}}
+							<br />
+							<h5>
+								Dance Styles:
+							</h5>
+							{% if event.salsa == 'on' %}
+							<span>Salsa </span>
+							{% else %} {% endif %} {% if event.bachata == 'on' %}
+							<span>Bachata </span>
+							{% else %} {% endif %} {% if event.kizomba == 'on' %}
+							<span>Kizomba </span>
+							{% else %} {% endif %}
+							<a
+								class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons right">info</i></a>
+						</div>
 						<p>
 							<a href="{{event.event_link}}" target="_blank">See event</a>
 						</p>
@@ -113,4 +117,70 @@
 				class="btn-large waves-effect waves-light waves-ripple purple darken-3 center">Kizomba</a>
 		</div>
 	</div>
+	<script>
+		// Initialize and add the map
+  function initMap() {
+    // The location of Zoom
+    {% for item in zoom %}
+    var location = {lat: {{item.latitude}}, lng: {{item.longitude}}};
+    {% endfor %}
+
+    var zoom_value_small = {{zoom_value_small}};
+    var zoom_value_large = {{zoom_value_large}};
+
+    if ($(window).width() < 650) {
+      // The map, centered at smaller screen size
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: zoom_value_small, center: location});;
+    }
+    else {
+      // The map, centered at larger screen size
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: zoom_value_large, center: location});;
+    }
+    // The markers, positioned from event loops
+    {% for item in markers %} {% if item.salsa == 'on' %}
+
+    var marker = new google.maps.Marker({
+      position: {lat: {{item.lat}}, lng: {{item.lon}}},
+      map: map,
+      title: '{{item.event_name}}'
+      });
+      marker.addListener('click', function() {
+        var contentString =
+        '<div class="smallcard">'+
+          '<div class="row">'+
+            '<div class="col s6 smallcard-image">'+
+              '<img src="https://dance-your-way-event-images.s3.eu-central-1.amazonaws.com/{{item.event_image}}" alt="{{item.event_name}} event image" />'+
+            '</div>'+
+            '<div class="col s6 center">'+
+              '<h5 style="margin-top: 0px; margin-bottom: 0px;">{{item.event_name}}</h5>'+
+              '<p><strong>{{item.weekday}}</strong></p>'+
+              '<p><strong>{{item.time}}</strong></p>'+
+              '<p><strong>{{item.address}}</strong></p>'+
+              '<ul>'+
+                '{% if item.salsa == 'on' %}'+
+                '<li>Salsa</li>'+
+                '{% else %} {% endif %} {% if item.bachata == 'on' %}'+
+                '<li>Bachata</li>'+
+                '{% else %} {% endif %} {% if item.kizomba == 'on' %}'+
+                '<li>Kizomba</li>'+
+                '{% else %} {% endif %}'+
+              '</ul>'+
+              '<a href="#{{item._id}}">More details</a>'+
+              '<br >'+
+              '<a href="https://www.google.com/maps/dir/?api=1&amp;destination={{item.lat}},{{item.lon}}" target="_blank">Directions</a>'+
+            '</div>'+
+          '</div>'+
+        '</div>';
+        var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+        infowindow.open(map, this);
+      });
+
+    {% endif %}
+    {% endfor %}
+  }
+	</script>
 	{% endblock %}

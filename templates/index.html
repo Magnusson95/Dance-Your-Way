@@ -38,8 +38,8 @@
 					<select name="country" id="country">
             <option selected>Please select a country</option>
             {% for country in countries %}
-            <option value="{{country.country_name}}"
-              >{{country.country_name}}</option
+            <option value="{{country.country}}"
+              >{{country.country}}</option
             >
             {% endfor %}
           </select>
@@ -137,18 +137,23 @@
 <script>
 	// Initialize and add the map
   function initMap() {
-    // Europe View
-    // The location of Europe
-    var europe = {lat: 49.5260, lng: 18.2551};
+    // The location of Zoom
+    {% for item in zoom %}
+    var location = {lat: {{item.latitude}}, lng: {{item.longitude}}};
+    {% endfor %}
+
+    var zoom_value_small = {{zoom_value_small}};
+    var zoom_value_large = {{zoom_value_large}};
+
     if ($(window).width() < 650) {
-      // The map, centered on Europe at smaller screen size
+      // The map, centered at smaller screen size
     var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 3, center: europe});;
+        document.getElementById('map'), {zoom: zoom_value_small, center: location});;
     }
     else {
-      // The map, centered on Europe at larger screen size
+      // The map, centered at larger screen size
     var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 4, center: europe});;
+        document.getElementById('map'), {zoom: zoom_value_large, center: location});;
     }
     // The markers, positioned from event loops
     {% for item in markers %}

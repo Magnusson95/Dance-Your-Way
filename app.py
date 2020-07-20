@@ -42,12 +42,16 @@ def home():
     locations = mongo.db.events.find(
         {"weekday": weekdays[datetime.now().weekday()]}
     )
-    countries = mongo.db.countries.find().sort("country_name")
+    countries = mongo.db.countries.find().sort("country")
+    zoom = mongo.db.europe.find()
     return render_template(
         "index.html",
         events=list(events),
         countries=countries,
-        markers=list(locations)
+        markers=list(locations),
+        zoom=list(zoom),
+        zoom_value_small=3,
+        zoom_value_large=4
         )
 
 
@@ -71,13 +75,17 @@ def filtered_index():
                 "weekday": weekdays[datetime.now().weekday()]
             }
         )
-        countries = mongo.db.countries.find().sort("country_name")
+        countries = mongo.db.countries.find().sort("country")
+        zoom = mongo.db.europe.find()
         flash("Please select a country")
         return render_template(
             "index.html",
             events=list(events),
             countries=countries,
             markers=list(locations),
+            zoom=list(zoom),
+            zoom_value_small=3,
+            zoom_value_large=4
             )
     else:
         country = request.form["country"]
@@ -95,13 +103,21 @@ def filtered_index():
                 "country": country
             }
         )
-        countries = mongo.db.countries.find().sort("country_name")
+        countries = mongo.db.countries.find().sort("country")
+        zoom = mongo.db.countries.find(
+            {
+                "country": country
+            }
+        )
         return render_template(
             "index.html",
             events=list(events),
             countries=countries,
             markers=list(locations),
-            country_title=country
+            country_title=country,
+            zoom=list(zoom),
+            zoom_value_small=5,
+            zoom_value_large=6
             )
 
 
@@ -201,7 +217,7 @@ def account():
         current_user = session['username']
         find_user = mongo.db.organisers.find_one({'username': current_user})
         events = mongo.db.events.find({'username': current_user})
-        countries = mongo.db.countries.find().sort("country_name")
+        countries = mongo.db.countries.find().sort("country")
         return render_template(
             "account.html",
             events=events,
@@ -277,7 +293,7 @@ def add_event():
     if 'logged' in session:
         current_user = session['username']
         find_user = mongo.db.organisers.find_one({'username': current_user})
-        countries = mongo.db.countries.find().sort("country_name")
+        countries = mongo.db.countries.find().sort("country")
         return render_template(
             "add-event.html",
             events=mongo.db.events.find(),
@@ -328,7 +344,7 @@ def edit_event(event_id):
     the_event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     current_user = session['username']
     find_user = mongo.db.organisers.find_one({'username': current_user})
-    countries = mongo.db.countries.find().sort("country_name")
+    countries = mongo.db.countries.find().sort("country")
     return render_template(
         "edit-event.html",
         user=find_user,
@@ -420,11 +436,17 @@ def get_salsa_events():
     country
     '''
     events = mongo.db.events.find()
-    countries = mongo.db.countries.find().sort("country_name")
+    locations = mongo.db.events.find()
+    countries = mongo.db.countries.find().sort("country")
+    zoom = mongo.db.europe.find()
     return render_template(
                             "salsa.html",
                             events=events,
-                            countries=countries
+                            countries=countries,
+                            markers=list(locations),
+                            zoom=list(zoom),
+                            zoom_value_small=3,
+                            zoom_value_large=4
                             )
 
 
@@ -437,12 +459,18 @@ def filtered_salsa():
     '''
     if request.form["country"] == "Please select a country":
         events = mongo.db.events.find()
-        countries = mongo.db.countries.find().sort("country_name")
+        locations = mongo.db.events.find()
+        countries = mongo.db.countries.find().sort("country")
+        zoom = mongo.db.europe.find()
         flash("Please select a country")
         return render_template(
                                 "salsa.html",
                                 events=events,
                                 countries=countries,
+                                markers=list(locations),
+                                zoom=list(zoom),
+                                zoom_value_small=3,
+                                zoom_value_large=4
                               )
     else:
         country = request.form["country"]
@@ -451,12 +479,26 @@ def filtered_salsa():
                 "country": country
             }
         )
-        countries = mongo.db.countries.find().sort("country_name")
+        locations = mongo.db.events.find(
+            {
+                "country": country
+            }
+        )
+        zoom = mongo.db.countries.find(
+            {
+                "country": country
+            }
+        )
+        countries = mongo.db.countries.find().sort("country")
         return render_template(
                                 "salsa.html",
                                 events=events,
                                 countries=countries,
-                                country=country
+                                country=country,
+                                markers=list(locations),
+                                zoom=list(zoom),
+                                zoom_value_small=5,
+                                zoom_value_large=6
                                 )
 
 
@@ -468,11 +510,17 @@ def get_bachata_events():
     country
     '''
     events = mongo.db.events.find()
-    countries = mongo.db.countries.find().sort("country_name")
+    locations = mongo.db.events.find()
+    countries = mongo.db.countries.find().sort("country")
+    zoom = mongo.db.europe.find()
     return render_template(
                             "bachata.html",
                             events=events,
-                            countries=countries
+                            countries=countries,
+                            markers=list(locations),
+                            zoom=list(zoom),
+                            zoom_value_small=3,
+                            zoom_value_large=4
                             )
 
 
@@ -485,12 +533,19 @@ def filtered_bachata():
     '''
     if request.form["country"] == "Please select a country":
         events = mongo.db.events.find()
-        countries = mongo.db.countries.find().sort("country_name")
+        locations = mongo.db.events.find()
+        countries = mongo.db.countries.find().sort("country")
+        zoom = mongo.db.europe.find()
         flash("Please select a country")
         return render_template(
                                 "bachata.html",
                                 events=events,
                                 countries=countries,
+                                markers=list(locations),
+                                zoom=list(zoom),
+                                zoom_value_small=3,
+                                zoom_value_large=4
+                                
                                 )
     else:
         country = request.form["country"]
@@ -499,12 +554,26 @@ def filtered_bachata():
                 "country": country
             }
         )
-        countries = mongo.db.countries.find().sort("country_name")
+        locations = mongo.db.events.find(
+            {
+                "country": country
+            }
+        )
+        zoom = mongo.db.countries.find(
+            {
+                "country": country
+            }
+        )
+        countries = mongo.db.countries.find().sort("country")
         return render_template(
                                 "bachata.html",
                                 events=events,
                                 countries=countries,
-                                country=country
+                                country=country,
+                                markers=list(locations),
+                                zoom=list(zoom),
+                                zoom_value_small=5,
+                                zoom_value_large=6
                                 )
 
 
@@ -516,11 +585,17 @@ def get_kizomba_events():
     country
     '''
     events = mongo.db.events.find()
-    countries = mongo.db.countries.find().sort("country_name")
+    locations = mongo.db.events.find()
+    countries = mongo.db.countries.find().sort("country")
+    zoom = mongo.db.europe.find()
     return render_template(
                             "kizomba.html",
                             events=events,
-                            countries=countries
+                            countries=countries,
+                            markers=list(locations),
+                            zoom=list(zoom),
+                            zoom_value_small=3,
+                            zoom_value_large=4
                             )
 
 
@@ -533,12 +608,18 @@ def filtered_kizomba():
     '''
     if request.form["country"] == "Please select a country":
         events = mongo.db.events.find()
-        countries = mongo.db.countries.find().sort("country_name")
+        locations = mongo.db.events.find()
+        countries = mongo.db.countries.find().sort("country")
+        zoom = mongo.db.europe.find()
         flash("Please select a country")
         return render_template(
                                 "kizomba.html",
                                 events=events,
                                 countries=countries,
+                                markers=list(locations),
+                                zoom=list(zoom),
+                                zoom_value_small=3,
+                                zoom_value_large=4
                               )
     else:
         country = request.form["country"]
@@ -547,12 +628,26 @@ def filtered_kizomba():
                 "country": country
             }
         )
-        countries = mongo.db.countries.find().sort("country_name")
+        locations = mongo.db.events.find(
+            {
+                "country": country
+            }
+        )
+        zoom = mongo.db.countries.find(
+            {
+                "country": country
+            }
+        )
+        countries = mongo.db.countries.find().sort("country")
         return render_template(
                                 "kizomba.html",
                                 events=events,
                                 countries=countries,
-                                country=country
+                                country=country,
+                                markers=list(locations),
+                                zoom=list(zoom),
+                                zoom_value_small=5,
+                                zoom_value_large=6
                                 )
 
 
