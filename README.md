@@ -26,7 +26,11 @@ Dancers will come to the website to see what local events are occurring, whilst 
 
 ##### Design Choices
 
-- List of design choices
+- Pagination style with distinct pages for each section
+- A hero video demoing a class. This is supplemented by call to action icons for both key user types (dancers and organisers)
+- Purple was used as one of the primary colours (#6A1B9A). This was used throughout the website, contrasted with white backgrounds to give a clean, simple feel.
+- Montserrat is the main font family used as a clear and professional style for the body of the website. Indie Flower was used for the brand name to give a creative vibe
+- The navbar fixed due to the large amount of results on each page so the user does not have to scroll back to the top, this is hidden away in mobile view
 
 ##### Wireframes
 

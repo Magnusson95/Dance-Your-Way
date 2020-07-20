@@ -50,8 +50,8 @@ def home():
         countries=countries,
         markers=list(locations),
         zoom=list(zoom),
-        zoom_value_small=3,
-        zoom_value_large=4
+        zoom_value_small=1,
+        zoom_value_large=2
         )
 
 
@@ -84,8 +84,8 @@ def filtered_index():
             countries=countries,
             markers=list(locations),
             zoom=list(zoom),
-            zoom_value_small=3,
-            zoom_value_large=4
+            zoom_value_small=1,
+            zoom_value_large=2
             )
     else:
         country = request.form["country"]
@@ -445,8 +445,8 @@ def get_salsa_events():
                             countries=countries,
                             markers=list(locations),
                             zoom=list(zoom),
-                            zoom_value_small=3,
-                            zoom_value_large=4
+                            zoom_value_small=1,
+                            zoom_value_large=2
                             )
 
 
@@ -469,8 +469,8 @@ def filtered_salsa():
                                 countries=countries,
                                 markers=list(locations),
                                 zoom=list(zoom),
-                                zoom_value_small=3,
-                                zoom_value_large=4
+                                zoom_value_small=1,
+                                zoom_value_large=2
                               )
     else:
         country = request.form["country"]
@@ -519,8 +519,8 @@ def get_bachata_events():
                             countries=countries,
                             markers=list(locations),
                             zoom=list(zoom),
-                            zoom_value_small=3,
-                            zoom_value_large=4
+                            zoom_value_small=1,
+                            zoom_value_large=2
                             )
 
 
@@ -543,8 +543,8 @@ def filtered_bachata():
                                 countries=countries,
                                 markers=list(locations),
                                 zoom=list(zoom),
-                                zoom_value_small=3,
-                                zoom_value_large=4
+                                zoom_value_small=1,
+                                zoom_value_large=2
                                 
                                 )
     else:
@@ -594,8 +594,8 @@ def get_kizomba_events():
                             countries=countries,
                             markers=list(locations),
                             zoom=list(zoom),
-                            zoom_value_small=3,
-                            zoom_value_large=4
+                            zoom_value_small=1,
+                            zoom_value_large=2
                             )
 
 
@@ -618,8 +618,8 @@ def filtered_kizomba():
                                 countries=countries,
                                 markers=list(locations),
                                 zoom=list(zoom),
-                                zoom_value_small=3,
-                                zoom_value_large=4
+                                zoom_value_small=1,
+                                zoom_value_large=2
                               )
     else:
         country = request.form["country"]
