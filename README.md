@@ -93,12 +93,15 @@ CRUD - Delete:
  -  Users can delete individual events from this page
 
 - **Account page**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Account%20Update.JPG?raw=true" alt="Account Page">
 
 - **Edit event page**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Update%20Page.JPG?raw=true" alt="Event Update Page">
 
 - **Delete Account/Event**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Profile%20and%20Event%20Delete.JPG?raw=true" alt="Delete Account/Event">
 
 ### Event Cards and Maps
@@ -106,6 +109,7 @@ CRUD - Delete:
 All users may view the events within the database both through a list of event cards and as markers plotted on Maps
 
 - **Event Card**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Card%20Example.JPG?raw=true" alt="Event Card Example">
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Card%20Example%20Details.JPG?raw=true" alt="Event Card Example Details">
 
@@ -114,6 +118,7 @@ Event card shows the event name, city, country, weekday, time, dance styles and 
 Clicking on the card provides further details including an about section, price for the event, full address and the organiser's name (with link to their page).
 
 - **Maps**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/London%20Events%20Map%20Example.JPG?raw=true" alt="London Events Map Example">
 
 Maps filter to the country (zooming to center on the country accordingly) and dance style selected. A basic version of the event card is shown when the marker is clicked.
@@ -123,6 +128,7 @@ Maps filter to the country (zooming to center on the country accordingly) and da
 A page displays information and events for all the organisers within the database, allowing users to look up specific event organisers
 
 - **Organisers Page**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Organiser%20Details.JPG?raw=true" alt="Organisers Page">
 
 ### Filters
@@ -130,11 +136,13 @@ A page displays information and events for all the organisers within the databas
 The main pages displaying lists of events can be filtered by country
 
 - **Country Filter**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Country%20Filter.JPG?raw=true" alt="Country Filter">
 
 Dance styles can be filtered by the "Where to Dance" page link
 
 - **Style Filter**
+
 <img src="https://github.com/Magnusson95/Dance-Your-Way/blob/master/Features/Event%20Style%20Filter.JPG?raw=true" alt="Style Filter">
 
 ##### Features Left to Implement
@@ -210,11 +218,8 @@ Email JS API saw some minor issues with verification of the API link, this was r
 
 ##### Issues and Resolutions
 
-- List of issues
-
-##### Known Issues
-
-- List of issues
+- Font sizes became too large for Mobile view. Fixed this by adding vw sizes
+- Google Maps API Javascript code would not read the original data being pulled from MongoDB. Fixed this by creating it as a separate variable in the Python code and converting to a list so Javascript could read it
 
 # Deployment
 
