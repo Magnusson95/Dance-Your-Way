@@ -2,45 +2,50 @@
 <div class="row center container">
 	<div class="col s12 m6">
 		<h3>Sign Up</h3>
-		<form action="{{url_for('adduser')}}" method="POST" class="col s12" id="signup">
-			<div class="row">
-				<div class="input-field col s12">
-					<input
+		<form
+      action="{{url_for('adduser')}}"
+      method="POST"
+      class="col s12"
+      id="signup"
+    >
+      <div class="row">
+        <div class="input-field col s12">
+          <input
             id="email"
             name="email"
             type="email"
             class="validate"
             required
           />
-					<label class="active" for="email">Email</label>
-				</div>
-				<div class="input-field col s12">
-					<input
+          <label class="active" for="email">Email</label>
+        </div>
+        <div class="input-field col s12">
+          <input
             id="username"
             name="username"
             type="text"
             class="validate"
             required
           />
-					<label class="active" for="username">Username</label>
-				</div>
-				<div class="input-field col s12">
-					<input
+          <label class="active" for="username">Username</label>
+        </div>
+        <div class="input-field col s12">
+          <input
             id="password"
             name="password"
             type="password"
             class="validate"
             required
           />
-					<label class="active" for="password">Password</label>
-				</div>
-			</div>
-			<div class="col s4">
-				<input type="checkbox" name="t&c" id="tc" required />
-				<span class="lever"></span>
-				<br>
-        I have read and understand the
-				<!-- Modal Trigger -->
+          <label class="active" for="password">Password</label>
+        </div>
+      </div>
+      <div class="col s4">
+					<label>
+          <input type="checkbox" name="t&c" id="tc" required/>
+          <span class="lever"></span>
+          I have read and understand the 
+          <!-- Modal Trigger -->
 				<a class="modal-trigger" href="#modal1">terms and conditions</a>
 
 				<!-- Modal Structure -->
@@ -117,7 +122,7 @@
 
 						<p>In no event shall Dance Your Way, nor any of its officers, directors and employees, shall be
 							held liable for anything arising out of or in any way connected with your use of this
-							Website whether such liability is under contract.  Dance Your Way, including its officers,
+							Website whether such liability is under contract.  Dance Your Way, including its officers,
 							directors and employees shall not be held liable for any indirect, consequential or special
 							liability arising out of or in any way related to your use of this Website.</p>
 
@@ -159,10 +164,9 @@
 						<a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
 					</div>
 				</div>
-			</div>
-			<button class="btn waves-effect waves-light" type="submit">
-        Sign Up<i class="material-icons right">playlist_add</i>
-      </button>
+        </label>
+				</div>
+			<button class="btn waves-effect waves-light" type="submit">Sign Up<i class="material-icons right">playlist_add</i></button>
 		</form>
 	</div>
 	<div class="col s12 m6">
