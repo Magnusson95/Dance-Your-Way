@@ -316,7 +316,7 @@ def insert_event():
                                         request.form.get('city') +
                                         request.form.get('country')
                                         )
-    if IndexError:
+    if list == IndexError:
         flash("Incorrect address")
         return redirect(url_for('add_event'))
     else:

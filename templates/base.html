@@ -27,12 +27,17 @@
       })();
     </script>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZTBCpz1s2iN98QZxLZd_pBmYWWu1kUs&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
-    <script
       src="https://kit.fontawesome.com/8ea4f12082.js"
       crossorigin="anonymous"
+    ></script>
+    <script>
+      function initMap() {
+        //
+      }
+    </script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZTBCpz1s2iN98QZxLZd_pBmYWWu1kUs&callback=initMap&libraries=&v=weekly"
+      defer
     ></script>
     <title>Dance Your Way</title>
   </head>
@@ -297,15 +302,15 @@
           document.getElementById("image-check").value = event_image_s3;
         });
 
-      let defaultTime = document.getElementById("jquery-time").value;
-      const myInput = document.getElementById("time");
-      const timeInstance = M.Timepicker.init(myInput, {
-        defaultTime: defaultTime,
-      });
+      // let defaultTime = document.getElementById("jquery-time").value;
+      // const myInput = document.getElementById("time");
+      // const timeInstance = M.Timepicker.init(myInput, {
+      //   defaultTime: defaultTime,
+      // });
 
-      // forces materialize time picker to display default time in input
-      timeInstance._updateTimeFromInput();
-      timeInstance.done();
+      // // forces materialize time picker to display default time in input
+      // timeInstance._updateTimeFromInput();
+      // timeInstance.done();
     </script>
   </body>
 </html>
